@@ -6,12 +6,11 @@
     import VTabs from "../src/components/Tab/VTabs.vue";
     import VButton from "../src/components/VButton.vue";
     import VIcon from "../src/components/VIcon.vue";
-
 </script>
 
 <template>
     <main>
-        <h1>Welcome to your sandbox environment</h1>
+        <h1 class="bg-blue-600 text-9xl">Welcome to your your sandbox environment</h1>
 
         <VTextField
             class="w-full"
@@ -107,7 +106,3 @@
         <VIcon icon="plus"/>
     </main>
 </template>
-
-<style lang="scss" scoped>
-
-</style>
