@@ -1,5 +1,5 @@
 <script setup lang="ts">
-    import SListItem from "@/components/SListItem.vue";
+    import SListItem from "@/components/VListItem.vue";
     import {ChevronDownIcon} from "@heroicons/vue/24/outline";
     import {type Ref, ref} from "vue";
 

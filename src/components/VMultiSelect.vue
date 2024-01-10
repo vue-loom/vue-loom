@@ -7,11 +7,11 @@
         resolveText
     } from "@/components/Partials/colors";
     import VMenu from "@/components/VMenu.vue";
-    import SChip from "@/components/SChip.vue";
+    import VChip from "@/components/VChip.vue";
     import {useClickOutside} from "@/components/Composables/mouse";
     import {onMounted} from "vue";
     import {watch} from "vue";
-    import SIcon from "@/components/SIcon.vue";
+    import VIcon from "@/components/VIcon.vue";
 
     interface Props {
         modelValue: number[] | string[];
@@ -174,7 +174,7 @@
                 >{{ label }}
                 </div>
 
-                <SIcon icon="chevron-down"
+                <VIcon icon="chevron-down"
                        class="absolute right-2 top-1/2 -translate-y-1/2 transition-all duration-150"
                        :color="open ? color : ''"
                        :class="{'rotate-180': open}"
@@ -186,13 +186,13 @@
                     :class="inputClassObject"
                     @click="focusInput"
                 >
-                    <SChip closable
+                    <VChip closable
                            :disabled="readonly"
                            :key="item[itemValue]"
                            v-for="(item) in selectedItems"
                            @click:close="removeItem(item)"
                     >{{ item[itemName] }}
-                    </SChip>
+                    </VChip>
 
                     <span contenteditable
                           role="textbox"

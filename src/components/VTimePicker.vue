@@ -1,9 +1,9 @@
 <script setup lang="ts">
     import {type Ref, ref, watch} from 'vue';
-    import STextField from "@/components/STextField.vue";
+    import VTextField from "@/components/VTextField.vue";
     import {useClickOutside} from "@/components/Composables/mouse";
     import VMenu from "@/components/VMenu.vue";
-    import SIcon from "@/components/SIcon.vue";
+    import VIcon from "@/components/VIcon.vue";
 
     interface Props {
         modelValue: string | null;
@@ -168,7 +168,7 @@
     <div class="relative">
         <VMenu :close-on-content-click="false" width="w-fit" :position="props.absolute ? 'absolute' : 'bottom'">
             <template #trigger>
-                <STextField
+                <VTextField
                     @keyup="validateInputTime($event)"
                     ref="selectField"
                     :label="label"
@@ -181,20 +181,20 @@
                 >
                     <template #suffix>
                         <div class="transition-all duration-150" :class="{'rotate-180': focused}">
-                            <SIcon icon="clock"
+                            <VIcon icon="clock"
                                    :color="focused ? color : ''"
                                    :solid="focused"
                                    @click.stop="arrowClicked()"
                             />
                         </div>
                     </template>
-                </STextField>
+                </VTextField>
             </template>
             <template #content>
                 <div
                     class="flex justify-center items-center px-8 py-1.5 select-none active:bg-gray-50 cursor-pointer transition-all duration-75 text-xl text-gray-600 space-x-3">
                     <div class="flex flex-col w-10 items-center">
-                        <SIcon icon="chevron-up"
+                        <VIcon icon="chevron-up"
                                class="rounded-full hover:bg-gray-600 hover:bg-opacity-20 transition-all duration-150 cursor-pointer"
                                :size="24"
                                @click="increaseTime('hours')"
@@ -202,7 +202,7 @@
 
                         <div>{{ stringHours }}</div>
 
-                        <SIcon icon="chevron-down"
+                        <VIcon icon="chevron-down"
                                class="rounded-full hover:bg-gray-600 hover:bg-opacity-20 transition-all duration-150 cursor-pointer"
                                :size="24"
                                @click="decreaseTime('hours')"
@@ -210,7 +210,7 @@
                     </div>
                     <div>:</div>
                     <div class="flex flex-col w-10 items-center">
-                        <SIcon icon="chevron-up"
+                        <VIcon icon="chevron-up"
                                class="rounded-full hover:bg-gray-600 hover:bg-opacity-20 transition-all duration-150 cursor-pointer"
                                :size="24"
                                @click="increaseTime('minutes')"
@@ -218,7 +218,7 @@
 
                         <div>{{ stringMinutes }}</div>
 
-                        <SIcon icon="chevron-down"
+                        <VIcon icon="chevron-down"
                                class="rounded-full hover:bg-gray-600 hover:bg-opacity-20 transition-all duration-150 cursor-pointer"
                                :size="24"
                                @click="decreaseTime('minutes')"

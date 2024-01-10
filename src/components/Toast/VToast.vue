@@ -1,7 +1,7 @@
 <script setup lang="ts">
     import {computed, type ComputedRef, ref, type Ref, useSlots, watch} from "vue";
     import {resolveBg} from "@/components/Partials/colors";
-    import SIcon from "@/components/SIcon.vue";
+    import SIcon from "@/components/VIcon.vue";
 
     interface Props {
         modelValue: boolean,

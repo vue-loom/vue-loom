@@ -1,5 +1,5 @@
 <script setup lang="ts">
-    import STextField from "@/components/STextField.vue";
+    import STextField from "@/components/VTextField.vue";
     import {CalendarDaysIcon as OutlinedCalender} from "@heroicons/vue/24/outline";
     import {CalendarDaysIcon as SolidCalender} from "@heroicons/vue/24/solid";
     import {computed, type ComputedRef, ref, type Ref} from "vue";

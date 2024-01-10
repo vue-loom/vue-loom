@@ -1,11 +1,11 @@
 <script setup lang="ts">
     import {useDialog} from "@/components/Composables/dialog";
-    import SDialog from "@/components/Dialog/VDialog.vue";
-    import SButton from "@/components/SButton.vue";
+    import VDialog from "@/components/Dialog/VDialog.vue";
+    import VButton from "@/components/VButton.vue";
 </script>
 
 <template>
-    <SDialog v-model="useDialog().value" :persistent="useDialog().persistent">
+    <VDialog v-model="useDialog().value" :persistent="useDialog().persistent">
         <template #title>
             {{ useDialog().title }}
         </template>
@@ -16,16 +16,16 @@
             {{ useDialog().content }}
         </template>
         <template #actions>
-            <SButton
+            <VButton
                 :type="action.type || 'text'"
                 :color="action.color"
                 :key="index"
                 v-for="(action, index) in useDialog().actions"
                 @click="action.handle()"
             >{{ action.label }}
-            </SButton>
+            </VButton>
         </template>
-    </SDialog>
+    </VDialog>
 </template>
 
 <style scoped>

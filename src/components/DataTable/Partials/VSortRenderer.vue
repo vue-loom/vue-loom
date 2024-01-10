@@ -1,5 +1,5 @@
 <script setup lang="ts">
-    import SIcon from "@/components/SIcon.vue";
+    import SIcon from "@/components/VIcon.vue";
     import {computed, type ComputedRef} from "vue";
 
     interface Props {

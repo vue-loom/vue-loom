@@ -1,6 +1,6 @@
 <script setup lang="ts">
     import type {Ref} from "vue";
-    import SCard from "@/components/SCard.vue";
+    import SCard from "@/components/VCard.vue";
     import {ref} from "vue";
 
     interface Props {

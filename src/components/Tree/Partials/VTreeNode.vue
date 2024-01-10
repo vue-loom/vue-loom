@@ -2,7 +2,7 @@
     import {resolveBg, resolveBgHover, resolveText} from "@/components/Partials/colors";
     import {type ComputedRef} from "vue";
     import {computed} from "vue";
-    import SIcon from "@/components/SIcon.vue";
+    import SIcon from "@/components/VIcon.vue";
 
     interface Props {
         node: TreeNode;

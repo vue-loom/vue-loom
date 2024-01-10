@@ -2,7 +2,7 @@
     import {type ComputedRef} from "vue";
     import {computed} from "vue";
     import {resolveBg} from "@/components/Partials/colors";
-    import SIcon from "@/components/SIcon.vue";
+    import VIcon from "@/components/VIcon.vue";
 
     interface Props {
         color?: string | 'primary' | 'secondary' | 'accent' | 'success' | 'warning' | 'danger';
@@ -42,7 +42,7 @@
                 v-show="showMenuButton"
                 @click.stop="toggleMenu"
             >
-                <SIcon icon="bars-3" color="white" size="md"/>
+                <VIcon icon="bars-3" color="white" size="md"/>
             </div>
             <div class="pl-3 font-semibold text-xl text-white line-clamp-1">
                 <slot></slot>

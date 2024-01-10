@@ -9,7 +9,7 @@
     import {watch} from "vue";
     import VMenu from "@/components/VMenu.vue";
     import {useClickOutside} from "@/components/Composables/mouse";
-    import SIcon from "@/components/SIcon.vue";
+    import VIcon from "@/components/VIcon.vue";
 
     interface Props {
         modelValue: number | string | null;
@@ -156,7 +156,7 @@
                 >{{ label }}
                 </div>
 
-                <SIcon icon="chevron-down"
+                <VIcon icon="chevron-down"
                        class="absolute right-2 top-1/2 -translate-y-1/2 transition-all duration-150"
                        :color="open ? color : ''"
                        :class="{'rotate-180': open}"

@@ -1,11 +1,11 @@
 <script setup lang="ts">
     import {type InertiaForm, router, useForm} from "@inertiajs/vue3";
     import {type Component, onMounted} from "vue";
-    import SButton from "@/components/SButton.vue";
-    import STextField from "@/components/STextField.vue";
+    import VButton from "@/components/VButton.vue";
+    import VTextField from "@/components/VTextField.vue";
     import VMenu from "@/components/VMenu.vue";
-    import SListItem from "@/components/SListItem.vue";
-    import SIcon from "@/components/SIcon.vue";
+    import VListItem from "@/components/VListItem.vue";
+    import VIcon from "@/components/VIcon.vue";
     import VTextColumn from "@/components/DataTable/Partials/VTextColumn.vue";
     import VNumberColumn from "@/components/DataTable/Partials/VNumberColumn.vue";
     import VBooleanColumn from "@/components/DataTable/Partials/VBooleanColumn.vue";
@@ -105,20 +105,20 @@
         <div class="flex space-x-3 justify-end items-center px-4 py-2 bg-white"
              v-show="table.searchable"
         >
-            <STextField
+            <VTextField
                 class="w-80"
                 label="Search"
                 v-model="dataMutatorsForm.term"
                 @keyup.enter="applyDataMutators">
                 <template #suffix>
-                    <SIcon icon="x-mark"
+                    <VIcon icon="x-mark"
                            class="cursor-pointer"
                            v-if="dataMutatorsForm.term"
                            @click="clearSearchTerm"
                     />
                 </template>
-            </STextField>
-            <SButton type="text" @click="applyDataMutators">Search</SButton>
+            </VTextField>
+            <VButton type="text" @click="applyDataMutators">Search</VButton>
         </div>
         <div class="relative overflow-x-auto max-h-[calc(100vh-350px)]">
             <table class="w-full">
@@ -163,12 +163,12 @@
                         <div v-if="menus[getItemKey(item, itemIndex)].length === 1"
                              class="flex justify-end items-center"
                         >
-                            <SButton no-relative type="text"
+                            <VButton no-relative type="text"
                                      @click="menus[getItemKey(item, itemIndex)][0].closure(item)">
                                 <div class="flex flex-row items-center">
                                     <div>{{ menus[getItemKey(item, itemIndex)][0].label }}</div>
                                 </div>
-                            </SButton>
+                            </VButton>
                         </div>
                         <div class="flex justify-end items-center"
                              v-else-if="menus[getItemKey(item, itemIndex)].length > 1"
@@ -179,12 +179,12 @@
                                         class="rounded-full cursor-pointer transition-all duration-75"
                                         :class="[open ? 'bg-gray-100' : 'hover:bg-gray-50 active:bg-gray-100']"
                                     >
-                                        <SIcon icon="ellipsis-vertical" :size="28"/>
+                                        <VIcon icon="ellipsis-vertical" :size="28"/>
                                     </div>
                                 </template>
 
                                 <template #content>
-                                    <SListItem
+                                    <VListItem
                                         :clickable="!(menuItem.hasOwnProperty('disabled') && menuItem.disabled(item))"
                                         :color="menuItem.color"
                                         :key="menuItem.label"
@@ -192,7 +192,7 @@
                                         @click="!(menuItem.hasOwnProperty('disabled') && menuItem.disabled(item)) && menuItem.closure(item)"
                                     >
                                         <template #title>{{ menuItem.label }}</template>
-                                    </SListItem>
+                                    </VListItem>
                                 </template>
                             </VMenu>
                         </div>
@@ -225,12 +225,12 @@
                 <div class="hidden sm:inline">items</div>
             </div>
             <div class="flex items-center space-x-3">
-                <SButton type="text"
+                <VButton type="text"
                          :disabled="table.list.prev_page_url === null"
                          @click="goToPage(table.list.prev_page_url)"
                 >
-                    <SIcon icon="arrow-left"/>
-                </SButton>
+                    <VIcon icon="arrow-left"/>
+                </VButton>
 
                 <div class="flex space-x-1 text-primary">
                     <div>Page</div>
@@ -239,12 +239,12 @@
                     <div class="font-bold">{{ Math.ceil((table.list.total / table.list.per_page)) }}</div>
                 </div>
 
-                <SButton type="text"
+                <VButton type="text"
                          :disabled="table.list.next_page_url === null"
                          @click="goToPage(table.list.next_page_url)"
                 >
-                    <SIcon icon="arrow-right"/>
-                </SButton>
+                    <VIcon icon="arrow-right"/>
+                </VButton>
             </div>
         </div>
     </div>

@@ -6,7 +6,7 @@
         resolveText
     } from "@/components/Partials/colors";
     import {useRipple} from "@/components/Composables/mouse";
-    import SLoader from "@/components/SLoader.vue";
+    import VLoader from "@/components/VLoader.vue";
 
     interface Props {
         disabled?: boolean;
@@ -69,7 +69,7 @@
         </div>
         <div v-else class="flex justify-center items-center"
              :style="{width: `${buttonWidth}px`, height: `${buttonHeight}px`}">
-            <SLoader :color="type !== 'default' ? color : 'default'"/>
+            <VLoader :color="type !== 'default' ? color : 'default'"/>
         </div>
     </button>
 </template>

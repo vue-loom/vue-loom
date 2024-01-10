@@ -1,11 +1,11 @@
 <script setup lang="ts">
-    import STextField from '../src/components/STextField.vue'
-    import VStepper from "@/components/Stepper/VStepper.vue";
-    import VStep from "@/components/Stepper/VStep.vue";
-    import VTab from "@/components/Tab/VTab.vue";
-    import VTabs from "@/components/Tab/VTabs.vue";
-    import SButton from "@/components/SButton.vue";
-    import SIcon from "@/components/SIcon.vue";
+    import VTextField from '../src/components/VTextField.vue'
+    import VStepper from "../src/components/Stepper/VStepper.vue";
+    import VStep from "../src/components/Stepper/VStep.vue";
+    import VTab from "../src/components/Tab/VTab.vue";
+    import VTabs from "../src/components/Tab/VTabs.vue";
+    import VButton from "../src/components/VButton.vue";
+    import VIcon from "../src/components/VIcon.vue";
 
 </script>
 
@@ -13,7 +13,7 @@
     <main>
         <h1>Welcome to your sandbox environment</h1>
 
-        <STextField
+        <VTextField
             class="w-full"
             label="This is a very long label for my input"
             :model-value="''"
@@ -99,12 +99,12 @@
                     Tab five
                 </template>
                 <template #content>
-                    <SButton>This works</SButton>
+                    <VButton>This works</VButton>
                 </template>
             </VTab>
         </VTabs>
 
-        <SIcon icon="plus"/>
+        <VIcon icon="plus"/>
     </main>
 </template>
 
