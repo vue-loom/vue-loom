@@ -1,6 +1,5 @@
 <script setup lang="ts">
-    import {type Component, type Ref, ref, useSlots} from "vue";
-    import {type VNodeNormalizedChildren} from "@vue/runtime-core";
+    import {type Component, type Ref, ref} from "vue";
 
     interface Open {
         [key: number]: boolean;
@@ -23,7 +22,21 @@
     });
 
     const innerOpen: Ref<Open> = ref(props.open);
-    const expansionPanels: VNodeNormalizedChildren = useSlots().default().at(0).children;
+
+    interface ExpansionPanel {
+        children: {
+            title(): Component[];
+            subtitle(): Component[];
+            content(): Component[];
+        };
+    }
+
+    interface Slot {
+        default(): ExpansionPanel[];
+    }
+
+    const slots = defineSlots<Slot>();
+    const expansionPanels: ExpansionPanel[] = slots.default();
 
     const panelClassObject = (index: number) => ({
         'border-none': innerOpen.value[index] || innerOpen.value[index - 1],
@@ -31,45 +44,35 @@
         'rounded-b-lg': index === expansionPanels.length as number - 1 || innerOpen.value[index + 1] && props.type !== 'accordion',
         'my-4 rounded-lg': innerOpen.value[index] && props.type !== 'accordion',
     });
-
-    interface PanelChild {
-        title: () => Component;
-        subtitle: () => Component;
-        content: () => Component;
-    }
-
-    interface Panel {
-        children: PanelChild;
-    }
 </script>
 
 <template>
     <div class="divide-y">
         <component
             class="shadow-lg"
-            :is="panelSlot"
+            :is="expansionPanel"
             :open="innerOpen[index]"
             :key="index"
             :class="panelClassObject(index as number)"
-            v-for="(panelSlot, index) in expansionPanels"
+            v-for="(expansionPanel, index) in expansionPanels"
             @update:open="innerOpen[index] = $event"
         >
             <template #title>
                 <component
                     :is="titleSlot"
-                    v-for="(titleSlot) in ((panelSlot as Panel).children.title() as PanelChild)"
+                    v-for="(titleSlot) in (expansionPanel.children.title())"
                 />
             </template>
             <template #subtitle>
                 <component
-                    :is="titleSlot"
-                    v-for="(titleSlot) in ((panelSlot as Panel).children.subtitle() as PanelChild)"
+                    :is="subtitleSlot"
+                    v-for="(subtitleSlot) in (expansionPanel.children.subtitle())"
                 />
             </template>
             <template #content>
                 <component
                     :is="contentSlot"
-                    v-for="(contentSlot) in ((panelSlot as Panel).children.content() as PanelChild)"
+                    v-for="(contentSlot) in (expansionPanel.children.content())"
                 />
             </template>
         </component>

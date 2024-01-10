@@ -1,7 +1,6 @@
 <script setup lang="ts">
     import {computed, type ComputedRef, onMounted, ref, type Ref} from 'vue';
     import {
-        getContrastColorClass,
         resolveBg,
         resolveBgHover, resolveBorder,
         resolveText
@@ -34,8 +33,10 @@
     const buttonHeight: Ref<number> = ref(0);
 
     const calculateButtonDimensions = (): void => {
-        buttonWidth.value = button.value.getBoundingClientRect().width - 32;
-        buttonHeight.value = button.value.getBoundingClientRect().height - 16;
+        if (button.value) {
+            buttonWidth.value = button.value.getBoundingClientRect().width - 32;
+            buttonHeight.value = button.value.getBoundingClientRect().height - 16;
+        }
     }
 
     onMounted(() => calculateButtonDimensions());
@@ -49,16 +50,6 @@
         outlined: `border-2 ${resolveBorder(props.color)} ${resolveText(props.color)} shadow-md active:shadow-none ${resolveBgHover(props.color)} hover:bg-opacity-10 disabled:opacity-60`,
         text: `${resolveText(props.color)} ${resolveBgHover(props.color)} hover:bg-opacity-10 disabled:opacity-60`,
     }));
-
-    const textColor: ComputedRef<string> = computed(() => {
-        if (button.value) {
-            let buttonColor: string = getComputedStyle(button.value).getPropertyValue('background-color');
-
-            return getContrastColorClass(buttonColor);
-        }
-
-        return 'white';
-    });
 
     const createRipple = (event: MouseEvent) => {
         useRipple(event, button);

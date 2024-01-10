@@ -8,10 +8,10 @@
     <main>
         <h1>Welcome to your sandbox environment</h1>
 
-<!--        <STextField-->
-<!--            class="w-full"-->
-<!--            label="This is a very long label for my input"-->
-<!--        />-->
+        <!--        <STextField-->
+        <!--            class="w-full"-->
+        <!--            label="This is a very long label for my input"-->
+        <!--        />-->
 
         <SStepper class="mt-4" clickable preserve-state elevation>
             <SStep>

@@ -24,7 +24,7 @@
     }));
 
     interface Emits {
-        (event: 'click:close');
+        (event: 'click:close'): void;
     }
 
     const emits = defineEmits<Emits>();

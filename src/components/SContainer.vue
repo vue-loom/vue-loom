@@ -1,15 +1,17 @@
 <script setup lang="ts">
-    import {computed} from "vue";
+    import {computed, type ComputedRef} from "vue";
 
-    const props = defineProps({
-        fullWidth: Boolean,
-        maxWidth: {
-            type: String,
-            default: '7xl',
-        },
+    interface Props {
+        fullWidth: boolean;
+        maxWidth: string;
+    }
+
+    const props = withDefaults(defineProps<Props>(), {
+        fullWidth: false,
+        maxWidth: '7xl',
     });
 
-    const widthClass = computed(() => {
+    const widthClass: ComputedRef<string> = computed(() => {
         return {
             'xs': 'max-w-xs',
             'sm': 'max-w-sm',
@@ -22,7 +24,7 @@
             '5xl': 'max-w-5xl',
             '6xl': 'max-w-6xl',
             '7xl': 'max-w-7xl',
-        }[props.maxWidth];
+        }[props.maxWidth] || 'max-w-7xl';
     });
 </script>
 

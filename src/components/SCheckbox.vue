@@ -26,7 +26,7 @@
     const toggleState: Ref<boolean> = ref(innerModelValue.value === props.trueValue);
 
     interface Emits {
-        (event: 'update:modelValue', data: boolean | string | number);
+        (event: 'update:modelValue', data: boolean | string | number): void;
     }
 
     const emits = defineEmits<Emits>();

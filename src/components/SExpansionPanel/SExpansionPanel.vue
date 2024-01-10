@@ -19,7 +19,7 @@
     const panel: Ref<HTMLElement | null> = ref(null);
 
     interface Emits {
-        (event: 'update:open', data: boolean);
+        (event: 'update:open', data: boolean): void;
     }
 
     const emits = defineEmits<Emits>();
@@ -58,7 +58,7 @@
         <div ref="panel"
              class="bg-white transition-all duration-150 text-gray-700"
              :class="[focused ? 'border-t' : '']"
-             :style="{height: !focused ? '0px' : `${panel.scrollHeight}px`}"
+             :style="{height: !focused ? '0px' : `${panel?.scrollHeight}px`}"
         >
             <slot name="content"/>
         </div>
