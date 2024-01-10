@@ -11,7 +11,7 @@
         errorMessage?: string;
         color?: 'primary' | 'secondary' | 'accent' | 'success' | 'warning' | 'danger';
         autofocus?: boolean;
-        incrementMinutesAmount?: 2 | 3 | 4 | 5 | 6 | 10 | 12 | 15 | 20 | 30;
+        incrementMinutesAmount?: 2 | 3 | 4 | 5 | 6 | 10 | 12 | 15 | 20 | 30 | null;
         absolute?: boolean,
     }
 
@@ -45,7 +45,7 @@
     };
 
     interface Emits {
-        (event: 'update:modelValue', data: string);
+        (event: 'update:modelValue', data: string): void;
     }
 
     const emits = defineEmits<Emits>();
