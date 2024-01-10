@@ -1,7 +1,7 @@
 <script setup lang="ts">
     import {computed, type ComputedRef} from "vue";
     import {resolveBg} from "@/components/Partials/colors";
-    import SIcon from "@/components/SIcon.vue";
+    import VIcon from "@/components/VIcon.vue";
 
     interface Props {
         color?: string | 'primary' | 'secondary' | 'accent' | 'success' | 'warning' | 'danger';
@@ -48,7 +48,7 @@
              v-if="closable"
              @click.stop="closeChip"
         >
-            <SIcon icon="x-mark" :size="16"/>
+            <VIcon icon="x-mark" :size="16"/>
         </div>
     </div>
 </template>

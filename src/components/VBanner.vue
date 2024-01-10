@@ -1,6 +1,6 @@
 <script setup lang="ts">
     import {computed, type ComputedRef} from "vue";
-    import SIcon from "@/components/SIcon.vue";
+    import VIcon from "@/components/VIcon.vue";
 
     interface Props {
         type?: 'default' | 'info' | 'success' | 'warning' | 'error';
@@ -32,10 +32,10 @@
     <div class="w-full rounded-lg bg-white">
         <div class="w-full flex items-center space-x-2 p-4 rounded-lg border-l-4" :class="[classesFromType]">
             <div>
-                <SIcon icon="check-circle" color="success" v-if="type === 'success'"/>
-                <SIcon icon="x-circle" color="danger" v-if="type === 'error'"/>
-                <SIcon icon="exclamation-triangle" color="warning" v-if="type === 'warning'"/>
-                <SIcon icon="exclamation-circle" v-if="type === 'info'"/>
+                <VIcon icon="check-circle" color="success" v-if="type === 'success'"/>
+                <VIcon icon="x-circle" color="danger" v-if="type === 'error'"/>
+                <VIcon icon="exclamation-triangle" color="warning" v-if="type === 'warning'"/>
+                <VIcon icon="exclamation-circle" v-if="type === 'info'"/>
             </div>
             <div>
                 <slot/>

@@ -1,11 +1,11 @@
 <script setup lang="ts">
-    import STextField from '../src/components/STextField.vue'
+    import STextField from '@/components/VTextField.vue'
     import SStepper from "@/components/SStepper/SStepper.vue";
     import SStep from "@/components/SStepper/SStep.vue";
     import STab from "@/components/STab/STab.vue";
     import STabs from "@/components/STab/STabs.vue";
-    import SButton from "@/components/SButton.vue";
-    import SIcon from "@/components/SIcon.vue";
+    import SButton from "@/components/VButton.vue";
+    import SIcon from "@/components/VIcon.vue";
 
 </script>
 

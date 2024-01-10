@@ -7,9 +7,9 @@
         resolveBorder,
     } from "@/components/Partials/colors";
     import {watch} from "vue";
-    import SMenu from "@/components/SMenu/SMenu.vue";
+    import VMenu from "@/components/VMenu/VMenu.vue";
     import {useClickOutside} from "@/components/Composables/mouse";
-    import SIcon from "@/components/SIcon.vue";
+    import VIcon from "@/components/VIcon.vue";
 
     interface Props {
         modelValue: number | string | null;
@@ -142,7 +142,7 @@
 
 <template>
     <div class="relative">
-        <SMenu width="w-full" position="bottom" align="left">
+        <VMenu width="w-full" position="bottom" align="left">
             <template #trigger="{ open }">
                 <div ref="textFieldLabel" class="absolute left-0 top-0 text-xs invisible z-[-1]" v-text="label"/>
 
@@ -156,7 +156,7 @@
                 >{{ label }}
                 </div>
 
-                <SIcon icon="chevron-down"
+                <VIcon icon="chevron-down"
                        class="absolute right-2 top-1/2 -translate-y-1/2 transition-all duration-150"
                        :color="open ? color : ''"
                        :class="{'rotate-180': open}"
@@ -200,7 +200,7 @@
                     </div>
                 </div>
             </template>
-        </SMenu>
+        </VMenu>
     </div>
 </template>
 

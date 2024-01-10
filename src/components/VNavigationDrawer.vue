@@ -1,8 +1,8 @@
 <script setup lang="ts">
     import {Link} from "@inertiajs/vue3";
     import {computed, type ComputedRef, nextTick, onMounted, type Ref, ref} from "vue";
-    import SDrawer from "@/components/SDrawer.vue";
-    import SIcon from "@/components/SIcon.vue";
+    import VDrawer from "@/components/VDrawer.vue";
+    import VIcon from "@/components/VIcon.vue";
 
     interface Props {
         modelValue: boolean;
@@ -65,7 +65,7 @@
 </script>
 
 <template>
-    <SDrawer
+    <VDrawer
         toolbar-offset
         :mini="mini"
         :model-value="modelValue"
@@ -86,13 +86,13 @@
                             @click="toggleGroup(index)"
                         >
                             <div class="flex items-center space-x-4">
-                                <SIcon :size="24"
+                                <VIcon :size="24"
                                        :icon="item.icon"
                                        :color="openGroupIndex === index && item.active ? 'primary' : ''"
                                 />
                                 <div class="whitespace-nowrap">{{ item.label }}</div>
                             </div>
-                            <SIcon icon="chevron-right"
+                            <VIcon icon="chevron-right"
                                    class="transition-all duration-100"
                                    :color="openGroupIndex === index && item.active ? 'primary' : ''"
                                    :class="[openGroupIndex === index ? 'rotate-90' : '']"
@@ -109,7 +109,7 @@
                               @click="linkClicked"
                         >
                             <div class="flex items-center space-x-4">
-                                <SIcon :size="24"
+                                <VIcon :size="24"
                                        :icon="groupItem.icon"
                                        :color="groupItem.active ? 'primary' : ''"
                                        :solid="groupItem.active"
@@ -126,7 +126,7 @@
                         @click="linkClicked"
                     >
                         <div class="flex items-center space-x-4">
-                            <SIcon :size="24"
+                            <VIcon :size="24"
                                    :icon="item.icon"
                                    :color="item.active ? 'primary' : ''"
                                    :solid="item.active"
@@ -137,7 +137,7 @@
                 </div>
             </div>
         </div>
-    </SDrawer>
+    </VDrawer>
 </template>
 
 <style scoped>

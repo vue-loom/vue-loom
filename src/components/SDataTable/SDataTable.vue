@@ -1,11 +1,11 @@
 <script setup lang="ts">
     import {type InertiaForm, router, useForm} from "@inertiajs/vue3";
     import {type Component, onMounted} from "vue";
-    import SButton from "@/components/SButton.vue";
-    import STextField from "@/components/STextField.vue";
+    import SButton from "@/components/VButton.vue";
+    import STextField from "@/components/VTextField.vue";
     import SMenu from "@/components/SMenu/SMenu.vue";
-    import SListItem from "@/components/SListItem.vue";
-    import SIcon from "@/components/SIcon.vue";
+    import SListItem from "@/components/VListItem.vue";
+    import SIcon from "@/components/VIcon.vue";
     import STextColumn from "@/components/SDataTable/Partials/STextColumn.vue";
     import SNumberColumn from "@/components/SDataTable/Partials/SNumberColumn.vue";
     import SBooleanColumn from "@/components/SDataTable/Partials/SBooleanColumn.vue";

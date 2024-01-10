@@ -2,7 +2,7 @@
     import {resolveBg, resolveBorder} from "@/components/Partials/colors";
     import type {ComputedRef, Ref} from "vue";
     import {computed, ref} from "vue";
-    import SIcon from "@/components/SIcon.vue";
+    import VIcon from "@/components/VIcon.vue";
 
     interface Props {
         modelValue: boolean | string | number;
@@ -56,7 +56,7 @@
                 <div class="h-full w-full transition-all duration-150"
                      :class="[toggleState ? 'scale-100 opacity-100' : 'scale-50 opacity-0', resolveBg(color)]"
                 >
-                    <SIcon icon="check" color="white" :size="16"/>
+                    <VIcon icon="check" color="white" :size="16"/>
                 </div>
             </div>
         </div>

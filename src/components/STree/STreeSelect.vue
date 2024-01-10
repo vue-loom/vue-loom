@@ -5,7 +5,7 @@
     import {watch} from "vue";
     import SMenu from "@/components/SMenu/SMenu.vue";
     import {useClickOutside} from "@/components/Composables/mouse";
-    import SIcon from "@/components/SIcon.vue";
+    import SIcon from "@/components/VIcon.vue";
 
     interface Props {
         modelValue: number | string | null;

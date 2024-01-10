@@ -1,7 +1,7 @@
 <script setup lang="ts">
     import {computed, type ComputedRef, onMounted, ref, type Ref, watch} from 'vue';
     import {resolveBorderFocus, resolveText} from "@/components/Partials/colors";
-    import SIcon from "@/components/SIcon.vue";
+    import VIcon from "@/components/VIcon.vue";
 
     interface Props {
         modelValue: string;
@@ -131,7 +131,7 @@
         </div>
 
         <div class="absolute right-2 top-2 cursor-pointer" v-if="clearable && innerModelValue" @click="clearTextArea()">
-            <SIcon icon="x-mark"/>
+            <VIcon icon="x-mark"/>
         </div>
 
         <textarea ref="textArea"
