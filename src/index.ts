@@ -1,8 +1,8 @@
 import STextField from './components/STextField.vue'
-import SStepper from "./components/SStepper/SStepper.vue";
-import SStep from "./components/SStepper/SStep.vue";
-import STab from "./components/STab/STab.vue";
-import STabs from "./components/STab/STabs.vue";
+import VStepper from "./components/Stepper/VStepper.vue";
+import VStep from "./components/Stepper/VStep.vue";
+import VTab from "./components/Tab/VTab.vue";
+import VTabs from "./components/Tab/VTabs.vue";
 import SButton from "./components/SButton.vue";
 
-export { STextField, SStepper, SStep, SButton, STab, STabs }
+export { STextField, VStepper, VStep, SButton, VTab, VTabs }

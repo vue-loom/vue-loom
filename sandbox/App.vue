@@ -1,9 +1,9 @@
 <script setup lang="ts">
     import STextField from '../src/components/STextField.vue'
-    import SStepper from "@/components/SStepper/SStepper.vue";
-    import SStep from "@/components/SStepper/SStep.vue";
-    import STab from "@/components/STab/STab.vue";
-    import STabs from "@/components/STab/STabs.vue";
+    import VStepper from "@/components/Stepper/VStepper.vue";
+    import VStep from "@/components/Stepper/VStep.vue";
+    import VTab from "@/components/Tab/VTab.vue";
+    import VTabs from "@/components/Tab/VTabs.vue";
     import SButton from "@/components/SButton.vue";
     import SIcon from "@/components/SIcon.vue";
 
@@ -13,40 +13,41 @@
     <main>
         <h1>Welcome to your sandbox environment</h1>
 
-        <!--        <STextField-->
-        <!--            class="w-full"-->
-        <!--            label="This is a very long label for my input"-->
-        <!--        />-->
+        <STextField
+            class="w-full"
+            label="This is a very long label for my input"
+            :model-value="''"
+        />
 
-        <SStepper class="mt-4" clickable preserve-state elevation>
-            <SStep>
+        <VStepper class="mt-4" clickable preserve-state elevation>
+            <VStep>
                 <template #step>
                     <div>Step One</div>
                 </template>
                 <template #content>
                     The first step is to move to step two!
                 </template>
-            </SStep>
-            <SStep>
+            </VStep>
+            <VStep>
                 <template #step>
                     Step Two
                 </template>
                 <template #content>
                     The second step is to move to step three!
                 </template>
-            </SStep>
-            <SStep>
+            </VStep>
+            <VStep>
                 <template #step>
                     Step Three
                 </template>
                 <template #content>
                     This is the last step. Weldon!!
                 </template>
-            </SStep>
-        </SStepper>
+            </VStep>
+        </VStepper>
 
-        <STabs class="mt-4" grow-tabs elevation>
-            <STab>
+        <VTabs class="mt-4" grow-tabs elevation>
+            <VTab>
                 <template #tab>Tab One</template>
                 <template #content>
                     <div>
@@ -54,8 +55,8 @@
                         <SButton>Text</SButton>
                     </div>
                 </template>
-            </STab>
-            <STab>
+            </VTab>
+            <VTab>
                 <template #tab>
                     Tab two
                 </template>
@@ -69,8 +70,8 @@
                         <div>This is the second tab content with element div</div>
                     </div>
                 </template>
-            </STab>
-            <STab>
+            </VTab>
+            <VTab>
                 <template #tab>
                     Tab three
                 </template>
@@ -82,8 +83,8 @@
                         <div>This is the third tab content with element div</div>
                     </div>
                 </template>
-            </STab>
-            <STab>
+            </VTab>
+            <VTab>
                 <template #tab>
                     Tab four
                 </template>
@@ -92,16 +93,16 @@
                         <div>This is the fourth tab content with element div</div>
                     </div>
                 </template>
-            </STab>
-            <STab>
+            </VTab>
+            <VTab>
                 <template #tab>
                     Tab five
                 </template>
                 <template #content>
                     <SButton>This works</SButton>
                 </template>
-            </STab>
-        </STabs>
+            </VTab>
+        </VTabs>
 
         <SIcon icon="plus"/>
     </main>

@@ -1,9 +1,9 @@
 <script setup lang="ts">
     import {computed, type ComputedRef, onMounted, type Ref, ref} from 'vue';
     import {resolveText, resolveRing, resolveBorder} from "@/components/Partials/colors";
-    import STreeNode from "@/components/STree/Partials/STreeNode.vue";
+    import STreeNode from "@/components/Tree/Partials/VTreeNode.vue";
     import {watch} from "vue";
-    import SMenu from "@/components/SMenu/SMenu.vue";
+    import VMenu from "@/components/VMenu.vue";
     import {useClickOutside} from "@/components/Composables/mouse";
     import SIcon from "@/components/SIcon.vue";
 
@@ -181,7 +181,7 @@
 
 <template>
     <div class="relative">
-        <SMenu width="w-full" :close-on-content-click="false">
+        <VMenu width="w-full" :close-on-content-click="false">
             <template #trigger="{ open }">
                 <div ref="textFieldLabel" class="absolute left-0 top-0 text-xs invisible z-[-1]" v-text="label"/>
 
@@ -245,7 +245,7 @@
                     </div>
                 </div>
             </template>
-        </SMenu>
+        </VMenu>
     </div>
 </template>
 

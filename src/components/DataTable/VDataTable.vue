@@ -3,15 +3,15 @@
     import {type Component, onMounted} from "vue";
     import SButton from "@/components/SButton.vue";
     import STextField from "@/components/STextField.vue";
-    import SMenu from "@/components/SMenu/SMenu.vue";
+    import VMenu from "@/components/VMenu.vue";
     import SListItem from "@/components/SListItem.vue";
     import SIcon from "@/components/SIcon.vue";
-    import STextColumn from "@/components/SDataTable/Partials/STextColumn.vue";
-    import SNumberColumn from "@/components/SDataTable/Partials/SNumberColumn.vue";
-    import SBooleanColumn from "@/components/SDataTable/Partials/SBooleanColumn.vue";
-    import SDateColumn from "@/components/SDataTable/Partials/SDateColumn.vue";
-    import SEnumColumn from "@/components/SDataTable/Partials/SEnumColumn.vue";
-    import SSortRenderer from "@/components/SDataTable/Partials/SSortRenderer.vue";
+    import VTextColumn from "@/components/DataTable/Partials/VTextColumn.vue";
+    import VNumberColumn from "@/components/DataTable/Partials/VNumberColumn.vue";
+    import VBooleanColumn from "@/components/DataTable/Partials/VBooleanColumn.vue";
+    import VDateColumn from "@/components/DataTable/Partials/VDateColumn.vue";
+    import VEnumColumn from "@/components/DataTable/Partials/VEnumColumn.vue";
+    import VSortRenderer from "@/components/DataTable/Partials/VSortRenderer.vue";
 
     interface Props {
         table: Table;
@@ -23,11 +23,11 @@
     });
 
     const columnTypes: { [key: string]: Component } = {
-        'text-column': STextColumn,
-        'number-column': SNumberColumn,
-        'boolean-column': SBooleanColumn,
-        'date-column': SDateColumn,
-        'enum-column': SEnumColumn,
+        'text-column': VTextColumn,
+        'number-column': VNumberColumn,
+        'boolean-column': VBooleanColumn,
+        'date-column': VDateColumn,
+        'enum-column': VEnumColumn,
     };
 
     const getItemKey = (item: DataTableItem, index: number): number => {
@@ -130,7 +130,7 @@
                         <div class="flex items-center space-x-2">
                             <div>{{ column.header }}</div>
 
-                            <SSortRenderer
+                            <VSortRenderer
                                 class="opacity-0 group-hover:opacity-100 transition-all duration-75"
                                 :sort="dataMutatorsForm.sort"
                                 :column="column"
@@ -173,7 +173,7 @@
                         <div class="flex justify-end items-center"
                              v-else-if="menus[getItemKey(item, itemIndex)].length > 1"
                         >
-                            <SMenu align="right" width="w-44">
+                            <VMenu align="right" width="w-44">
                                 <template #trigger="{ open }">
                                     <div
                                         class="rounded-full cursor-pointer transition-all duration-75"
@@ -194,7 +194,7 @@
                                         <template #title>{{ menuItem.label }}</template>
                                     </SListItem>
                                 </template>
-                            </SMenu>
+                            </VMenu>
                         </div>
                     </td>
                 </tr>

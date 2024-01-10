@@ -6,7 +6,7 @@
         resolveBorder,
         resolveText
     } from "@/components/Partials/colors";
-    import SMenu from "@/components/SMenu/SMenu.vue";
+    import VMenu from "@/components/VMenu.vue";
     import SChip from "@/components/SChip.vue";
     import {useClickOutside} from "@/components/Composables/mouse";
     import {onMounted} from "vue";
@@ -159,7 +159,7 @@
 </script>
 
 <template>
-    <SMenu width="w-full" :disabled="readonly" :close-on-content-click="false">
+    <VMenu width="w-full" :disabled="readonly" :close-on-content-click="false">
         <template #trigger="{ open }">
             <div class="relative">
                 <div ref="textFieldLabel" class="absolute left-0 top-0 text-xs invisible z-[-1]" v-text="label"/>
@@ -226,7 +226,7 @@
                 </div>
             </div>
         </template>
-    </SMenu>
+    </VMenu>
 </template>
 
 <style scoped>

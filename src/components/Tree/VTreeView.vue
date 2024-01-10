@@ -1,5 +1,5 @@
 <script setup lang="ts">
-    import STreeNode from "@/components/STree/Partials/STreeNode.vue";
+    import STreeNode from "@/components/Tree/Partials/VTreeNode.vue";
     import {ref, type Ref} from "vue";
     import {computed, type ComputedRef, watch} from "vue";
 

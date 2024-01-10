@@ -2,7 +2,7 @@
     import {type Ref, ref, watch} from 'vue';
     import STextField from "@/components/STextField.vue";
     import {useClickOutside} from "@/components/Composables/mouse";
-    import SMenu from "@/components/SMenu/SMenu.vue";
+    import VMenu from "@/components/VMenu.vue";
     import SIcon from "@/components/SIcon.vue";
 
     interface Props {
@@ -166,7 +166,7 @@
 
 <template>
     <div class="relative">
-        <SMenu :close-on-content-click="false" width="w-fit" :position="props.absolute ? 'absolute' : 'bottom'">
+        <VMenu :close-on-content-click="false" width="w-fit" :position="props.absolute ? 'absolute' : 'bottom'">
             <template #trigger>
                 <STextField
                     @keyup="validateInputTime($event)"
@@ -226,7 +226,7 @@
                     </div>
                 </div>
             </template>
-        </SMenu>
+        </VMenu>
     </div>
 </template>
 

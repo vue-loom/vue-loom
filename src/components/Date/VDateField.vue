@@ -3,8 +3,8 @@
     import {CalendarDaysIcon as OutlinedCalender} from "@heroicons/vue/24/outline";
     import {CalendarDaysIcon as SolidCalender} from "@heroicons/vue/24/solid";
     import {computed, type ComputedRef, ref, type Ref} from "vue";
-    import SMenu from "@/components/SMenu/SMenu.vue";
-    import SDatePicker from "@/components/SDate/SDatePicker.vue";
+    import VMenu from "@/components/VMenu.vue";
+    import SDatePicker from "@/components/Date/VDatePicker.vue";
     import {resolveText} from "@/components/Partials/colors";
     import dayjs from "dayjs";
 
@@ -65,7 +65,7 @@
 
 <template>
     <div class="relative">
-        <SMenu :close-on-content-click="false" :align="align" :position="position" width="w-fit">
+        <VMenu :close-on-content-click="false" :align="align" :position="position" width="w-fit">
             <template #trigger>
                 <STextField
                     readonly
@@ -106,7 +106,7 @@
                     @click="selectedDate()"
                 />
             </template>
-        </SMenu>
+        </VMenu>
     </div>
 </template>
 

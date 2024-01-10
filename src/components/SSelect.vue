@@ -7,7 +7,7 @@
         resolveBorder,
     } from "@/components/Partials/colors";
     import {watch} from "vue";
-    import SMenu from "@/components/SMenu/SMenu.vue";
+    import VMenu from "@/components/VMenu.vue";
     import {useClickOutside} from "@/components/Composables/mouse";
     import SIcon from "@/components/SIcon.vue";
 
@@ -142,7 +142,7 @@
 
 <template>
     <div class="relative">
-        <SMenu width="w-full" position="bottom" align="left">
+        <VMenu width="w-full" position="bottom" align="left">
             <template #trigger="{ open }">
                 <div ref="textFieldLabel" class="absolute left-0 top-0 text-xs invisible z-[-1]" v-text="label"/>
 
@@ -200,7 +200,7 @@
                     </div>
                 </div>
             </template>
-        </SMenu>
+        </VMenu>
     </div>
 </template>
 
