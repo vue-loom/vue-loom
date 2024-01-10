@@ -43,7 +43,7 @@
 
     const slots = defineSlots<Slot>();
     const tabs: Tab[] = slots.default();
-    
+
     const tabLabels: string[] = tabs.map((tab) => tab.children.tab()[0].children.toString().trim());
     const tabContentSections: Component[] = tabs.map((tab) => tab.children.content()[0]);
 
