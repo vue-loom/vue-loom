@@ -33,7 +33,6 @@ interface Style {
 }
 
 const alignMenu = (menuElBoundingRect: DOMRect, triggerContainerBoundingRect: DOMRect | null = null, styles: Style, align: string = 'right', position: string = 'bottom'): void => {
-    console.log(align);
     if (align === 'right') {
         if (positionX + menuElBoundingRect.width >= innerWidth && position === 'absolute') {//Overflows offscreen right
             styles.right = 4;
@@ -47,14 +46,11 @@ const alignMenu = (menuElBoundingRect: DOMRect, triggerContainerBoundingRect: DO
         }
     } else if (align === 'left') {
         if (positionX - menuElBoundingRect.width <= 0 && position === 'absolute') {//Overflows offscreen left
-            console.log('oops')
             styles.left = 4;
         } else {
             if (triggerContainerBoundingRect) {
-                console.log('hier')
                 styles.left = triggerContainerBoundingRect.left;
             } else {
-                console.log('ai')
                 styles.right = Math.abs(innerWidth - positionX);
             }
         }

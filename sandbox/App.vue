@@ -1,3 +1,8 @@
+<script setup lang="ts">
+    import SCard from '../src/components/SCard.vue'
+    import STextField from '../src/components/STextField.vue'
+</script>
+
 <template>
     <main>
         <h1 class="bg-blue-600 text-9xl">Welcome to your your sandbox environment</h1>
@@ -24,10 +29,3 @@
         </SCard>
     </main>
 </template>
-
-<script setup lang="ts">
-    import SCard from '../src/components/SCard.vue'
-    import STextField from '../src/components/STextField.vue'
-</script>
-
-<style lang="scss" scoped></style>

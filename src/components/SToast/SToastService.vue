@@ -1,6 +1,6 @@
 <script setup lang="ts">
-    import {useToast} from "../Composables/toast";
-    import SToast from "../SToast/SToast.vue";
+    import {useToast} from "@/components/Composables/toast";
+    import SToast from "@/components/SToast/SToast.vue";
     import {computed, type ComputedRef, watch} from "vue";
     import {usePage} from "@inertiajs/vue3";
 

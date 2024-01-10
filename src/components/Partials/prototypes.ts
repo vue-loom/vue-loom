@@ -1,13 +1,3 @@
-declare global {
-    interface String {
-        highlight(forTerm: string): HTMLElement;
-
-        ucFirst(): string;
-
-        toCssUnit(): string;
-    }
-}
-
 String.prototype.highlight = function (forTerm: string = ''): HTMLElement | string {
     const index: number = this.toLowerCase().indexOf(forTerm.toLowerCase());
     const length: number = forTerm.length + index;
@@ -28,5 +18,3 @@ String.prototype.ucFirst = function (): string {
 String.prototype.toCssUnit = function (): string {
     return this.replace(/[^.\d]/g, '') + (this.includes('%') ? '%' : 'px');
 };
-
-export {}
