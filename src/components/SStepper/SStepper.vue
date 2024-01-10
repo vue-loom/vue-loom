@@ -1,6 +1,5 @@
 <script setup lang="ts">
-    import {ref, type Ref, useSlots, computed, type ComputedRef, onMounted, watch} from "vue";
-    import {type VNodeNormalizedChildren} from "@vue/runtime-core";
+    import {ref, type Ref, computed, type ComputedRef, onMounted, watch, type Component} from "vue";
 
     interface Props {
         modelValue?: number;
@@ -17,19 +16,35 @@
     });
 
     interface Emits {
-        (event: 'update:modelValue', data: number);
+        (event: 'update:modelValue', data: number): void;
     }
 
     const emits = defineEmits<Emits>();
 
     const innerModelValue: Ref<number> = ref(props.modelValue);
 
-    const steps: VNodeNormalizedChildren = useSlots().default();
-    const stepLabels = steps.map((step) => step.children.step().at(0).children.toString().trim());
-    const stepContentSections = steps.map((step) => step.children.content().at(0));
+    // console.log(useSlots().default());
+    // const steps: VNodeNormalizedChildren = useSlots().default();
 
-    const labelRefs = ref([]);
-    const contentRefs = ref([]);
+    interface Step {
+        children: {
+            step(): Component[];
+            content(): Component[];
+        };
+    }
+
+    interface Slot {
+        default(): Step[];
+    }
+
+    const slots = defineSlots<Slot>();
+    const steps: Step[] = slots.default();
+
+    const stepHeaders: Component[] = steps.map((step) => step.children.step()[0]);
+    const stepContentSections: Component[] = steps.map((step) => step.children.content()[0]);
+
+    const labelRefs: Ref<HTMLElement[]> = ref([]);
+    const contentRefs: Ref<HTMLElement[]> = ref([]);
     const contentHeight: Ref<number> = ref(0);
     const headerHeight: Ref<number> = ref(0);
     const headerRef: Ref<HTMLElement | null> = ref(null);
@@ -39,7 +54,9 @@
             innerModelValue.value = localStorage.step
         }
 
-        headerHeight.value = headerRef.value.getBoundingClientRect().height;
+        if (headerRef.value) {
+            headerHeight.value = headerRef.value.getBoundingClientRect().height;
+        }
         contentHeight.value = Math.max(...contentRefs.value.map((contentEl: HTMLElement) => contentEl.getBoundingClientRect().height)) + headerHeight.value;
     });
 
@@ -74,7 +91,7 @@
          :style="{height: `${contentHeight}px`}">
         <div ref="headerRef" class="flex shadow-md">
             <div ref="labelRefs"
-                 v-for="(stepLabel, index) in stepLabels"
+                 v-for="(stepHeader, index) in stepHeaders"
                  :key="index"
                  class="relative text-center overflow-hidden w-fit grow select-none transition-all duration-150"
             >
@@ -82,13 +99,14 @@
                     <div class="absolute h-1/2 w-1/2 left-0 top-0 border-b border-gray-300"
                          v-if="index !== 0"
                     ></div>
-                    <div class="bg-white w-fit z-10 p-2"
-                         :class="clickable ? 'cursor-pointer hover:bg-gray-100' : ''"
-                         @click="selectStep(index)">
-                        {{ stepLabel }}
-                    </div>
+                    <component :is="stepHeader" @click="selectStep(index)"></component>
+                    <!--                    <div class="bg-white w-fit z-10 p-2"-->
+                    <!--                         :class="clickable ? 'cursor-pointer hover:bg-gray-100' : ''"-->
+                    <!--                         @click="selectStep(index)">-->
+                    <!--                        {{ stepLabel }}-->
+                    <!--                    </div>-->
                     <div class="absolute h-1/2 w-1/2 right-0 top-0 border-b border-gray-300"
-                         v-if="index !== stepLabels.length - 1"
+                         v-if="index !== stepHeader.length - 1"
                     ></div>
                 </div>
             </div>
