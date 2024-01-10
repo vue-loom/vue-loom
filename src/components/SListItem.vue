@@ -39,7 +39,7 @@
 
     const listItem: Ref<HTMLElement | null> = ref(null);
 
-    const createRipple = (event: MouseEvent) => {
+    const createRipple = (event: MouseEvent): void => {
         if (props.clickable) {
             useRipple(event, listItem);
         }

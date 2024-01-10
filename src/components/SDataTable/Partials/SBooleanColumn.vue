@@ -1,7 +1,15 @@
 <script setup lang="ts">
-    import {computed, type ComputedRef, useSlots} from "vue";
+    import {computed, type ComputedRef} from "vue";
 
-    const value: string = useSlots().default().at(0).children.toString();
+    interface Slot {
+        default(): {
+            children: string;
+        }[];
+    }
+
+    const slots = defineSlots<Slot>();
+
+    const value: string = slots.default()[0].children.toString();
     const isTrue: ComputedRef<boolean> = computed(() => parseInt(value) === 1 || value.toLowerCase() === 'true' || value.toLowerCase() === 'yes');
 </script>
 

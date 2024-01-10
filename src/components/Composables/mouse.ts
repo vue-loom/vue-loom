@@ -3,6 +3,7 @@ import {getContrastColor} from "@/components/Partials/colors";
 
 export function useClickOutside(component: Ref<HTMLElement | null>, callback: () => void) {
     if (!component) return;
+
     const listener = (event: MouseEvent): void => {
         if (event.target !== component.value && event.composedPath().includes(component.value)) {
             return;

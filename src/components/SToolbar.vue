@@ -24,7 +24,7 @@
     }));
 
     interface Emits {
-        (event: 'click:menuIcon');
+        (event: 'click:menuIcon'): void;
     }
 
     const emits = defineEmits<Emits>();

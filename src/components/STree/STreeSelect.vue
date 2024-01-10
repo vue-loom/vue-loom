@@ -40,7 +40,7 @@
     const focused: Ref<boolean> = ref(false);
     const term: Ref<string> = ref('');
 
-    const updateTerm = (event: InputEvent): string => term.value = (event.target as HTMLElement).innerText;
+    const updateTerm = (payload: Event): string => term.value = (payload.target as HTMLElement).innerText;
 
     const focusInput = (): void => {
         if (!props.readonly) {
@@ -55,20 +55,20 @@
 
     const inputDiv: Ref<HTMLElement | null> = ref(null);
 
-    useClickOutside(inputDiv, () => {
+    useClickOutside(inputDiv, (): void => {
         blurInput();
     });
 
     const textFieldLabel: Ref<HTMLElement | null> = ref(null);
     const textFieldLabelWidth: Ref<number> = ref(0);
 
-    const setBorderGapWidth = () => {
+    const setBorderGapWidth = (): void => {
         if (textFieldLabel.value) {
             textFieldLabelWidth.value = textFieldLabel.value.getBoundingClientRect().width + 4;
         }
     };
 
-    onMounted(() => {
+    onMounted((): void => {
         setBorderGapWidth();
     });
 
@@ -83,7 +83,17 @@
         (event.target as HTMLTextAreaElement).blur();
     };
 
-    const displayName: ComputedRef<string> = computed(() => selectedItem.value ? selectedItem.value[props.itemName] : '');
+    const findSelectedItem = () => {
+        if (innerModelValue.value) {
+            return findItemFromInnerValue(props.items, innerModelValue.value);
+        }
+
+        return null;
+    };
+
+    const selectedItem: Ref<TreeItem | null> = ref(findSelectedItem());
+
+    const displayName: ComputedRef<string> = computed(() => selectedItem.value ? selectedItem.value.name : '');
 
     const inputClassObject: ComputedRef<object> = computed(() => ({
         [resolveBorder(props.color)]: focused.value,
@@ -120,7 +130,7 @@
     };
 
     interface Emits {
-        (event: 'update:modelValue', data: number | string);
+        (event: 'update:modelValue', data: number | string | null): void;
     }
 
     const emits = defineEmits<Emits>();
@@ -147,30 +157,23 @@
         return findItemFromInnerValue(items, node.id);
     };
 
-    const findSelectedItem = () => {
-        if (innerModelValue.value) {
-            return findItemFromInnerValue(props.items, innerModelValue.value);
-        }
-
-        return null;
-    };
-
-    const selectedItem: Ref<object | null> = ref(findSelectedItem());
-
-    watch(() => props.modelValue, (value: number | string | null) => {
+    watch((): number | string | null => props.modelValue, (value: number | string | null): void => {
         innerModelValue.value = value;
 
         selectedItem.value = findSelectedItem();
     });
 
-    watch(() => props.errorMessage, (value) => {
+    watch((): string => props.errorMessage, (value): void => {
         innerErrorMessage.value = value;
     });
 
     const selectItem = (node: TreeNode): void => {
         innerErrorMessage.value = '';
         selectedItem.value = findItem(props.items, node);
-        innerModelValue.value = selectedItem.value[props.itemValue];
+
+        if (selectedItem.value) {
+            innerModelValue.value = selectedItem.value.id;
+        }
 
         emits('update:modelValue', innerModelValue.value);
     }

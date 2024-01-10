@@ -24,7 +24,7 @@
     watch(() => props.modelValue, (value) => innerModelValue.value = value);
 
     interface Emits {
-        (event: 'update:modelValue', data: boolean);
+        (event: 'update:modelValue', data: boolean): void;
     }
 
     const emits = defineEmits<Emits>();

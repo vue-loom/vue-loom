@@ -23,7 +23,7 @@
     });
 
     interface Emits {
-        (event: 'update:modelValue', data: boolean);
+        (event: 'update:modelValue', data: boolean): void;
     }
 
     const emits = defineEmits<Emits>();
@@ -32,13 +32,13 @@
     const menu: Ref<HTMLElement | null> = ref(null);
     const triggerContainer: Ref<HTMLElement | null> = ref(null);
 
-    const closeOnEscape = (e: KeyboardEvent) => {
+    const closeOnEscape = (e: KeyboardEvent): void => {
         if (open.value && e.key === 'Escape') {
             open.value = false;
         }
     };
 
-    const openMenu = () => {
+    const openMenu = (): void => {
         if (!props.disabled) {
             open.value = true;
             emits('update:modelValue', open.value);
@@ -46,17 +46,17 @@
         }
     }
 
-    const closeOnContent = () => {
+    const closeOnContent = (): void => {
         if (props.closeOnContentClick) {
             closeMenu();
         }
     };
 
-    const closeMenu = () => {
+    const closeMenu = (): void => {
         open.value = false;
     };
 
-    watch(() => props.modelValue, () => {
+    watch((): boolean => props.modelValue, (): void => {
         if (!props.modelValue) {
             closeMenu();
         } else {
@@ -64,12 +64,12 @@
         }
     });
 
-    onMounted(() => {
+    onMounted((): void => {
         document.addEventListener('keydown', closeOnEscape);
         document.addEventListener('scroll', closeMenu);
     });
 
-    onUnmounted(() => {
+    onUnmounted((): void => {
         document.removeEventListener('keydown', closeOnEscape)
         document.removeEventListener('scroll', closeMenu)
     });

@@ -1,6 +1,4 @@
 <script setup lang="ts">
-    import {useSlots} from "vue";
-
     interface Props {
         term?: string;
         searchable?: boolean;
@@ -11,7 +9,15 @@
         searchable: false,
     });
 
-    const displayText: string = useSlots().default().at(0).children.toString();
+    interface Slot {
+        default(): {
+            children: string;
+        }[];
+    }
+
+    const slots = defineSlots<Slot>();
+
+    const displayText: string = slots.default()[0].children.toString();
 </script>
 
 <template>

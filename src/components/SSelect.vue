@@ -44,7 +44,7 @@
     const focused: Ref<boolean> = ref(false);
     const term: Ref<string> = ref('');
 
-    const updateTerm = (event: InputEvent): string => term.value = (event.target as HTMLElement).innerText;
+    const updateTerm = (payload: Event): string => term.value = (payload.target as HTMLElement).innerText;
 
     const filteredItems: ComputedRef<SelectItem[]> = computed(() => {
         if (props.searchable && term.value) {
@@ -57,13 +57,13 @@
     const textFieldLabel: Ref<HTMLElement | null> = ref(null);
     const textFieldLabelWidth: Ref<number> = ref(0);
 
-    const setBorderGapWidth = () => {
+    const setBorderGapWidth = (): void => {
         if (textFieldLabel.value) {
             textFieldLabelWidth.value = textFieldLabel.value.getBoundingClientRect().width + 4;
         }
     };
 
-    onMounted(() => {
+    onMounted((): void => {
         setBorderGapWidth();
     });
 
@@ -87,11 +87,11 @@
 
     const inputDiv: Ref<HTMLElement | null> = ref(null);
 
-    useClickOutside(inputDiv, () => {
+    useClickOutside(inputDiv, (): void => {
         blurInput();
     });
 
-    const disableNewLine = (event: KeyboardEvent) => {
+    const disableNewLine = (event: KeyboardEvent): void => {
         (event.target as HTMLTextAreaElement).blur();
     };
 
@@ -116,7 +116,7 @@
     }));
 
     interface Emits {
-        (event: 'update:modelValue', data: number | string);
+        (event: 'update:modelValue', data: number | string): void;
     }
 
     const emits = defineEmits<Emits>();
@@ -124,7 +124,7 @@
     watch(() => props.modelValue, (value: number | string | null) => {
         innerModelValue.value = value;
 
-        selectedItem.value = innerModelValue.value ? props.items.find((item: SelectItem) => item[props.itemValue] === innerModelValue.value) : null;
+        selectedItem.value = innerModelValue.value ? (props.items.find((item: SelectItem) => item[props.itemValue] === innerModelValue.value) || null) : null;
     });
 
     watch(() => props.errorMessage, (value) => {

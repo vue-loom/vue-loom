@@ -4,20 +4,20 @@
     import {computed, type ComputedRef, watch} from "vue";
     import {usePage} from "@inertiajs/vue3";
 
-    const flash: ComputedRef<Flash> = computed(() => usePage().props.flash);
+    const flash: ComputedRef<Flash> = computed(() => usePage().props.flash as Flash);
     const type = computed(() => flash.value.messageStyle || 'success');
     const subtitle = computed(() => flash.value.message);
     const duration = computed(() => flash.value.messageDuration || 3000);
 
     const clearMessage = () => {
-        (usePage().props.flash as Flash).message = null;
+        (usePage().props.flash as Flash).message = '';
     };
 
     watch(subtitle, () => {
-        if (subtitle.value !== null) {
+        if (subtitle.value) {
             useToast().show({
                 title: type.value,
-                subtitle: subtitle.value,
+                subtitle: subtitle.value || '',
                 type: type.value as 'success' | 'warning' | 'info' | 'error',
                 duration: duration.value,
             });

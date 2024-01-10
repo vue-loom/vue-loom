@@ -4,7 +4,7 @@
     import SIcon from "@/components/SIcon.vue";
 
     interface Props {
-        modelValue: string | null;
+        modelValue: string;
         label?: string;
         color?: string,
         clearable?: boolean;
@@ -33,26 +33,26 @@
     const innerErrorMessage: Ref<string> = ref(props.errorMessage);
 
     interface Emits {
-        (event: 'update:modelValue', data: string);
+        (event: 'update:modelValue', data: string): void;
 
-        (event: 'focus');
+        (event: 'focus'): void;
 
-        (event: 'blur');
+        (event: 'blur'): void;
     }
 
     const emits = defineEmits<Emits>();
 
-    watch(() => props.modelValue, (value) => {
+    watch((): string => props.modelValue, (value): void => {
         innerModelValue.value = value;
     });
 
-    watch(innerModelValue, (val) => {
+    watch(innerModelValue, (val): void => {
         innerErrorMessage.value = '';
 
         emits('update:modelValue', val);
     });
 
-    watch(() => props.errorMessage, (value) => {
+    watch((): string => props.errorMessage, (value): void => {
         innerErrorMessage.value = value;
     });
 
@@ -61,30 +61,30 @@
     const textAreaLabel: Ref<HTMLElement | null> = ref(null);
     const textAreaLabelWidth: Ref<number> = ref(0);
 
-    const setBorderGapWidth = () => {
+    const setBorderGapWidth = (): void => {
         if (textAreaLabel.value) {
             textAreaLabelWidth.value = textAreaLabel.value.getBoundingClientRect().width + 4;
         }
     };
 
-    onMounted(() => {
+    onMounted((): void => {
         setBorderGapWidth();
     });
 
     const focusTextArea = (): void => {
-        textArea.value.focus();
+        textArea.value?.focus();
         focused.value = true;
         emits('focus');
     };
 
     const blurTextArea = (): void => {
-        textArea.value.blur();
+        textArea.value?.blur();
         focused.value = false;
         emits('blur');
     }
 
     const textAreaAdjust = (): void => {
-        if (textArea.value.scrollHeight > textArea.value.clientHeight) {
+        if (textArea.value && textArea.value.scrollHeight > textArea.value.clientHeight) {
             textArea.value.style.height = '1px';
             textArea.value.style.height = `${textArea.value.scrollHeight}px`;
         }
@@ -92,7 +92,7 @@
 
     const clearTextArea = (): void => {
         innerModelValue.value = '';
-        textArea.value.focus();
+        textArea.value?.focus();
     }
 
     const detailsClassObject: ComputedRef<object> = computed(() => ({
@@ -109,11 +109,8 @@
     }));
 
     const inputClassObject: ComputedRef<object> = computed(() => ({
-        // [resolveRingFocus(props.color)]: focused.value,
         [resolveBorderFocus(props.color)]: focused.value,
-        // 'ring-gray-300': !focused.value,
         'border-gray-300': !focused.value,
-        // '!ring-red-600': props.errorMessage,
         '!border-red-600': props.errorMessage,
         'overflow-hidden': props.autoGrowth,
     }));
@@ -143,7 +140,7 @@
                   :rows="rows"
                   :readonly="readOnly"
                   :autofocus="autoFocus"
-                  :maxlength="maxLength"
+                  :maxlength="maxLength as number"
                   v-model="innerModelValue"
                   @focus="focusTextArea()"
                   @blur="blurTextArea()"
@@ -155,7 +152,7 @@
                 {{ errorMessage }}
             </div>
             <div class="text-xs text-gray-500 text-end pr-2 whitespace-nowrap"
-                 v-if="maxLength && typeof innerModelValue === 'string'">
+                 v-if="maxLength">
                 {{ innerModelValue.length }} / {{ maxLength }}
             </div>
         </div>

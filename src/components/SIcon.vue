@@ -1,5 +1,5 @@
 <script setup lang="ts">
-    import {computed, type ComputedRef} from "vue";
+    import {type Component, computed, type ComputedRef} from "vue";
     import {resolveText} from "@/components/Partials/colors";
     import * as OutlineIcons from '@heroicons/vue/24/outline';
     import * as SolidIcons from '@heroicons/vue/24/solid';
@@ -20,7 +20,7 @@
 
     const iconString: ComputedRef<string> = computed(() => `${props.icon.split('-').map((part) => part.ucFirst()).join('')}Icon`);
 
-    const IconComponent = computed(() => {
+    const iconComponent: ComputedRef<Component> = computed(() => {
         if (!props.solid) {
             return OutlineIcons[iconString.value];
         } else {
@@ -63,8 +63,13 @@
 </script>
 
 <template>
-    <IconComponent
-        aria-disabled="true"
+    <!--    <IconComponent-->
+    <!--        aria-disabled="true"-->
+    <!--        :class="[iconSize, iconColor]"-->
+    <!--        :style="{width: iconSizeStyle, height: iconSizeStyle}"-->
+    <!--    />-->
+    <component
+        :is="iconComponent"
         :class="[iconSize, iconColor]"
         :style="{width: iconSizeStyle, height: iconSizeStyle}"
     />

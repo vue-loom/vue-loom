@@ -46,7 +46,7 @@
     const focused: Ref<boolean> = ref(false);
     const term: Ref<string> = ref('');
 
-    const updateTerm = (event: InputEvent): string => term.value = (event.target as HTMLElement).innerText;
+    const updateTerm = (payload: Event): string => term.value = (payload.target as HTMLElement).innerText;
 
     const filteredItems: ComputedRef<SelectItem[]> = computed(() => {
         if (props.searchable && term.value) {
@@ -75,24 +75,24 @@
 
     const inputDiv: Ref<HTMLElement | null> = ref(null);
 
-    useClickOutside(inputDiv, () => {
+    useClickOutside(inputDiv, (): void => {
         blurInput();
     });
 
-    const disableNewLine = (event: KeyboardEvent) => {
+    const disableNewLine = (event: KeyboardEvent): void => {
         (event.target as HTMLTextAreaElement).blur();
     };
 
     const textFieldLabel: Ref<HTMLElement | null> = ref(null);
     const textFieldLabelWidth: Ref<number> = ref(0);
 
-    const setBorderGapWidth = () => {
+    const setBorderGapWidth = (): void => {
         if (textFieldLabel.value) {
             textFieldLabelWidth.value = textFieldLabel.value.getBoundingClientRect().width + 4;
         }
     };
 
-    onMounted(() => {
+    onMounted((): void => {
         setBorderGapWidth();
     });
 
@@ -107,18 +107,18 @@
     const selectedItems: Ref<SelectItem[]> = ref(innerModelValue.value ? props.items.filter((item: SelectItem) => innerModelValue.value.includes(item[props.itemValue] as never)) : []);
 
     interface Emits {
-        (event: 'update:modelValue', data: number[] | string[]);
+        (event: 'update:modelValue', data: number[] | string[]): void;
     }
 
     const emits = defineEmits<Emits>();
 
-    watch(() => props.modelValue, (value: number[] | string[]) => {
+    watch(() => props.modelValue, (value: number[] | string[]): void => {
         innerModelValue.value = value;
 
         selectedItems.value = innerModelValue.value.length > 0 ? props.items.filter((item: SelectItem) => innerModelValue.value.includes(item[props.itemValue] as never)) : [];
     });
 
-    watch(() => props.errorMessage, (value) => {
+    watch((): string => props.errorMessage, (value): void => {
         innerErrorMessage.value = value;
     });
 
@@ -141,7 +141,7 @@
         }
     }
 
-    const removeItem = (item: SelectItem) => {
+    const removeItem = (item: SelectItem): void => {
         if (!props.readonly) {
             const index = selectedItems.value.findIndex((innerItem: SelectItem) => item[props.itemValue] === innerItem[props.itemValue]);
 

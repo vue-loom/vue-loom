@@ -49,7 +49,7 @@
     const headerHeight: Ref<number> = ref(0);
     const headerRef: Ref<HTMLElement | null> = ref(null);
 
-    onMounted(() => {
+    onMounted((): void => {
         if (localStorage.step && props.preserveState) {
             innerModelValue.value = localStorage.step
         }
@@ -60,13 +60,13 @@
         contentHeight.value = Math.max(...contentRefs.value.map((contentEl: HTMLElement) => contentEl.getBoundingClientRect().height)) + headerHeight.value;
     });
 
-    watch(() => innerModelValue.value, (value: number) => {
+    watch((): number => innerModelValue.value, (value: number): void => {
         if (props.preserveState) {
             localStorage.step = value;
         }
     });
 
-    const selectStep = (index: number) => {
+    const selectStep = (index: number): void => {
         if (props.clickable) {
             innerModelValue.value = index;
 

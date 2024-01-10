@@ -40,7 +40,7 @@
     const parsedNodes: ComputedRef<TreeNode[]> = computed(() => props.items.map((item: TreeItem) => parseTreeNode(item)));
 
     const toggleNodeOpenState = (node: TreeNode): void => {
-        if (open.value.hasOwnProperty(node.id)) {
+        if (node.id in open.value) {
             open.value[node.id] = !open.value[node.id];
         } else {
             open.value[node.id] = true;
@@ -48,9 +48,9 @@
     };
 
     interface Emits {
-        (event: 'update:modelValue', data: number | string);
+        (event: 'update:modelValue', data: number | string | null): void;
 
-        (event: 'select:node', data: TreeItem | null);
+        (event: 'select:node', data: TreeItem | null): void;
     }
 
     const emits = defineEmits<Emits>();
@@ -109,7 +109,10 @@
 
     const selectItem = (node: TreeNode): void => {
         selectedItem.value = findItem(props.items, node);
-        innerModelValue.value = selectedItem.value[props.itemValue];
+
+        if (selectedItem.value) {
+            innerModelValue.value = selectedItem.value.id;
+        }
 
         emits('update:modelValue', innerModelValue.value);
         emits('select:node', selectedItem.value);

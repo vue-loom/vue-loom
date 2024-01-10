@@ -5,7 +5,7 @@
 
     interface Props {
         modelValue: boolean,
-        width?: number,
+        width?: number | null,
         persistent?: boolean,
     }
 
@@ -16,7 +16,7 @@
     });
 
     interface Emits {
-        (event: 'update:modelValue', data: boolean);
+        (event: 'update:modelValue', data: boolean): void;
     }
 
     const emits = defineEmits<Emits>();
@@ -25,7 +25,7 @@
     const dialogCard: Ref<HTMLElement | null> = ref(null);
     const persistentAnimation: Ref<boolean> = ref(false);
 
-    const closeDialog = () => {
+    const closeDialog = (): void => {
         if (!props.persistent) {
             innerModelValue.value = false;
             emits('update:modelValue', innerModelValue.value);

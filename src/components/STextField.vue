@@ -25,36 +25,33 @@
     const innerModelValue: Ref<string | number | null> = ref(props.modelValue);
     const innerErrorMessage: Ref<string> = ref(props.errorMessage);
 
-    watch(() => props.modelValue, (value) => {
+    watch((): string | number | null => props.modelValue, (value): void => {
         innerModelValue.value = value;
     });
 
-    watch(() => props.errorMessage, (value) => {
+    watch((): string => props.errorMessage, (value): void => {
         innerErrorMessage.value = value;
     });
 
     const hasSuffix: boolean = Object.keys(useSlots()).indexOf('suffix') !== -1;
     const inputClassObject: ComputedRef<object> = computed(() => ({
         'pr-9': hasSuffix,
-        // [resolveRingFocus(props.color)]: focused.value,
         [resolveBorderFocus(props.color)]: focused.value,
-        // 'ring-gray-300': !focused.value,
         'border-gray-300': !focused.value,
-        // '!ring-danger': innerErrorMessage.value,
         '!border-danger': innerErrorMessage.value,
     }));
 
     interface Emits {
-        (event: 'update:modelValue', data: string | number | null);
+        (event: 'update:modelValue', data: string | number | null): void;
 
-        (event: 'focus');
+        (event: 'focus'): void;
 
-        (event: 'blur');
+        (event: 'blur'): void;
     }
 
     const emits = defineEmits<Emits>();
 
-    watch(innerModelValue, (value) => {
+    watch(innerModelValue, (value): void => {
         innerErrorMessage.value = '';
         emits('update:modelValue', value);
     });
@@ -65,13 +62,13 @@
     const textFieldLabel: Ref<HTMLElement | null> = ref(null);
     const textFieldLabelWidth: Ref<number> = ref(0);
 
-    const setBorderGapWidth = () => {
+    const setBorderGapWidth = (): void => {
         if (textFieldLabel.value) {
             textFieldLabelWidth.value = textFieldLabel.value.getBoundingClientRect().width + 4;
         }
     };
 
-    onMounted(() => {
+    onMounted((): void => {
         setBorderGapWidth();
     });
 
@@ -84,7 +81,7 @@
     }));
 
     const focusInput = (): void => {
-        textField.value.focus();
+        textField.value?.focus();
         focused.value = true;
         emits('focus');
     };
