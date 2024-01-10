@@ -52,7 +52,7 @@
                 <template #content>
                     <div>
                         This is the content of tab one
-                        <SButton>Text</SButton>
+                        <VButton>Text</VButton>
                     </div>
                 </template>
             </VTab>
