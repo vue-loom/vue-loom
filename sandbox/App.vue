@@ -1,6 +1,8 @@
 <script setup lang="ts">
     import SCard from '../src/components/SCard.vue'
     import STextField from '../src/components/STextField.vue'
+
+    const textFieldValue = 'Test';
 </script>
 
 <template>
@@ -24,6 +26,7 @@
                 <STextField
                     class="w-full"
                     label="This is a very long label for my input"
+                    v-model="textFieldValue"
                 />
             </template>
         </SCard>

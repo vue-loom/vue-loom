@@ -35,7 +35,14 @@ export default defineConfig({
         },
         rollupOptions: {
             // Vue is provided by the parent project, don't compile Vue source-code inside our library.
-            external: ['vue', 'tailwindcss'],
+            external: [
+                'vue',
+                'dayjs',
+                '@heroicons/vue/24/outline',
+                '@heroicons/vue/24/solid',
+                '@inertiajs/vue3',
+                '@vitejs/plugin-vue'
+            ],
             output: {
                 globals: {vue: 'Vue'},
                 assetFileNames: 'assets/[name][extname]',
@@ -46,17 +53,26 @@ export default defineConfig({
 
                     return '[name].[format].js';
                 },
+                // sanitizeFileName: (fileName) => {
+                //     console.log(fileName)
+                //     return fileName;
+                // },
+                // chunkFileNames: (chunkInfo) => {
+                //     // console.log(chunkInfo)
+                //     return 'test.[format].js';
+                // }
+                preserveModules: true
             },
             input: Object.fromEntries(
                 glob.sync('src/**/*.{ts,vue}').map(file => [
                     // The name of the entry point
-                    // lib/nested/foo.ts becomes nested/foo
+                    // src/nested/foo.ts becomes nested/foo
                     relative(
                         'src',
                         file.slice(0, file.length - extname(file).length)
                     ),
                     // The absolute path to the entry file
-                    // lib/nested/foo.ts becomes /project/lib/nested/foo.ts
+                    // src/nested/foo.ts becomes /project/src/nested/foo.ts
                     fileURLToPath(new URL(file, import.meta.url))
                 ])
             )
