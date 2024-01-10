@@ -1,7 +1,7 @@
 <script setup lang="ts">
     import {computed, type ComputedRef, ref, type Ref, useSlots, watch} from "vue";
     import {resolveBg} from "@/components/Partials/colors";
-    import SIcon from "@/components/VIcon.vue";
+    import VIcon from "@/components/VIcon.vue";
 
     interface Props {
         modelValue: boolean,
@@ -69,10 +69,10 @@
                  v-show="props.modelValue"
             >
                 <div v-if="type" class="pr-2" :class="[hasTitle ? `pt-1` : '']">
-                    <SIcon solid icon="check-circle" color="success" v-if="type === 'success'"/>
-                    <SIcon solid icon="x-circle" color="danger" v-if="type === 'error'"/>
-                    <SIcon solid icon="exclamation-triangle" color="warning" v-if="type === 'warning'"/>
-                    <SIcon solid icon="exclamation-circle" v-if="type === 'info'"/>
+                    <VIcon solid icon="check-circle" color="success" v-if="type === 'success'"/>
+                    <VIcon solid icon="x-circle" color="danger" v-if="type === 'error'"/>
+                    <VIcon solid icon="exclamation-triangle" color="warning" v-if="type === 'warning'"/>
+                    <VIcon solid icon="exclamation-circle" v-if="type === 'info'"/>
                 </div>
                 <div>
                     <div class="font-bold capitalize">
@@ -90,7 +90,7 @@
                 </div>
                 <div class="pl-2">
                     <div class="hover:bg-black hover:bg-opacity-20 rounded-full cursor-pointer">
-                        <SIcon icon="x-mark" @click="closeToast()"/>
+                        <VIcon icon="x-mark" @click="closeToast()"/>
                     </div>
                 </div>
             </div>

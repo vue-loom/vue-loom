@@ -1,5 +1,5 @@
 <script setup lang="ts">
-    import SListItem from "@/components/VListItem.vue";
+    import VListItem from "@/components/VListItem.vue";
     import {ChevronDownIcon} from "@heroicons/vue/24/outline";
     import {type Ref, ref} from "vue";
 
@@ -33,7 +33,7 @@
 
 <template>
     <div class="overflow-hidden transition-all duration-150">
-        <SListItem
+        <VListItem
             class="select-none cursor-pointer"
             :disabled="disabled"
             @click="!readonly && !disabled ? arrowClicked() : ''"
@@ -53,7 +53,7 @@
                     />
                 </div>
             </template>
-        </SListItem>
+        </VListItem>
 
         <div ref="panel"
              class="bg-white transition-all duration-150 text-gray-700"

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-    import SIcon from "@/components/VIcon.vue";
+    import VIcon from "@/components/VIcon.vue";
     import {computed, type ComputedRef} from "vue";
 
     interface Props {
@@ -46,7 +46,7 @@
         class="cursor-pointer hover:bg-gray-50 p-1 rounded border border-primary/50"
         @click="updateDirection"
     >
-        <SIcon size="xs" color="primary" :icon="icon"/>
+        <VIcon size="xs" color="primary" :icon="icon"/>
     </div>
 </template>
 

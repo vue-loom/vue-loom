@@ -1,5 +1,5 @@
 <script setup lang="ts">
-    import SOTPInput from "@/components/OTPInput/VOTPInput.vue";
+    import VOTPInput from "@/components/OTPInput/VOTPInput.vue";
     import {computed, type ComputedRef, ref, type Ref, watch} from "vue";
     import {resolveBorderFocus} from "@/components/Partials/colors";
 
@@ -50,8 +50,9 @@
 <template>
     <div class="flex space-x-2">
         <!--    v-for="field in length"-->
-        <SOTPInput :class="inputClassObject"
-                   v-model="innerModelValue"
+        <VOTPInput
+            :class="inputClassObject"
+            v-model="innerModelValue"
         />
     </div>
 </template>

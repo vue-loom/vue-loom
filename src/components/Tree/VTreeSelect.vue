@@ -1,11 +1,11 @@
 <script setup lang="ts">
     import {computed, type ComputedRef, onMounted, type Ref, ref} from 'vue';
     import {resolveText, resolveRing, resolveBorder} from "@/components/Partials/colors";
-    import STreeNode from "@/components/Tree/Partials/VTreeNode.vue";
+    import VTreeNode from "@/components/Tree/Partials/VTreeNode.vue";
     import {watch} from "vue";
     import VMenu from "@/components/VMenu.vue";
     import {useClickOutside} from "@/components/Composables/mouse";
-    import SIcon from "@/components/VIcon.vue";
+    import VIcon from "@/components/VIcon.vue";
 
     interface Props {
         modelValue: number | string | null;
@@ -195,7 +195,7 @@
                 >{{ label }}
                 </div>
 
-                <SIcon icon="chevron-down"
+                <VIcon icon="chevron-down"
                        class="absolute right-2 top-1/2 -translate-y-1/2 transition-all duration-150"
                        :color="open ? color : ''"
                        :class="{'rotate-180': open}"
@@ -231,7 +231,7 @@
                          items.length > 0 ? 'max-h-56' : '',
                      ]"
                 >
-                    <STreeNode
+                    <VTreeNode
                         :node="node"
                         :color="color"
                         :key="node.id"

@@ -1,6 +1,6 @@
 <script setup lang="ts">
     import type {Ref} from "vue";
-    import SCard from "@/components/VCard.vue";
+    import VCard from "@/components/VCard.vue";
     import {ref} from "vue";
 
     interface Props {
@@ -56,7 +56,7 @@
              @scroll.prevent
              @click="persistent ? togglePersistent() : closeDialog()"
              v-if="modelValue">
-            <SCard ref="dialogCard"
+            <VCard ref="dialogCard"
                    class="p-4 transition-all duration-[50ms] ease-in max-w-4xl w-full"
                    :class="[persistentAnimation ? 'scale-[1.01]' : '']"
                    @click.stop>
@@ -72,7 +72,7 @@
                 <template #actions>
                     <slot name="actions"/>
                 </template>
-            </SCard>
+            </VCard>
         </div>
     </Transition>
 </template>

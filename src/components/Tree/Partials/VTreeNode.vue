@@ -2,7 +2,7 @@
     import {resolveBg, resolveBgHover, resolveText} from "@/components/Partials/colors";
     import {type ComputedRef} from "vue";
     import {computed} from "vue";
-    import SIcon from "@/components/VIcon.vue";
+    import VIcon from "@/components/VIcon.vue";
 
     interface Props {
         node: TreeNode;
@@ -51,7 +51,7 @@
         >
             <div class="w-full h-9 flex space-x-1 items-center">
                 <div class="w-4 h-full flex items-center" @click="$emit('node:expand', node)">
-                    <SIcon icon="chevron-down"
+                    <VIcon icon="chevron-down"
                            class="transition-all duration-150"
                            :color="node.expanded ? color : ''"
                            :class="{'rotate-180': node.expanded}"
@@ -65,7 +65,7 @@
 
         <div class="pl-5 w-full overflow-hidden transition-all duration-150"
              :style="{height: `${getNodeHeight(node)}px`}">
-            <STreeNode
+            <VTreeNode
                 :node="child"
                 :color="color"
                 :key="child.id"

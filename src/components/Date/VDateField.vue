@@ -4,7 +4,7 @@
     import {CalendarDaysIcon as SolidCalender} from "@heroicons/vue/24/solid";
     import {computed, type ComputedRef, ref, type Ref} from "vue";
     import VMenu from "@/components/VMenu.vue";
-    import SDatePicker from "@/components/Date/VDatePicker.vue";
+    import VDatePicker from "@/components/Date/VDatePicker.vue";
     import {resolveText} from "@/components/Partials/colors";
     import dayjs from "dayjs";
 
@@ -81,22 +81,24 @@
                 >
                     <template #suffix>
                         <div>
-                            <OutlinedCalender v-if="!focused"
-                                              class="w-5 h-5 transition-all duration-150"
-                                              aria-disabled="true"
-                                              :class="[focused ? `${resolveText(color)}` : 'text-gray-400']"
+                            <OutlinedCalender
+                                v-if="!focused"
+                                class="w-5 h-5 transition-all duration-150"
+                                aria-disabled="true"
+                                :class="[focused ? `${resolveText(color)}` : 'text-gray-400']"
                             />
-                            <SolidCalender v-else
-                                           class="w-5 h-5 transition-all duration-150"
-                                           aria-disabled="true"
-                                           :class="[focused ? `${resolveText(color)}` : 'text-gray-400']"
+                            <SolidCalender
+                                v-else
+                                class="w-5 h-5 transition-all duration-150"
+                                aria-disabled="true"
+                                :class="[focused ? `${resolveText(color)}` : 'text-gray-400']"
                             />
                         </div>
                     </template>
                 </STextField>
             </template>
             <template #content>
-                <SDatePicker
+                <VDatePicker
                     v-model="innerModelValue"
                     :color="color"
                     :elevation="elevation"

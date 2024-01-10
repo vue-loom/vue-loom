@@ -1,5 +1,5 @@
 <script setup lang="ts">
-    import STreeNode from "@/components/Tree/Partials/VTreeNode.vue";
+    import VTreeNode from "@/components/Tree/Partials/VTreeNode.vue";
     import {ref, type Ref} from "vue";
     import {computed, type ComputedRef, watch} from "vue";
 
@@ -120,7 +120,7 @@
 </script>
 
 <template>
-    <STreeNode
+    <VTreeNode
         :node="node"
         :color="color"
         :key="node.id"
