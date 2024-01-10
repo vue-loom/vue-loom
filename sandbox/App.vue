@@ -2,6 +2,10 @@
     import STextField from '../src/components/STextField.vue'
     import SStepper from "@/components/SStepper/SStepper.vue";
     import SStep from "@/components/SStepper/SStep.vue";
+    import STab from "@/components/STab/STab.vue";
+    import STabs from "@/components/STab/STabs.vue";
+    import SButton from "@/components/SButton.vue";
+
 </script>
 
 <template>
@@ -39,6 +43,64 @@
                 </template>
             </SStep>
         </SStepper>
+
+        <STabs class="mt-4" grow-tabs elevation>
+            <STab>
+                <template #tab>Tab One</template>
+                <template #content>
+                    <div>
+                        This is the content of tab one
+                        <SButton>Text</SButton>
+                    </div>
+                </template>
+            </STab>
+            <STab>
+                <template #tab>
+                    Tab two
+                </template>
+                <template #content>
+                    <div>
+                        <div>This is the second tab content with element div</div>
+                        <div>This is the second tab content with element div</div>
+                        <div>This is the second tab content with element div</div>
+                        <div>This is the second tab content with element div</div>
+                        <div>This is the second tab content with element div</div>
+                        <div>This is the second tab content with element div</div>
+                    </div>
+                </template>
+            </STab>
+            <STab>
+                <template #tab>
+                    Tab three
+                </template>
+                <template #content>
+                    <div>
+                        <div>This is the third tab content with element div</div>
+                        <div>This is the third tab content with element div</div>
+                        <div>This is the third tab content with element div</div>
+                        <div>This is the third tab content with element div</div>
+                    </div>
+                </template>
+            </STab>
+            <STab>
+                <template #tab>
+                    Tab four
+                </template>
+                <template #content>
+                    <div>
+                        <div>This is the fourth tab content with element div</div>
+                    </div>
+                </template>
+            </STab>
+            <STab>
+                <template #tab>
+                    Tab five
+                </template>
+                <template #content>
+                    <SButton>This works</SButton>
+                </template>
+            </STab>
+        </STabs>
     </main>
 </template>
 

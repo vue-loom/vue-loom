@@ -1,6 +1,5 @@
 <script setup lang="ts">
-    import {ref, type Ref, useSlots, computed, type ComputedRef, onMounted} from "vue";
-    import {type VNodeNormalizedChildren} from "@vue/runtime-core";
+    import {ref, type Ref, computed, type ComputedRef, onMounted, type Component} from "vue";
     import {getContrastColorClass, resolveBg} from "@/components/Partials/colors";
 
     interface Props {
@@ -24,50 +23,56 @@
     });
 
     interface Emits {
-        (event: 'update:modelValue', data: number);
+        (event: 'update:modelValue', data: number): void;
     }
 
     const emits = defineEmits<Emits>();
 
     const innerModelValue: Ref<number> = ref(props.modelValue);
 
-    const tabs: VNodeNormalizedChildren = useSlots().default();
-    const tabLabels = tabs.map((tab) => tab.children.tab().at(0).children.toString().trim());
-    const tabContentSections = tabs.map((tab) => tab.children.content().at(0));
+    interface Tab {
+        children: {
+            tab(): {children: string}[];
+            content(): Component[];
+        };
+    }
 
-    const labelRefs = ref([]);
-    const contentRefs = ref([]);
+    interface Slot {
+        default(): Tab[];
+    }
+
+    const slots = defineSlots<Slot>();
+    const tabs: Tab[] = slots.default();
+
+    console.log(tabs[0].children)
+
+    const tabLabels: string[] = tabs.map((tab) => tab.children.tab()[0].children.toString().trim());
+    const tabContentSections: Component[] = tabs.map((tab) => tab.children.content()[0]);
+
+    const labelRefs: Ref<HTMLElement[]> = ref([]);
+    const contentRefs: Ref<HTMLElement[]> = ref([]);
     const contentHeight: Ref<number> = ref(0);
     const headerHeight: Ref<number> = ref(0);
     const headerRef: Ref<HTMLElement | null> = ref(null);
 
-    const contentWidth: Ref<number> = ref(0);
-    const headerWidth: Ref<number> = ref(0);
-
     onMounted(() => {
-            headerHeight.value = headerRef.value.getBoundingClientRect().height;
+            if (headerRef.value) {
+                headerHeight.value = headerRef.value.getBoundingClientRect().height;
+            }
             contentHeight.value = Math.max(...contentRefs.value.map((contentEl: HTMLElement) => contentEl.getBoundingClientRect().height)) + headerHeight.value;
     });
 
-    const selectTab = (index: number, event: MouseEvent) => {
+    const selectTab = (index: number) => {
         innerModelValue.value = index;
-        createRipple(index, event);
 
         emits('update:modelValue', innerModelValue.value);
-    }
-
-    // const tabRef: Ref<HTMLElement | null> = ref(null);
-
-    const createRipple = (index: number, event: MouseEvent) => {
-        // console.log(contentRefs)
-        // useRipple(event, contentRefs);
     }
 
     const frameClassObject: ComputedRef<object> = computed(() => ({
         'shadow-xl': props.elevation,
     }));
 
-    const tabClassObject = (index: number) => ({
+    const tabClassObject = () => ({
         [`${resolveBg(props.color)} text-${getContrastColorClass(props.color)}`]: props.color,
         'grow': props.growTabs,
     });
@@ -94,8 +99,8 @@
                  v-for="(tabLabel, index) in tabLabels"
                  :key="index"
                  class="relative text-center overflow-hidden w-fit cursor-pointer select-none transition-all duration-150"
-                 :class="[tabClassObject(index), `hover:bg-${getContrastColorClass(props.color)}/10`]"
-                 @click="selectTab(index, $event)">
+                 :class="[tabClassObject(), `hover:bg-${getContrastColorClass(props.color)}/10`]"
+                 @click="selectTab(index)">
                 <div class="py-2 px-4">{{ tabLabel }}</div>
                 <transition
                     enter-active-class="transition-all duration-300"
