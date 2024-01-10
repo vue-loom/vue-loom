@@ -5,7 +5,7 @@ import VDialog from "./components/Dialog/VDialog.vue";
 import VDialogService from "./components/Dialog/VDialogService.vue";
 import VExpansionPanel from "./components/ExpansionPanel/VExpansionPanel.vue";
 import VExpansionPanels from "./components/ExpansionPanel/VExpansionPanels.vue";
-import VStep from "./components/Stepper/VStep.vue"
+import VStep from "./components/Stepper/VStep.vue";
 import VStepper from "./components/Stepper/VStepper.vue";
 import VTab from "./components/Tab/VTab.vue";
 import VTabs from "./components/Tab/VTabs.vue";
