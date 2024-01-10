@@ -18,13 +18,15 @@
         color: 'gray-500',
     });
 
-    const iconString: ComputedRef<string> = computed(() => `${props.icon.split('-').map((part) => part.ucFirst()).join('')}Icon`);
+    const iconString: ComputedRef<string> = computed(() => `${props.icon.split('-')
+        .map((part) => part[0].toUpperCase() + (part.length > 1 ? part.slice(1).toLowerCase() : ''))
+        .join('')}Icon`);
 
     const iconComponent: ComputedRef<Component> = computed(() => {
         if (!props.solid) {
-            return OutlineIcons[iconString.value];
+            return OutlineIcons[iconString.value as keyof typeof OutlineIcons];
         } else {
-            return SolidIcons[iconString.value];
+            return SolidIcons[iconString.value as keyof typeof SolidIcons];
         }
     });
 
@@ -63,12 +65,8 @@
 </script>
 
 <template>
-    <!--    <IconComponent-->
-    <!--        aria-disabled="true"-->
-    <!--        :class="[iconSize, iconColor]"-->
-    <!--        :style="{width: iconSizeStyle, height: iconSizeStyle}"-->
-    <!--    />-->
     <component
+        aria-disabled="true"
         :is="iconComponent"
         :class="[iconSize, iconColor]"
         :style="{width: iconSizeStyle, height: iconSizeStyle}"
