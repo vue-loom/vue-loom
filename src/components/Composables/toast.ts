@@ -42,7 +42,7 @@ const toast: Ref<Toast> = ref({
         toast.value.rounded = params.rounded || toast.value.rounded;
         toast.value.value = true;
 
-        if (toast.value.duration && typeof toast.value.duration === 'number' && toast.value.duration !== 0) {
+        if (toast.value.duration && toast.value.duration !== 0) {
             setTimeout(() => {
                 toast.value.value = false;
             }, toast.value.duration);

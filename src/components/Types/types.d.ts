@@ -85,7 +85,7 @@ interface TreeItem {
 }
 
 interface TreeNode {
-    id: number | null;
+    id: number;
     name: string;
     children: TreeNode[];
     selected: boolean;

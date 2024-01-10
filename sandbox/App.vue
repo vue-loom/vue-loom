@@ -1,34 +1,108 @@
 <script setup lang="ts">
-    import SCard from '../src/components/SCard.vue'
-    import STextField from '../src/components/STextField.vue'
-
-    const textFieldValue = 'Test';
+    import VTextField from '../src/components/VTextField.vue'
+    import VStepper from "../src/components/Stepper/VStepper.vue";
+    import VStep from "../src/components/Stepper/VStep.vue";
+    import VTab from "../src/components/Tab/VTab.vue";
+    import VTabs from "../src/components/Tab/VTabs.vue";
+    import VButton from "../src/components/VButton.vue";
+    import VIcon from "../src/components/VIcon.vue";
 </script>
 
 <template>
     <main>
         <h1 class="bg-blue-600 text-9xl">Welcome to your your sandbox environment</h1>
 
-        <div class="w-10 h-10 bg-red-500"></div>
+        <VTextField
+            class="w-full"
+            label="This is a very long label for my input"
+            :model-value="''"
+        />
 
-        <h1 class="text-3xl font-bold underline">
-            Hello world!
-        </h1>
+        <VStepper class="mt-4" clickable preserve-state elevation>
+            <VStep>
+                <template #step>
+                    <div>Step One</div>
+                </template>
+                <template #content>
+                    The first step is to move to step two!
+                </template>
+            </VStep>
+            <VStep>
+                <template #step>
+                    Step Two
+                </template>
+                <template #content>
+                    The second step is to move to step three!
+                </template>
+            </VStep>
+            <VStep>
+                <template #step>
+                    Step Three
+                </template>
+                <template #content>
+                    This is the last step. Weldon!!
+                </template>
+            </VStep>
+        </VStepper>
 
-        <SCard color="red-500">
-            <template #title>
-                Page Title
-            </template>
-            <template #subtitle>
-                This is my subtitle
-            </template>
-            <template #content>
-                <STextField
-                    class="w-full"
-                    label="This is a very long label for my input"
-                    v-model="textFieldValue"
-                />
-            </template>
-        </SCard>
+        <VTabs class="mt-4" grow-tabs elevation>
+            <VTab>
+                <template #tab>Tab One</template>
+                <template #content>
+                    <div>
+                        This is the content of tab one
+                        <SButton>Text</SButton>
+                    </div>
+                </template>
+            </VTab>
+            <VTab>
+                <template #tab>
+                    Tab two
+                </template>
+                <template #content>
+                    <div>
+                        <div>This is the second tab content with element div</div>
+                        <div>This is the second tab content with element div</div>
+                        <div>This is the second tab content with element div</div>
+                        <div>This is the second tab content with element div</div>
+                        <div>This is the second tab content with element div</div>
+                        <div>This is the second tab content with element div</div>
+                    </div>
+                </template>
+            </VTab>
+            <VTab>
+                <template #tab>
+                    Tab three
+                </template>
+                <template #content>
+                    <div>
+                        <div>This is the third tab content with element div</div>
+                        <div>This is the third tab content with element div</div>
+                        <div>This is the third tab content with element div</div>
+                        <div>This is the third tab content with element div</div>
+                    </div>
+                </template>
+            </VTab>
+            <VTab>
+                <template #tab>
+                    Tab four
+                </template>
+                <template #content>
+                    <div>
+                        <div>This is the fourth tab content with element div</div>
+                    </div>
+                </template>
+            </VTab>
+            <VTab>
+                <template #tab>
+                    Tab five
+                </template>
+                <template #content>
+                    <VButton>This works</VButton>
+                </template>
+            </VTab>
+        </VTabs>
+
+        <VIcon icon="plus"/>
     </main>
 </template>
