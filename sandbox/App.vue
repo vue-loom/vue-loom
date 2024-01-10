@@ -5,6 +5,7 @@
     import STab from "@/components/STab/STab.vue";
     import STabs from "@/components/STab/STabs.vue";
     import SButton from "@/components/SButton.vue";
+    import SIcon from "@/components/SIcon.vue";
 
 </script>
 
@@ -101,6 +102,8 @@
                 </template>
             </STab>
         </STabs>
+
+        <SIcon icon="plus"/>
     </main>
 </template>
 

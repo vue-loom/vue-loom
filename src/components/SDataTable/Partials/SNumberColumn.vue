@@ -1,6 +1,4 @@
 <script setup lang="ts">
-    import {useSlots} from "vue";
-
     interface Props {
         term?: string;
         searchable?: boolean;
@@ -11,7 +9,15 @@
         searchable: false,
     });
 
-    const displayNumber = Math.round((parseFloat(useSlots().default().at(0).children.toString()) + Number.EPSILON) * 100) / 100;
+    interface Slot {
+        default(): {
+            children: string;
+        }[];
+    }
+
+    const slots = defineSlots<Slot>();
+
+    const displayNumber = Math.round((parseFloat(slots.default()[0].children.toString()) + Number.EPSILON) * 100) / 100;
 </script>
 
 <template>

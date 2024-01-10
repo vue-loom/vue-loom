@@ -39,14 +39,14 @@
     });
 
     interface Emits {
-        (event: 'update:modelValue', data: string | null);
+        (event: 'update:modelValue', data: string | null): void;
     }
 
     const emits = defineEmits<Emits>();
 
     const innerModelValue: Ref<string | null> = ref(props.modelValue);
 
-    const selectedDate = () => {
+    const selectedDate = (): void => {
         emits('update:modelValue', innerModelValue.value);
     }
 

@@ -53,14 +53,14 @@
     const headerHeight: Ref<number> = ref(0);
     const headerRef: Ref<HTMLElement | null> = ref(null);
 
-    onMounted(() => {
+    onMounted((): void => {
             if (headerRef.value) {
                 headerHeight.value = headerRef.value.getBoundingClientRect().height;
             }
             contentHeight.value = Math.max(...contentRefs.value.map((contentEl: HTMLElement) => contentEl.getBoundingClientRect().height)) + headerHeight.value;
     });
 
-    const selectTab = (index: number) => {
+    const selectTab = (index: number): void => {
         innerModelValue.value = index;
 
         emits('update:modelValue', innerModelValue.value);
@@ -70,12 +70,12 @@
         'shadow-xl': props.elevation,
     }));
 
-    const tabClassObject = () => ({
+    const tabClassObject = (): object => ({
         [`${resolveBg(props.color)} text-${getContrastColorClass(props.color)}`]: props.color,
         'grow': props.growTabs,
     });
 
-    const contentClassObject = (index: number) => ({
+    const contentClassObject = (index: number): object => ({
         'translate-x-0': index === innerModelValue.value,
         'translate-x-full': index > innerModelValue.value,
         '-translate-x-full': index < innerModelValue.value,

@@ -11,7 +11,7 @@
 
     const props = withDefaults(defineProps<Props>(), {
         node: () => ({
-            id: null,
+            id: 0,
             name: '',
             children: [],
             selected: false,
@@ -36,9 +36,9 @@
     };
 
     interface Emits {
-        (event: 'node:select', node: TreeNode);
+        (event: 'node:select', node: TreeNode): void;
 
-        (event: 'node:expand', node: TreeNode);
+        (event: 'node:expand', node: TreeNode): void;
     }
 
     defineEmits<Emits>();

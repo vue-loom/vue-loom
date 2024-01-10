@@ -1,8 +1,15 @@
 <script setup lang="ts">
-    import {useSlots} from "vue";
     import dayjs from "dayjs";
 
-    const value: string = useSlots().default().at(0).children.toString();
+    interface Slot {
+        default(): {
+            children: string;
+        }[];
+    }
+
+    const slots = defineSlots<Slot>();
+
+    const value: string = slots.default()[0].children.toString();
 </script>
 
 <template>

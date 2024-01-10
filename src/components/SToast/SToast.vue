@@ -1,9 +1,6 @@
 <script setup lang="ts">
     import {computed, type ComputedRef, ref, type Ref, useSlots, watch} from "vue";
     import {resolveBg} from "@/components/Partials/colors";
-    import {
-        XMarkIcon,
-    } from "@heroicons/vue/24/outline";
     import SIcon from "@/components/SIcon.vue";
 
     interface Props {
@@ -16,16 +13,16 @@
     }
 
     const props = withDefaults(defineProps<Props>(), {
-        modelValue: null,
+        modelValue: false,
         color: 'bg-gray-700',
         position: 'top-right',
-        duration: null,
+        duration: 3000,
         rounded: false,
-        type: null,
+        type: 'info',
     });
 
     interface Emits {
-        (event: 'update:modelValue', data: boolean);
+        (event: 'update:modelValue', data: boolean): void;
     }
 
     const emits = defineEmits<Emits>();
@@ -35,7 +32,7 @@
     const hasAction: ComputedRef<boolean> = computed(() => slots.includes('action'));
     const hasTitle: ComputedRef<boolean> = computed(() => slots.includes('title'));
 
-    watch(() => props.modelValue, () => {
+    watch((): boolean => props.modelValue, (): void => {
         if (props.duration) {
             setTimeout((): void => {
                 innerModelValue.value = false;
@@ -51,11 +48,10 @@
         'top-[72px] left-2': props.position === 'top-left',
     }));
 
-    const closeToast = () => {
+    const closeToast = (): void => {
         innerModelValue.value = false;
         emits('update:modelValue', innerModelValue.value);
     }
-
 </script>
 
 <template>

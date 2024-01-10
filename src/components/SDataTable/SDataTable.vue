@@ -72,8 +72,10 @@
         setDataMutatorsFromTable();
     });
 
-    const updateSort = (column: DataTableColumn, direction: 'asc' | 'desc'): void => {
-        dataMutatorsForm.sort[column.alias] = direction;
+    const updateSort = (column: DataTableColumn, direction: 'asc' | 'desc' | null): void => {
+        if (direction) {
+            dataMutatorsForm.sort[column.alias] = direction;
+        }
     };
 
     const applyDataMutators = (): void => {

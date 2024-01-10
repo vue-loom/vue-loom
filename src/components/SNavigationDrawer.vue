@@ -15,9 +15,9 @@
     });
 
     interface Emits {
-        (event: 'update:modelValue', data: boolean);
+        (event: 'update:modelValue', data: boolean): void;
 
-        (event: 'click:link');
+        (event: 'click:link'): void;
     }
 
     const emits = defineEmits<Emits>();
@@ -54,7 +54,7 @@
         });
     };
 
-    onMounted(() => {
+    onMounted((): void => {
         toggleActiveGroupOnLoad();
     });
 

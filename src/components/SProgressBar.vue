@@ -33,15 +33,15 @@
     const circumference: Ref<number> = ref(0);
     const percentage: Ref<number> = ref(0);
 
-    onMounted(() => {
+    onMounted((): void => {
         calculateProgress(innerModelValue.value);
     });
 
-    watch(() => props.modelValue, (value: number) => {
+    watch(() => props.modelValue, (value: number): void => {
         calculateProgress(value);
     });
 
-    const calculateProgress = (value: number) => {
+    const calculateProgress = (value: number): void => {
         percentage.value = Math.round((value / props.max) * 100);
         if (percentage.value > 100) {
             percentage.value = 100;

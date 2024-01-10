@@ -1,7 +1,13 @@
 <script setup lang="ts">
-    import {useSlots} from "vue";
+    interface Slot {
+        default(): {
+            children: string;
+        }[];
+    }
 
-    const value: string = useSlots().default().at(0).children.toString().split('_').join(' ');
+    const slots = defineSlots<Slot>();
+
+    const value: string = slots.default()[0].children.toString().split('_').join(' ');
 </script>
 
 <template>

@@ -12,7 +12,7 @@
     });
 
     const direction: ComputedRef<string | null> = computed(() => props.sort[props.column.alias] || null);
-    const icon: ComputedRef<string> = computed(() => {
+    const icon: ComputedRef<'arrow-up' | 'arrow-down'> = computed(() => {
         if (!direction.value) {
             return 'arrow-up';
         } else if (direction.value === 'asc') {
@@ -20,10 +20,12 @@
         } else if (direction.value === 'desc') {
             return 'arrow-down';
         }
+
+        return 'arrow-down';
     });
 
     interface Emits {
-        (event: 'update:direction', data: 'asc' | 'desc' | null);
+        (event: 'update:direction', data: 'asc' | 'desc' | null): void;
     }
 
     const emits = defineEmits<Emits>();

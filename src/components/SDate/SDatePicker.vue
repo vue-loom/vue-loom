@@ -23,7 +23,7 @@
     });
 
     interface Emits {
-        (event: 'update:modelValue', data: string);
+        (event: 'update:modelValue', data: string): void;
     }
 
     const emits = defineEmits<Emits>();
@@ -39,27 +39,27 @@
         "S", "M", "T", "W", "T", "F", "S"
     ]);
 
-    const dateSelected = (day: number) => {
+    const dateSelected = (day: number): void => {
         innerModelValue.value = dayjs(`${year.value}-${month.value + 1}-${day}`).format('YYYY-MM-DD');
         emits('update:modelValue', innerModelValue.value);
     }
 
-    const increaseYear = () => {
+    const increaseYear = (): void => {
         year.value++;
     }
 
-    const decreaseYear = () => {
+    const decreaseYear = (): void => {
         year.value--;
     }
 
-    const increaseMonth = () => {
+    const increaseMonth = (): void => {
         month.value++;
         if (month.value > 11) {
             month.value = 0;
         }
     }
 
-    const decreaseMonth = () => {
+    const decreaseMonth = (): void => {
         month.value--;
         if (month.value < 0) {
             month.value = 11;
@@ -70,16 +70,16 @@
         return `${year.value}-${month.value + 1}-${day}`
     }
 
-    const isToday = (day: number) => {
+    const isToday = (day: number): boolean => {
         return dayjs().isSame(dayjs(getDate(day)), 'day')
             && !dayjs(innerModelValue.value).isSame(dayjs(getDate(day)), 'day');
     };
 
-    const isSelected = (day: number) => {
+    const isSelected = (day: number): boolean => {
         return dayjs(innerModelValue.value).isSame(dayjs(getDate(day)), 'day');
     };
 
-    const dayClassObject = (day: number) => ({
+    const dayClassObject = (day: number): object => ({
         [`${resolveText(props.color)} ${resolveBg(props.color)} bg-opacity-10`]: isToday(day),
         [`text-white font-bold ${resolveBg(props.color)}`]: isSelected(day),
         'hover:bg-gray-100': !isToday(day) && !isSelected(day),
@@ -122,7 +122,7 @@
             </div>
 
             <div class="grid grid-cols-7 gap-2 text-center">
-                <div class="font-bold" :key="day" v-for="(day, index) in days">{{ day }}</div>
+                <div class="font-bold" :key="day" v-for="(day) in days">{{ day }}</div>
                 <div :key="openDay"
                      v-if="dayjs(getDate(1)).day() > 0"
                      v-for="(openDay) in dayjs(`${year}-${month+1}-01`).day()"
