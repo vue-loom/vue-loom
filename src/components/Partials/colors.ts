@@ -1,12 +1,3 @@
-interface Theme {
-    primary: string;
-    secondary: string;
-    accent: string;
-    success: string;
-    warning: string;
-    danger: string;
-}
-
 const resolveBg = (color: string | 'primary' | 'secondary' | 'accent' | 'success' | 'warning' | 'danger'): string => {
     const theme: Theme = {
         primary: 'bg-primary',
