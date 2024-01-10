@@ -1,16 +1,17 @@
 <script setup lang="ts">
     import {type InertiaForm, router, useForm} from "@inertiajs/vue3";
     import {type Component, onMounted} from "vue";
-    import SButton from "../SButton.vue";
-    import STextField from "../STextField.vue";
-    import SMenu from "../SMenu/SMenu.vue";
-    import SListItem from "../SListItem.vue";
-    import SIcon from "../SIcon.vue";
-    import STextColumn from "../SDataTable/Partials/STextColumn.vue";
-    import SNumberColumn from "../SDataTable/Partials/SNumberColumn.vue";
-    import SBooleanColumn from "../SDataTable/Partials/SBooleanColumn.vue";
-    import SDateColumn from "../SDataTable/Partials/SDateColumn.vue";
-    import SEnumColumn from "../SDataTable/Partials/SEnumColumn.vue";
+    import SButton from "@/components/SButton.vue";
+    import STextField from "@/components/STextField.vue";
+    import SMenu from "@/components/SMenu/SMenu.vue";
+    import SListItem from "@/components/SListItem.vue";
+    import SIcon from "@/components/SIcon.vue";
+    import STextColumn from "@/components/SDataTable/Partials/STextColumn.vue";
+    import SNumberColumn from "@/components/SDataTable/Partials/SNumberColumn.vue";
+    import SBooleanColumn from "@/components/SDataTable/Partials/SBooleanColumn.vue";
+    import SDateColumn from "@/components/SDataTable/Partials/SDateColumn.vue";
+    import SEnumColumn from "@/components/SDataTable/Partials/SEnumColumn.vue";
+    import SSortRenderer from "@/components/SDataTable/Partials/SSortRenderer.vue";
 
     interface Props {
         table: Table;
@@ -29,11 +30,11 @@
         'enum-column': SEnumColumn,
     };
 
-    const getItemKey = (item: TableItem, index: number): number => {
+    const getItemKey = (item: DataTableItem, index: number): number => {
         return item.id || index;
     };
 
-    const buildItemMenu = (item: TableItem): DataTableMenuItem[] => props.menu.reduce((carry: DataTableMenuItem[], menuItem: DataTableMenuItem) => {
+    const buildItemMenu = (item: DataTableItem): DataTableMenuItem[] => props.menu.reduce((carry: DataTableMenuItem[], menuItem: DataTableMenuItem) => {
         if (!menuItem.show || (typeof menuItem.show === 'function' && menuItem.show(item))) {
             carry.push(menuItem);
         }
@@ -45,7 +46,7 @@
         [key: number]: DataTableMenuItem[];
     }
 
-    const menus: ItemMenu = props.table.list.data.reduce((carry: ItemMenu, item: TableItem, itemIndex: number) => {
+    const menus: ItemMenu = props.table.list.data.reduce((carry: ItemMenu, item: DataTableItem, itemIndex: number) => {
         carry[getItemKey(item, itemIndex)] = buildItemMenu(item);
 
         return carry;
@@ -54,21 +55,26 @@
     const dataMutatorsForm: InertiaForm<{
         page: number;
         term: string;
-        sort: object[];
+        sort: DataTableSort;
     }> = useForm({
         page: 1,
         term: '',
-        sort: [],
+        sort: {},
     });
 
-    const setDataMutatorsFromUrl = (): void => {
+    const setDataMutatorsFromTable = (): void => {
         dataMutatorsForm.page = props.table.list.current_page || 1;
         dataMutatorsForm.term = props.table.term || '';
+        dataMutatorsForm.sort = props.table.sort || {};
     };
 
     onMounted(() => {
-        setDataMutatorsFromUrl();
+        setDataMutatorsFromTable();
     });
+
+    const updateSort = (column: DataTableColumn, direction: 'asc' | 'desc'): void => {
+        dataMutatorsForm.sort[column.alias] = direction;
+    };
 
     const applyDataMutators = (): void => {
         dataMutatorsForm.page = 1;
@@ -115,10 +121,20 @@
         <div class="relative overflow-x-auto max-h-[calc(100vh-350px)]">
             <table class="w-full">
                 <thead>
-                <tr class="text-primary uppercase sticky top-0">
+                <tr class="text-primary uppercase sticky top-0 select-none">
                     <th v-for="column in table.columns" :key="column.header"
-                        class="px-6 py-4 bg-gray-100 font-bold text-sm text-left whitespace-nowrap"
-                    >{{ column.header }}
+                        class="px-6 h-14 bg-gray-100 font-bold text-sm text-left whitespace-nowrap group"
+                    >
+                        <div class="flex items-center space-x-2">
+                            <div>{{ column.header }}</div>
+
+                            <SSortRenderer
+                                class="opacity-0 group-hover:opacity-100 transition-all duration-75"
+                                :sort="dataMutatorsForm.sort"
+                                :column="column"
+                                @update:direction="updateSort(column, $event)"
+                            />
+                        </div>
                     </th>
                     <th v-if="menu.length > 0" class="px-6 py-4 bg-gray-100 font-bold text-sm text-right">Actions</th>
                 </tr>

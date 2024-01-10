@@ -16,7 +16,7 @@ interface MenuItem {
     items: MenuItem[],
 }
 
-interface Column {
+interface DataTableColumn {
     alias: string
     dataType: 'text' | 'number' | 'boolean' | 'date' | 'enum';
     header: string;
@@ -24,26 +24,26 @@ interface Column {
     selector: string;
 }
 
-interface Link {
+interface DataTableLink {
     active: boolean;
     label: string;
     url: string | null;
 }
 
-interface TableItem {
+interface DataTableItem {
     id: number | null;
 
     [key: string]: any;
 }
 
-interface List {
+interface DataTableList {
     current_page: number;
-    data: TableItem[];
+    data: DataTableItem[];
     first_page_url: string | null;
     from: number;
     last_page: number;
     last_page_url: string | null;
-    links: Link[];
+    links: DataTableLink[];
     next_page_url: string | null;
     path: string | null;
     per_page: number;
@@ -52,18 +52,23 @@ interface List {
     total: number;
 }
 
+interface DataTableSort {
+    [column: string]: 'asc' | 'desc';
+}
+
 interface Table {
-    columns: Column[];
-    list: List;
-    searchable: boolean;
-    term: string | null;
+    columns: DataTableColumn[];
+    list: DataTableList;
+    searchable?: boolean;
+    term?: string | null;
+    sort?: DataTableSort;
 }
 
 interface DataTableMenuItem {
-    closure: (item: TableItem) => void;
+    closure: (item: DataTableItem) => void;
     label: string;
-    show: boolean | ((item: TableItem) => boolean);
-    disabled: (item: TableItem) => boolean;
+    show: boolean | ((item: DataTableItem) => boolean);
+    disabled: (item: DataTableItem) => boolean;
     color: 'primary' | 'secondary' | 'accent' | 'success' | 'warning' | 'danger';
 }
 
