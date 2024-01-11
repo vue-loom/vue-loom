@@ -429,7 +429,7 @@
                     </VStep>
                 </VStepper>
 
-                <VExpansionPanels class="mt-4">
+                <VExpansionPanels class="mt-4" :open="[false, true, false]">
                     <VExpansionPanel :key="index" v-for="(item, index) in options">
                         <template #title>
                             Option {{ item.id }}

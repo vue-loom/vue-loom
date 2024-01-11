@@ -1,7 +1,7 @@
 <script setup lang="ts">
     import VListItem from "@/components/VListItem.vue";
     import {ChevronDownIcon} from "@heroicons/vue/24/outline";
-    import {type Ref, ref} from "vue";
+    import {type Ref, ref, watch} from "vue";
 
     interface Props {
         readonly?: boolean;
@@ -25,10 +25,12 @@
     const emits = defineEmits<Emits>();
 
     const arrowClicked = () => {
-        focused.value = !focused.value;
-
         emits('update:open', focused.value);
     }
+
+    watch((): boolean => props.open, (val: boolean): void => {
+        focused.value = val;
+    });
 </script>
 
 <template>
