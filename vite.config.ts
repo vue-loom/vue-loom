@@ -53,15 +53,10 @@ export default defineConfig({
 
                     return '[name].[format].js';
                 },
-                // sanitizeFileName: (fileName) => {
-                //     console.log(fileName)
-                //     return fileName;
-                // },
-                // chunkFileNames: (chunkInfo) => {
-                //     // console.log(chunkInfo)
-                //     return 'test.[format].js';
-                // }
-                preserveModules: true
+                chunkFileNames: (chunkInfo) => {
+                    return 'shared/' + chunkInfo.name.split('.')[0] + '.[format].js';
+                }
+                // preserveModules: true
             },
             input: Object.fromEntries(
                 glob.sync('src/**/*.{ts,vue}').map(file => [
