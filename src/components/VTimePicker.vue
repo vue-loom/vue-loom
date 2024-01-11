@@ -1,7 +1,7 @@
 <script setup lang="ts">
     import {type Ref, ref, watch} from 'vue';
     import VTextField from "@/components/VTextField.vue";
-    import {useClickOutside} from "@/components/Composables/mouse";
+    // import {useClickOutside} from "@/components/Composables/mouse";
     import VMenu from "@/components/VMenu.vue";
     import VIcon from "@/components/VIcon.vue";
 
@@ -110,6 +110,13 @@
     }
 
     const convertTime = (): void => {
+        if (hours.value.toString() === 'NaN') {
+            hours.value = 0;
+        }
+        if (minutes.value.toString() === 'NaN') {
+            minutes.value = 0;
+        }
+
         if (hours.value.toString().length <= 1) {
             stringHours.value = '0' + hours.value.toString();
         } else {
@@ -151,17 +158,17 @@
         }
     }
 
-    const dropdownMenu: Ref<HTMLElement | null> = ref(null);
+    // const dropdownMenu: Ref<HTMLElement | null> = ref(null);
     const timePickerActiveState: Ref<boolean> = ref(false);
 
-    useClickOutside(dropdownMenu, () => {
-        if (timePickerActiveState.value) {
-            blurInput();
-        }
-        if (focused.value) {
-            timePickerActiveState.value = true;
-        }
-    });
+    // useClickOutside(dropdownMenu, () => {
+    //     if (timePickerActiveState.value) {
+    //         blurInput();
+    //     }
+    //     if (focused.value) {
+    //         timePickerActiveState.value = true;
+    //     }
+    // });
 </script>
 
 <template>
