@@ -99,12 +99,11 @@
                     <div class="absolute h-1/2 w-1/2 left-0 top-0 border-b border-gray-300"
                          v-if="index !== 0"
                     ></div>
-                    <component :is="stepHeader" @click="selectStep(index)"></component>
-                    <!--                    <div class="bg-white w-fit z-10 p-2"-->
-                    <!--                         :class="clickable ? 'cursor-pointer hover:bg-gray-100' : ''"-->
-                    <!--                         @click="selectStep(index)">-->
-                    <!--                        {{ stepLabel }}-->
-                    <!--                    </div>-->
+                    <div class="bg-white w-fit z-10 p-2"
+                         :class="clickable ? 'cursor-pointer hover:bg-gray-100' : ''"
+                         @click="selectStep(index)">
+                        <component :is="stepHeader"></component>
+                    </div>
                     <div class="absolute h-1/2 w-1/2 right-0 top-0 border-b border-gray-300"
                          v-if="index !== stepHeader.length - 1"
                     ></div>
