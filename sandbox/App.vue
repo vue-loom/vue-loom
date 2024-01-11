@@ -1,108 +1,479 @@
 <script setup lang="ts">
-    import VTextField from '../src/components/VTextField.vue'
-    import VStepper from "../src/components/Stepper/VStepper.vue";
-    import VStep from "../src/components/Stepper/VStep.vue";
-    import VTab from "../src/components/Tab/VTab.vue";
-    import VTabs from "../src/components/Tab/VTabs.vue";
-    import VButton from "../src/components/VButton.vue";
-    import VIcon from "../src/components/VIcon.vue";
+    import {
+        VBanner,
+        VCheckbox,
+        VContainer,
+        VDateField,
+        VDialogService,
+        VDrawer,
+        VLoader,
+        VMultiSelect,
+        VSelect,
+        VTextArea,
+        VTimePicker,
+        VToastService,
+        VToggle,
+        VToolbar,
+        VTreeSelect,
+        VTextField,
+        VTooltip,
+        VCard,
+        VProgressBar,
+        VBadge,
+        VButton,
+        VMenu,
+        VListItem,
+        VTag,
+        VIcon,
+        VTabs,
+        VTab,
+        VExpansionPanels,
+        VExpansionPanel,
+        VStepper,
+        VStep,
+    } from "../src";
+    import {Ref, ref} from "vue";
+    import {useToast} from "../src/components/Composables/toast";
+    import {useDialog} from "../src/components/Composables/dialog";
+
+    const value: Ref<string | null> = ref(null);
+    const myValue: Ref<string | null> = ref(null);
+    const time: Ref<string | null> = ref(null);
+    const toggle: Ref<boolean> = ref(false);
+    const checkValue: Ref<string> = ref('Yes');
+    const drawerIsOpen: Ref<boolean> = ref(false);
+
+    interface Option {
+        id: number,
+        name: string,
+        disable: boolean,
+        selected: boolean,
+    }
+
+    const options: Option[] = [
+        {id: 1, name: 'January', disable: true, selected: false},
+        {id: 2, name: 'February', disable: true, selected: false},
+        {id: 3, name: 'March', disable: true, selected: false},
+        {id: 4, name: 'April', disable: false, selected: false},
+        {id: 5, name: 'June', disable: false, selected: false},
+        {id: 6, name: 'July', disable: false, selected: false},
+        {id: 7, name: 'September', disable: false, selected: false},
+        {id: 8, name: 'October', disable: false, selected: false},
+        {id: 9, name: 'November', disable: false, selected: false},
+        {id: 10, name: 'December', disable: false, selected: false},
+    ];
+
+    interface TreeItem {
+        id: number;
+        name: string;
+        children: TreeItem[],
+    }
+
+    const tree: TreeItem[] = [
+        {
+            id: 1,
+            name: 'Test1',
+            children: [
+                {
+                    id: 2, name: 'Test2', children: [
+                        {id: 3, name: 'Test3', children: []},
+                        {id: 4, name: 'Test4', children: []},
+                    ],
+                },
+                {id: 5, name: 'Test5', children: []},
+                {
+                    id: 6, name: 'Test6', children: [
+                        {id: 7, name: 'Test7', children: []},
+                        {id: 8, name: 'Test8', children: []},
+                    ],
+                },
+            ],
+        },
+        {
+            id: 9,
+            name: 'Test9',
+            children: [
+                {id: 10, name: 'Test10', children: []},
+                {id: 11, name: 'Test11', children: []},
+                {id: 12, name: 'Test12', children: []},
+                {
+                    id: 13, name: 'Test13', children: [
+                        {id: 14, name: 'Test5', children: []},
+                        {id: 15, name: 'Test14', children: []},
+                        {
+                            id: 16, name: 'Test15', children: [
+                                {id: 17, name: 'Test16', children: []},
+                                {id: 18, name: 'Test17', children: []},
+                                {id: 19, name: 'Test18', children: []},
+                            ]
+                        },
+                    ],
+                },
+            ],
+        },
+    ];
+
+    const selectValue: Ref<number | null> = ref(options[2].id);
+    const selectValues: Ref<number[]> = ref([options[2].id, options[3].id]);
+    const treeValue: Ref<number | null> = ref(tree.at(0).id);
+    const selectedDate: Ref<string | null> = ref(null);
+
+    //Button
+    const isDisabled: Ref<boolean> = ref(false);
+    const isLoading: Ref<boolean> = ref(false);
+
+    const buttonClicked = (): void => {
+        isDisabled.value = !isDisabled.value;
+        isLoading.value = !isLoading.value;
+    };
+
+    const buttonCancel = (): void => {
+        isDisabled.value = false;
+        isLoading.value = false;
+    };
+
+    const toastState = (): void => {
+        useToast().show({
+            subtitle: 'Your store was successfully updated',
+            type: 'success',
+        });
+    };
+
+    const toggleDialog = (): void => {
+        useDialog().show({
+            title: 'The Title',
+            subtitle: 'Dialog subtitle',
+            content: 'Here is the body of my dialog. I wil type in few stuff just to display some random info for the testing of this dialog.',
+            actions: [
+                {
+                    label: 'Close',
+                    handle: () => {
+                        useDialog().hide();
+                    },
+                }
+            ],
+            persistent: true,
+        });
+    };
+
+    const selectItem = (option: Option): void => {
+        option.selected = !option.selected;
+    }
+
+    const badgeState: Ref<boolean> = ref(false);
+
+    const showBadge = (): void => {
+        badgeState.value = !badgeState.value;
+
+        increaseBarProgress();
+    }
+
+    const tabIndex: Ref<number> = ref(0);
+    const barProgress: Ref<number> = ref(50);
+
+    const increaseBarProgress = (): void => {
+        if (barProgress.value <= 100) {
+            barProgress.value = barProgress.value + Math.floor(Math.random() * 10);
+            if (barProgress.value > 100) {
+                barProgress.value = 100;
+            }
+        }
+    };
 </script>
 
 <template>
-    <main>
-        <h1 class="bg-blue-600 text-9xl">Welcome to your your sandbox environment</h1>
+    <main class="w-screen overflow-y-auto flex flex-col justify-center items-center bg-gray-100">
+        <div :class="[drawerIsOpen ? 'pl-0 xl:pl-80' : 'pl-0 xl:pl-16']">
+            <!--            <VDialogService/>-->
+            <!--            <VToastService/>-->
 
-        <VTextField
-            class="w-full"
-            label="This is a very long label for my input"
-            :model-value="''"
-        />
+            <VDrawer mini v-model="drawerIsOpen">
+                This is a drawer
+            </VDrawer>
 
-        <VStepper class="mt-4" clickable preserve-state elevation>
-            <VStep>
-                <template #step>
-                    <div>Step One</div>
-                </template>
-                <template #content>
-                    The first step is to move to step two!
-                </template>
-            </VStep>
-            <VStep>
-                <template #step>
-                    Step Two
-                </template>
-                <template #content>
-                    The second step is to move to step three!
-                </template>
-            </VStep>
-            <VStep>
-                <template #step>
-                    Step Three
-                </template>
-                <template #content>
-                    This is the last step. Weldon!!
-                </template>
-            </VStep>
-        </VStepper>
+            <VContainer>
+                <VToolbar show-menu-button>
+                    Title on Toolbar
+                    <template #actions>
+                        <VTooltip>
+                            <template #trigger>
+                                actions
+                            </template>
+                            <template #content>This is the actions suffix to add buttons</template>
+                        </VTooltip>
+                    </template>
+                </VToolbar>
+                <VCard color="red-500">
+                    <template #title>
+                        Page Title
+                    </template>
+                    <template #subtitle>
+                        This is my subtitle
+                    </template>
+                    <template #content>
+                        <div class="grid gap-4 grid-cols-1">
+                            <VBanner type="error">This is my banner</VBanner>
 
-        <VTabs class="mt-4" grow-tabs elevation>
-            <VTab>
-                <template #tab>Tab One</template>
-                <template #content>
-                    <div>
-                        This is the content of tab one
-                        <VButton>Text</VButton>
-                    </div>
-                </template>
-            </VTab>
-            <VTab>
-                <template #tab>
-                    Tab two
-                </template>
-                <template #content>
-                    <div>
-                        <div>This is the second tab content with element div</div>
-                        <div>This is the second tab content with element div</div>
-                        <div>This is the second tab content with element div</div>
-                        <div>This is the second tab content with element div</div>
-                        <div>This is the second tab content with element div</div>
-                        <div>This is the second tab content with element div</div>
-                    </div>
-                </template>
-            </VTab>
-            <VTab>
-                <template #tab>
-                    Tab three
-                </template>
-                <template #content>
-                    <div>
-                        <div>This is the third tab content with element div</div>
-                        <div>This is the third tab content with element div</div>
-                        <div>This is the third tab content with element div</div>
-                        <div>This is the third tab content with element div</div>
-                    </div>
-                </template>
-            </VTab>
-            <VTab>
-                <template #tab>
-                    Tab four
-                </template>
-                <template #content>
-                    <div>
-                        <div>This is the fourth tab content with element div</div>
-                    </div>
-                </template>
-            </VTab>
-            <VTab>
-                <template #tab>
-                    Tab five
-                </template>
-                <template #content>
-                    <VButton>This works</VButton>
-                </template>
-            </VTab>
-        </VTabs>
+                            <VTextField
+                                class="w-full"
+                                label="This is a very long label for my input"
+                                v-model="value"
+                            />
 
-        <VIcon icon="plus"/>
+                            <VTextArea class="w-full" label="Medium label" v-model="myValue"></VTextArea>
+
+                            <VSelect
+                                searchable
+                                class="w-full"
+                                label="Select a Month"
+                                color="primary"
+                                :items="options"
+                                v-model="selectValue"
+                            />
+                            <VMultiSelect
+                                searchable
+                                class="w-96"
+                                label="Multi select a Value"
+                                :items="options"
+                                v-model="selectValues"
+                            ></VMultiSelect>
+                            <VTreeSelect
+                                searchable
+                                class="w-full"
+                                label="Select a Value"
+                                color="primary"
+                                :items="tree"
+                                v-model="treeValue"
+                            ></VTreeSelect>
+                            <VToggle
+                                class="w-full"
+                                label="Turn radio on"
+                                color="primary"
+                                v-model="toggle"
+                            ></VToggle>
+                            <VTimePicker
+                                class="w-full"
+                                label="Time of arrival"
+                                :increment-minutes-amount="30"
+                                v-model="time"
+                            ></VTimePicker>
+                            <VCheckbox
+                                class="w-full"
+                                label="Do you carry firearms"
+                                true-value="Yes"
+                                false-value="No"
+                                v-model="checkValue"
+                            ></VCheckbox>
+                            <VDateField
+                                label="Date of Birth"
+                                v-model="selectedDate"
+                                :format="'DD-MMMM-YYYY'"
+                            ></VDateField>
+                            <VLoader width="sm" color="success"/>
+                            <VProgressBar :max="100" v-model="barProgress"/>
+                            <!--                        <SExpansionPanels :items="options"/>-->
+                            <!--                        <SDatePicker v-model="selectedDate" elevation min="2023-11-04" max="2023-11-28"/>-->
+                            <!--                        <div class="w-full grid gap-2 grid-cols-1">-->
+                            <!--                            <SListItem v-for="option in options"-->
+                            <!--                                       :key="option.id"-->
+                            <!--                                       clickable-->
+                            <!--                                       class="rounded-lg overflow-hidden"-->
+                            <!--                                       :selected="option.selected"-->
+                            <!--                                       @click="selectItem(option)"-->
+                            <!--                            >-->
+                            <!--                                <template #leading>-->
+                            <!--                                    <div class="p-2">-->
+                            <!--                                        <CheckIcon class="w-5 h-5 "/>-->
+                            <!--                                    </div>-->
+                            <!--                                </template>-->
+                            <!--                                <template #title>-->
+                            <!--                                    Option {{ option.id }}-->
+                            <!--                                </template>-->
+                            <!--                                <template #subtitle>-->
+                            <!--                                    This is {{ option.name }}-->
+                            <!--                                </template>-->
+                            <!--                                <template #trailing>-->
+                            <!--                                    <div class="p-2">-->
+                            <!--                                        <XMarkIcon class="w-5 h-5"/>-->
+                            <!--                                    </div>-->
+                            <!--                                </template>-->
+                            <!--                            </SListItem>-->
+                            <!--                        </div>-->
+                            <div class="flex space-x-3">
+                                <VBadge color="warning">
+                                    <template #component>
+                                        <VButton @click="showBadge()">Badge</VButton>
+                                    </template>
+                                    <template #content>BETA</template>
+                                </VBadge>
+                                <VTooltip>
+                                    <template #trigger>
+                                        <VButton @click="toastState()">Show Toast</VButton>
+                                    </template>
+                                    <template #content>Click to display the toast.</template>
+                                </VTooltip>
+                                <VButton @click="toggleDialog()" color="secondary">Show Dialog</VButton>
+                                <VMenu :close-on-content-click="false">
+                                    <template #trigger>
+                                        <VButton color="secondary">Menu</VButton>
+                                    </template>
+                                    <template #content>
+                                        <VListItem v-for="option in options"
+                                                   :key="option.id"
+                                                   clickable
+                                                   :selected="option.selected"
+                                                   @click="selectItem(option)"
+                                        >
+                                            <template #title>
+                                                This is {{ option.name }}
+                                            </template>
+                                        </VListItem>
+                                    </template>
+                                </VMenu>
+                                <VTag color="accent">
+                                    <template #content>TAG</template>
+                                </VTag>
+                            </div>
+
+                            <div class="flex space-x-2 mt-4">
+                                <VIcon icon="identification" color="primary" size="xs" solid/>
+                                <VIcon icon="identification" color="primary" size="xs"/>
+                                <VIcon icon="banknotes" color="secondary" size="sm" solid/>
+                                <VIcon icon="banknotes" color="secondary" size="sm"/>
+                                <VIcon icon="bell-alert" color="success" size="md" solid/>
+                                <VIcon icon="bell-alert" color="success" size="md"/>
+                                <VIcon icon="cake" color="warning" size="lg" solid/>
+                                <VIcon icon="cake" color="warning" size="lg"/>
+                                <VIcon icon="folder-arrow-down" color="danger" size="xl" solid/>
+                                <VIcon icon="folder-arrow-down" color="danger" size="xl"/>
+                                <VIcon icon="phone-x-mark" color="accent" :size="150"/>
+                            </div>
+                        </div>
+                    </template>
+                    <template #actions>
+                        <VButton @click="buttonCancel()" color="secondary">
+                            Cancel
+                        </VButton>
+                        <VButton @click="buttonClicked()" :disabled="isDisabled" :loading="isLoading">
+                            Next
+                        </VButton>
+                    </template>
+                </VCard>
+                <VCard clickable hover class="mt-4">
+                    <template #title>This is a clickable card</template>
+                    <template #content>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                        labore
+                        et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
+                        ut
+                        aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+                        culpa qui officia deserunt mollit anim id est laborum.
+                    </template>
+                </VCard>
+
+                <VTabs class="mt-4" grow-tabs v-model="tabIndex" elevation>
+                    <VTab>
+                        <template #tab>Tab One</template>
+                        <template #content>
+                            <div>
+                                This is the content of tab one
+                                <VButton>Text</VButton>
+                            </div>
+                        </template>
+                    </VTab>
+                    <VTab>
+                        <template #tab>
+                            Tab two
+                        </template>
+                        <template #content>
+                            <div>
+                                <div>This is the second tab content with element div</div>
+                                <div>This is the second tab content with element div</div>
+                                <div>This is the second tab content with element div</div>
+                                <div>This is the second tab content with element div</div>
+                                <div>This is the second tab content with element div</div>
+                                <div>This is the second tab content with element div</div>
+                            </div>
+                        </template>
+                    </VTab>
+                    <VTab>
+                        <template #tab>
+                            Tab three
+                        </template>
+                        <template #content>
+                            <div>
+                                <div>This is the third tab content with element div</div>
+                                <div>This is the third tab content with element div</div>
+                                <div>This is the third tab content with element div</div>
+                                <div>This is the third tab content with element div</div>
+                            </div>
+                        </template>
+                    </VTab>
+                    <VTab>
+                        <template #tab>
+                            Tab four
+                        </template>
+                        <template #content>
+                            <div>
+                                <div>This is the fourth tab content with element div</div>
+                            </div>
+                        </template>
+                    </VTab>
+                    <VTab>
+                        <template #tab>
+                            Tab five
+                        </template>
+                        <template #content>
+                            <VButton>This works</VButton>
+                        </template>
+                    </VTab>
+                </VTabs>
+
+                <VStepper class="mt-4" clickable preserve-state v-model="tabIndex" elevation>
+                    <VStep>
+                        <template #step>
+                            Step One
+                        </template>
+                        <template #content>
+                            The first step is to move to step two!
+                        </template>
+                    </VStep>
+                    <VStep>
+                        <template #step>
+                            Step Two
+                        </template>
+                        <template #content>
+                            The second step is to move to step three!
+                        </template>
+                    </VStep>
+                    <VStep>
+                        <template #step>
+                            Step Three
+                        </template>
+                        <template #content>
+                            This is the last step. Weldon!!
+                        </template>
+                    </VStep>
+                </VStepper>
+
+                <VExpansionPanels class="mt-4">
+                    <VExpansionPanel v-for="item in options">
+                        <template #title>
+                            Option {{ item.id }}
+                        </template>
+                        <template #subtitle>
+                            This is the subtitle for option {{ item.id }}
+                        </template>
+                        <template #content>
+                            <div class="p-2">This is {{ item.name }}</div>
+                            <div class="p-2">This is {{ item.name }}</div>
+                            <div class="p-2">This is {{ item.name }}</div>
+                            <div class="p-2">This is {{ item.name }}</div>
+                        </template>
+                    </VExpansionPanel>
+                </VExpansionPanels>
+            </VContainer>
+        </div>
     </main>
 </template>

@@ -4,7 +4,7 @@
     import VIcon from "@/components/VIcon.vue";
 
     interface Props {
-        modelValue: string;
+        modelValue: string | null;
         label?: string;
         color?: string,
         clearable?: boolean;
@@ -29,7 +29,7 @@
         errorMessage: '',
     });
 
-    const innerModelValue: Ref<string> = ref(props.modelValue);
+    const innerModelValue: Ref<string> = ref(props.modelValue || '');
     const innerErrorMessage: Ref<string> = ref(props.errorMessage);
 
     interface Emits {
@@ -42,8 +42,8 @@
 
     const emits = defineEmits<Emits>();
 
-    watch((): string => props.modelValue, (value): void => {
-        innerModelValue.value = value;
+    watch((): string | null => props.modelValue, (value): void => {
+        innerModelValue.value = value || '';
     });
 
     watch(innerModelValue, (val): void => {
