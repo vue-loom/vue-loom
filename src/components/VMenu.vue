@@ -90,7 +90,7 @@
         </div>
 
         <!-- Full Screen Dropdown Overlay -->
-        <div v-show="open" class="fixed inset-0 z-40" @click="closeMenu"/>
+        <div v-show="open" class="fixed inset-0 z-30" @click="closeMenu"/>
 
         <transition
             enter-active-class="transition-all duration-150"
@@ -103,7 +103,7 @@
             <div
                 ref="menu"
                 v-show="open"
-                class="fixed z-40 bg-white shadow-md sm:rounded-lg overflow-hidden border border-gray-200"
+                class="fixed z-30 bg-white shadow-md sm:rounded-lg overflow-hidden border border-gray-200"
                 :class="[width !== 'w-full' ? width : '', alignmentClasses, contentClasses]"
                 @click="closeOnContent"
             >
