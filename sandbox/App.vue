@@ -35,6 +35,7 @@
     import {Ref, ref} from "vue";
     import {useToast} from "../src/components/Composables/toast";
     import {useDialog} from "../src/components/Composables/dialog";
+    import VChip from "@/components/VChip.vue";
 
     const value: Ref<string | null> = ref(null);
     const myValue: Ref<string | null> = ref(null);
@@ -177,7 +178,7 @@
 
 <template>
     <main class="bg-gray-100">
-        <!--            <VDialogService/>-->
+        <VDialogService/>
         <!--            <VToastService/>-->
 
         <VToolbar show-menu-button @click:menu-icon="drawerIsOpen = !drawerIsOpen">
@@ -280,7 +281,7 @@
                                     <template #content>Click to display the toast.</template>
                                 </VTooltip>
                                 <VButton @click="toggleDialog()" color="secondary">Show Dialog</VButton>
-                                <VMenu :close-on-content-click="false">
+                                <VMenu position="top" :close-on-content-click="false">
                                     <template #trigger>
                                         <VButton color="secondary">Menu</VButton>
                                     </template>
@@ -300,6 +301,10 @@
                                 <VTag color="accent">
                                     <template #content>TAG</template>
                                 </VTag>
+                                <VChip>Chip</VChip>
+                                <VChip color="success">Chip with color</VChip>
+                                <VChip closable color="primary">Closeable chip with color</VChip>
+                                <VChip closable disabled color="danger">Disabled chip</VChip>
                             </div>
 
                             <div class="flex space-x-2 mt-4">

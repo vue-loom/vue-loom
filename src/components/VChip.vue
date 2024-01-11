@@ -1,6 +1,6 @@
 <script setup lang="ts">
     import {computed, type ComputedRef} from "vue";
-    import {resolveBg} from "@/components/Partials/colors";
+    import {resolveBg, resolveText} from "@/components/Partials/colors";
     import VIcon from "@/components/VIcon.vue";
 
     interface Props {
@@ -16,9 +16,10 @@
     });
 
     const chipClassObject: ComputedRef<object> = computed(() => ({
-        [`${resolveBg(props.color)} bg-opacity-20`]: props.color,
+        [`${resolveBg(props.color)} ${resolveText(props.color)} bg-opacity-20`]: props.color && !props.disabled,
+        [`${resolveBg(props.color)} bg-opacity-10`]: props.disabled && props.color,
         'bg-gray-200': !props.color,
-        'bg-opacity-70': props.disabled,
+        'bg-opacity-60': props.disabled && !props.color,
         'px-2': !props.closable,
         'pl-2 pr-1': props.closable,
     }));
@@ -37,13 +38,14 @@
 </script>
 
 <template>
-    <div class="rounded-full pt-0.5 text-sm flex flex-row items-center space-x-1 select-none"
+    <div class="rounded-full h-[24px] text-sm flex flex-row items-center space-x-1 select-none"
          :class="chipClassObject"
     >
         <div>
             <slot/>
         </div>
-        <div class="w-4 h-4 mb-0.5 bg-white rounded-full"
+
+        <div class="w-4 h-4 bg-white rounded-full"
              :class="[!disabled ? 'cursor-pointer' : '']"
              v-if="closable"
              @click.stop="closeChip"

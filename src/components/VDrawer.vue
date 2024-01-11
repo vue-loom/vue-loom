@@ -55,7 +55,7 @@
     const drawerWidth: ComputedRef<string> = computed(() => {
         if (!innerModelValue.value) {
             if (innerMini.value) {
-                return 'w-16';
+                return 'w-14';
             }
 
             return 'w-0'
@@ -75,7 +75,7 @@
 
 <template>
     <div
-        class="fixed shadow-xl h-full overflow-y-auto bg-white transition-all duration-150 ease-in-out z-50 hover:!w-80"
+        class="fixed shadow-xl h-full overflow-y-auto bg-white transition-all duration-150 ease-in-out z-40 hover:!w-80"
         :class="[drawerClassObject]"
     >
         <slot></slot>
