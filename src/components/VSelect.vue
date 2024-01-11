@@ -163,7 +163,7 @@
                 />
 
                 <div
-                    class="w-full min-h-[40px] py-2 pl-2 pr-9 flex flex-wrap items-center gap-1.5 px-4 cursor-text border rounded-md transition-all duration-150"
+                    class="w-full min-h-[42px] py-2 pl-2 pr-9 flex flex-wrap items-center gap-1.5 px-4 cursor-text border rounded-md transition-all duration-150"
                     ref="inputDiv"
                     :class="inputClassObject"
                     @click="focusInput"

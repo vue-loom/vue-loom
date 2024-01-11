@@ -35,7 +35,7 @@
     import {Ref, ref} from "vue";
     import {useToast} from "../src/components/Composables/toast";
     import {useDialog} from "../src/components/Composables/dialog";
-    import VChip from "@/components/VChip.vue";
+    import VChip from "../src/components/VChip.vue";
 
     const value: Ref<string | null> = ref(null);
     const myValue: Ref<string | null> = ref(null);
@@ -207,80 +207,116 @@
                         This is my subtitle
                     </template>
                     <template #content>
-                        <div class="grid gap-4 grid-cols-1">
-                            <VBanner type="error">This is my banner</VBanner>
+                        <div class="flex flex-wrap gap-4">
+                            <VBanner class="col-span-3" type="error">This is my banner</VBanner>
 
-                            <VTextField
-                                class="w-full"
-                                label="This is a very long label for my input"
-                                v-model="value"
-                            />
+                            <div class="w-full">
+                                <VTextField
+                                    class="w-1/3"
+                                    label="This is a very long label for my input"
+                                    v-model="value"
+                                />
+                            </div>
 
-                            <VTextArea class="w-full" label="Medium label" v-model="myValue"></VTextArea>
+                            <div class="w-full">
+                                <VTextArea
+                                    class="w-2/3"
+                                    label="Medium label"
+                                    v-model="myValue"
+                                />
+                            </div>
 
-                            <VSelect
-                                searchable
-                                class="w-full"
-                                label="Select a Month"
-                                color="primary"
-                                :items="options"
-                                v-model="selectValue"
-                            />
-                            <VMultiSelect
-                                searchable
-                                class="w-96"
-                                label="Multi select a Value"
-                                :items="options"
-                                v-model="selectValues"
-                            ></VMultiSelect>
-                            <VTreeSelect
-                                searchable
-                                class="w-full"
-                                label="Select a Value"
-                                color="primary"
-                                :items="tree"
-                                v-model="treeValue"
-                            ></VTreeSelect>
+                            <div class="w-full">
+                                <VSelect
+                                    searchable
+                                    class="w-1/3"
+                                    label="Select a Month"
+                                    color="primary"
+                                    :items="options"
+                                    v-model="selectValue"
+                                />
+                            </div>
+
+                            <div class="w-full">
+                                <VMultiSelect
+                                    searchable
+                                    class="w-1/3"
+                                    label="Multi select a Value"
+                                    :items="options"
+                                    v-model="selectValues"
+                                />
+                            </div>
+
+                            <div class="w-full">
+                                <VTreeSelect
+                                    searchable
+                                    class="w-1/3"
+                                    label="Select a Value"
+                                    color="primary"
+                                    :items="tree"
+                                    v-model="treeValue"
+                                />
+                            </div>
+
                             <VToggle
                                 class="w-full"
                                 label="Turn radio on"
                                 color="primary"
                                 v-model="toggle"
-                            ></VToggle>
-                            <VTimePicker
-                                class="w-full"
-                                label="Time of arrival"
-                                :increment-minutes-amount="30"
-                                v-model="time"
-                            ></VTimePicker>
+                            />
+
+                            <div class="w-full">
+                                <VTimePicker
+                                    class="w-1/3"
+                                    label="Time of arrival"
+                                    :increment-minutes-amount="30"
+                                    v-model="time"
+                                />
+                            </div>
+
                             <VCheckbox
                                 class="w-full"
                                 label="Do you carry firearms"
                                 true-value="Yes"
                                 false-value="No"
                                 v-model="checkValue"
-                            ></VCheckbox>
-                            <VDateField
-                                label="Date of Birth"
-                                v-model="selectedDate"
-                                :format="'DD-MMMM-YYYY'"
-                            ></VDateField>
-                            <VLoader width="sm" color="success"/>
-                            <VProgressBar :max="100" v-model="barProgress"/>
-                            <div class="flex space-x-3">
+                            />
+
+                            <div class="w-full">
+                                <VDateField
+                                    class="w-1/3"
+                                    label="Date of Birth"
+                                    v-model="selectedDate"
+                                    :format="'DD-MMMM-YYYY'"
+                                />
+                            </div>
+
+                            <div class="w-full">
+                                <VLoader width="sm" color="success"/>
+                            </div>
+
+                            <div class="w-full">
+                                <VProgressBar class="w-2/3" :max="100" v-model="barProgress"/>
+                                <VProgressBar class="mt-4" type="circular" :max="100" v-model="barProgress"/>
+                            </div>
+
+                            <div class="w-full flex space-x-3 mt-4">
                                 <VBadge color="warning">
                                     <template #component>
                                         <VButton @click="showBadge()">Badge</VButton>
                                     </template>
                                     <template #content>BETA</template>
                                 </VBadge>
+
                                 <VTooltip>
                                     <template #trigger>
                                         <VButton @click="toastState()">Show Toast</VButton>
                                     </template>
                                     <template #content>Click to display the toast.</template>
                                 </VTooltip>
+
                                 <VButton @click="toggleDialog()" color="secondary">Show Dialog</VButton>
+
                                 <VMenu position="top" :close-on-content-click="false">
                                     <template #trigger>
                                         <VButton color="secondary">Menu</VButton>
@@ -298,16 +334,22 @@
                                         </VListItem>
                                     </template>
                                 </VMenu>
-                                <VTag color="accent">
+                            </div>
+
+                            <div class="w-full mt-4">
+                                <VTag class="w-fit" color="accent">
                                     <template #content>TAG</template>
                                 </VTag>
+                            </div>
+
+                            <div class="mt-4 flex space-x-3">
                                 <VChip>Chip</VChip>
                                 <VChip color="success">Chip with color</VChip>
                                 <VChip closable color="primary">Closeable chip with color</VChip>
                                 <VChip closable disabled color="danger">Disabled chip</VChip>
                             </div>
 
-                            <div class="flex space-x-2 mt-4">
+                            <div class="w-full flex space-x-2 mt-4">
                                 <VIcon icon="identification" color="primary" size="xs" solid/>
                                 <VIcon icon="identification" color="primary" size="xs"/>
                                 <VIcon icon="banknotes" color="secondary" size="sm" solid/>
@@ -323,14 +365,12 @@
                         </div>
                     </template>
                     <template #actions>
-                        <VButton @click="buttonCancel()" color="secondary">
-                            Cancel
-                        </VButton>
-                        <VButton @click="buttonClicked()" :disabled="isDisabled" :loading="isLoading">
-                            Next
-                        </VButton>
+                        <VButton @click="buttonCancel()" color="secondary">Cancel</VButton>
+
+                        <VButton @click="buttonClicked()" :disabled="isDisabled" :loading="isLoading">Next</VButton>
                     </template>
                 </VCard>
+
                 <VCard clickable hover class="mt-4">
                     <template #title>This is a clickable card</template>
                     <template #content>
