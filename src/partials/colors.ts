@@ -1,3 +1,4 @@
+import type {Theme} from '../component-types/theme.ts';
 const resolveBg = (color: string | 'primary' | 'secondary' | 'accent' | 'success' | 'warning' | 'danger'): string => {
     const theme: Theme = {
         primary: 'bg-primary',
