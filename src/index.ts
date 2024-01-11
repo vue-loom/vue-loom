@@ -36,6 +36,10 @@ import VTimePicker from "./components/VTimePicker.vue";
 import VToggle from "./components/VToggle.vue";
 import VToolbar from "./components/VToolbar.vue";
 import VTooltip from "./components/VTooltip.vue";
+import VChip from "./components/VChip.vue";
+
+import {useDialog} from "./composables/dialog";
+import {useToast} from "./composables/toast";
 
 export {
     VDataTable,
@@ -76,4 +80,8 @@ export {
     VToggle,
     VToolbar,
     VTooltip,
+    VChip,
+
+    useDialog,
+    useToast,
 };
