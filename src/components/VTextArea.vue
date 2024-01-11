@@ -134,17 +134,18 @@
             <VIcon icon="x-mark"/>
         </div>
 
-        <textarea ref="textArea"
-                  class="w-full border focus:border rounded-lg ring-0 focus:ring-0 focus:outline-0 transition-all duration-150 align-top"
-                  :class="inputClassObject"
-                  :rows="rows"
-                  :readonly="readOnly"
-                  :autofocus="autoFocus"
-                  :maxlength="maxLength as number"
-                  v-model="innerModelValue"
-                  @focus="focusTextArea()"
-                  @blur="blurTextArea()"
-                  @keyup="autoGrowth ? textAreaAdjust() : ''"
+        <textarea
+            ref="textArea"
+            class="w-full min-h-[40px] p-2 border focus:border rounded-lg ring-0 focus:ring-0 focus:outline-0 transition-all duration-150 align-top"
+            :class="inputClassObject"
+            :rows="rows"
+            :readonly="readOnly"
+            :autofocus="autoFocus"
+            :maxlength="maxLength as number"
+            v-model="innerModelValue"
+            @focus="focusTextArea()"
+            @blur="blurTextArea()"
+            @keyup="autoGrowth ? textAreaAdjust() : ''"
         ></textarea>
 
         <div class="flex flex-row pl-1" :class="detailsClassObject">

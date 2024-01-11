@@ -4,11 +4,13 @@
     interface Props {
         fullWidth?: boolean;
         maxWidth?: string;
+        toolbarOffset?: boolean;
     }
 
     const props = withDefaults(defineProps<Props>(), {
         fullWidth: false,
         maxWidth: '7xl',
+        toolbarOffset: false,
     });
 
     const widthClass: ComputedRef<string> = computed(() => {
@@ -29,7 +31,9 @@
 </script>
 
 <template>
-    <div class="mx-auto w-full px-3 py-4 sm:py-8 lg:py-10 sm:px-6 lg:px-8" :class="[widthClass]">
+    <div class="mx-auto w-full px-3 sm:px-6 lg:px-8"
+         :class="[widthClass, toolbarOffset ? 'pb-4 pt-20 sm:pb-8 sm:pt-24 lg:pb-10 lg:pt-[104px]' : 'py-4 sm:py-8 lg:py-10']"
+    >
         <slot/>
     </div>
 </template>

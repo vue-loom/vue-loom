@@ -63,12 +63,6 @@
         {id: 10, name: 'December', disable: false, selected: false},
     ];
 
-    interface TreeItem {
-        id: number;
-        name: string;
-        children: TreeItem[],
-    }
-
     const tree: TreeItem[] = [
         {
             id: 1,
@@ -182,27 +176,28 @@
 </script>
 
 <template>
-    <main class="w-screen overflow-y-auto flex flex-col justify-center items-center bg-gray-100">
-        <div :class="[drawerIsOpen ? 'pl-0 xl:pl-80' : 'pl-0 xl:pl-16']">
-            <!--            <VDialogService/>-->
-            <!--            <VToastService/>-->
+    <main class="bg-gray-100">
+        <!--            <VDialogService/>-->
+        <!--            <VToastService/>-->
 
-            <VDrawer mini v-model="drawerIsOpen">
+        <VToolbar show-menu-button @click:menu-icon="drawerIsOpen = !drawerIsOpen">
+            Title on Toolbar
+            <template #actions>
+                <VTooltip>
+                    <template #trigger>
+                        actions
+                    </template>
+                    <template #content>This is the actions suffix to add buttons</template>
+                </VTooltip>
+            </template>
+        </VToolbar>
+
+        <div class="transition-all duration-150" :class="[drawerIsOpen ? 'pl-0 xl:pl-80' : 'pl-0 xl:pl-16']">
+            <VDrawer mini toolbar-offset v-model="drawerIsOpen">
                 This is a drawer
             </VDrawer>
 
-            <VContainer>
-                <VToolbar show-menu-button>
-                    Title on Toolbar
-                    <template #actions>
-                        <VTooltip>
-                            <template #trigger>
-                                actions
-                            </template>
-                            <template #content>This is the actions suffix to add buttons</template>
-                        </VTooltip>
-                    </template>
-                </VToolbar>
+            <VContainer toolbar-offset @click="drawerIsOpen = false">
                 <VCard color="red-500">
                     <template #title>
                         Page Title
@@ -271,34 +266,6 @@
                             ></VDateField>
                             <VLoader width="sm" color="success"/>
                             <VProgressBar :max="100" v-model="barProgress"/>
-                            <!--                        <SExpansionPanels :items="options"/>-->
-                            <!--                        <SDatePicker v-model="selectedDate" elevation min="2023-11-04" max="2023-11-28"/>-->
-                            <!--                        <div class="w-full grid gap-2 grid-cols-1">-->
-                            <!--                            <SListItem v-for="option in options"-->
-                            <!--                                       :key="option.id"-->
-                            <!--                                       clickable-->
-                            <!--                                       class="rounded-lg overflow-hidden"-->
-                            <!--                                       :selected="option.selected"-->
-                            <!--                                       @click="selectItem(option)"-->
-                            <!--                            >-->
-                            <!--                                <template #leading>-->
-                            <!--                                    <div class="p-2">-->
-                            <!--                                        <CheckIcon class="w-5 h-5 "/>-->
-                            <!--                                    </div>-->
-                            <!--                                </template>-->
-                            <!--                                <template #title>-->
-                            <!--                                    Option {{ option.id }}-->
-                            <!--                                </template>-->
-                            <!--                                <template #subtitle>-->
-                            <!--                                    This is {{ option.name }}-->
-                            <!--                                </template>-->
-                            <!--                                <template #trailing>-->
-                            <!--                                    <div class="p-2">-->
-                            <!--                                        <XMarkIcon class="w-5 h-5"/>-->
-                            <!--                                    </div>-->
-                            <!--                                </template>-->
-                            <!--                            </SListItem>-->
-                            <!--                        </div>-->
                             <div class="flex space-x-3">
                                 <VBadge color="warning">
                                     <template #component>
@@ -458,7 +425,7 @@
                 </VStepper>
 
                 <VExpansionPanels class="mt-4">
-                    <VExpansionPanel v-for="item in options">
+                    <VExpansionPanel :key="index" v-for="(item, index) in options">
                         <template #title>
                             Option {{ item.id }}
                         </template>

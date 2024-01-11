@@ -35,7 +35,8 @@
 
     const hasSuffix: boolean = Object.keys(useSlots()).indexOf('suffix') !== -1;
     const inputClassObject: ComputedRef<object> = computed(() => ({
-        'pr-9': hasSuffix,
+        'pl-2 pr-9': hasSuffix,
+        'px-2': !hasSuffix,
         [resolveBorderFocus(props.color)]: focused.value,
         'border-gray-300': !focused.value,
         '!border-danger': innerErrorMessage.value,
@@ -112,7 +113,7 @@
 
         <input
             ref="textField"
-            class="w-full border focus:border ring-0 focus:ring-0 focus:outline-0 rounded-md transition-all duration-150"
+            class="w-full min-h-[40px] py-2 border focus:border ring-0 focus:ring-0 focus:outline-0 rounded-md transition-all duration-150"
             :type="type"
             :class="inputClassObject"
             :autofocus="autofocus"

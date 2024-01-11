@@ -35,7 +35,7 @@
 </script>
 
 <template>
-    <header class="w-full flex justify-between items-center select-none z-50" :class="barClassObject">
+    <header class="w-full fixed flex justify-between items-center select-none z-50" :class="barClassObject">
         <div class="h-full flex items-center">
             <div
                 class="h-full px-3 flex items-center hover:bg-white/10 active:bg-white/20 cursor-pointer transition-all duration-150"

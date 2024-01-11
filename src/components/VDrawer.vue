@@ -55,7 +55,7 @@
     const drawerWidth: ComputedRef<string> = computed(() => {
         if (!innerModelValue.value) {
             if (innerMini.value) {
-                return 'w-14';
+                return 'w-16';
             }
 
             return 'w-0'

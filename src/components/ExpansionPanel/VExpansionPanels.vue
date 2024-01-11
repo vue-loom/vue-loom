@@ -32,11 +32,14 @@
     }
 
     interface Slot {
-        default(): ExpansionPanel[];
+        default(): {
+            children: ExpansionPanel[];
+        }[];
     }
 
     const slots = defineSlots<Slot>();
-    const expansionPanels: ExpansionPanel[] = slots.default();
+    const expansionPanels: ExpansionPanel[] = slots.default()[0].children;
+
 
     const panelClassObject = (index: number) => ({
         'border-none': innerOpen.value[index] || innerOpen.value[index - 1],

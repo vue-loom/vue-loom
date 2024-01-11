@@ -55,8 +55,8 @@ const alignMenu = (menuElBoundingRect: DOMRect, triggerContainerBoundingRect: DO
             }
         }
     } else if (align === 'center') {
-        let triggerCenter: number = triggerContainerBoundingRect.left + (triggerContainerBoundingRect.width/2);
-        styles.left = triggerContainerBoundingRect.left - ((triggerContainerBoundingRect.left + (menuElBoundingRect.width/2)) - triggerCenter);
+        let triggerCenter: number = triggerContainerBoundingRect.left + (triggerContainerBoundingRect.width / 2);
+        styles.left = triggerContainerBoundingRect.left - ((triggerContainerBoundingRect.left + (menuElBoundingRect.width / 2)) - triggerCenter);
         if (styles.left <= 0) {
             styles.left = 4;
         } else if (menuElBoundingRect.left + menuElBoundingRect.width >= innerWidth) {
@@ -67,7 +67,7 @@ const alignMenu = (menuElBoundingRect: DOMRect, triggerContainerBoundingRect: DO
 };
 
 const setMenuStyles = (menuEl: HTMLElement, styles: Style): void => {
-    Object.keys(styles).forEach((key: string) => menuEl.style[key] = styles[key].toCssUnit());
+    Object.keys(styles).forEach((key: string) => menuEl.style[key] = styles[key].toString().replace(/[^.\d]/g, '') + (styles[key].toString().includes('%') ? '%' : 'px'));
 }
 
 const absolutePositionStrategy = (menuEl: HTMLElement, align: string, position: string): void => {
