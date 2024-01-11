@@ -12,6 +12,7 @@
     import {onMounted} from "vue";
     import {watch} from "vue";
     import VIcon from "@/components/VIcon.vue";
+    import type {SelectItem} from "../component-types/SelectItem";
 
     interface Props {
         modelValue: number[] | string[];

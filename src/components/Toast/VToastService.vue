@@ -3,6 +3,7 @@
     import VToast from "@/components/Toast/VToast.vue";
     import {computed, type ComputedRef, watch} from "vue";
     import {usePage} from "@inertiajs/vue3";
+    import type {Flash} from "../../component-types/flash";
 
     const flash: ComputedRef<Flash> = computed(() => usePage().props.flash as Flash);
     const type = computed(() => flash.value.messageStyle || 'success');
