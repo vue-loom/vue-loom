@@ -1,5 +1,5 @@
 <script setup lang="ts">
-    import {resolveBorder, resolveBorderTop} from "@/components/Partials/colors";
+    import {resolveBorder, resolveBorderTop} from "@/partials/colors";
     import {computed, type ComputedRef, type StyleValue} from "vue";
 
     interface Props {

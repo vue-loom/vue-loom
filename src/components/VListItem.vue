@@ -1,7 +1,7 @@
 <script setup lang="ts">
     import {computed, type ComputedRef, ref, type Ref} from "vue";
-    import {useRipple} from "@/components/Composables/mouse";
-    import {resolveBgHover, resolveText} from "@/components/Partials/colors";
+    import {useRipple} from "@/composables/mouse";
+    import {resolveBgHover, resolveText} from "@/partials/colors";
 
     interface Props {
         item?: object,

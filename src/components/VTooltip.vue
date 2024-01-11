@@ -1,6 +1,6 @@
 <script setup lang="ts">
     import {computed, type ComputedRef, type Ref, ref, onMounted, onUnmounted} from "vue";
-    import {usePosition} from "@/components/Composables/position";
+    import {usePosition} from "@/composables/position";
 
     interface Props {
         align?: 'left' | 'right' | 'center',

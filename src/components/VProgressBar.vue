@@ -1,5 +1,5 @@
 <script setup lang="ts">
-    import {resolveBg, resolveStroke, resolveText} from "@/components/Partials/colors";
+    import {resolveBg, resolveStroke, resolveText} from "@/partials/colors";
     import {computed, type ComputedRef, onMounted, ref, type Ref, watch} from "vue";
 
     interface Props {

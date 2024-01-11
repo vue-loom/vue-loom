@@ -1,5 +1,5 @@
 <script setup lang="ts">
-    import {resolveBg, resolveBgHover, resolveText} from "@/components/Partials/colors";
+    import {resolveBg, resolveBgHover, resolveText} from "@/partials/colors";
     import {type ComputedRef} from "vue";
     import {computed} from "vue";
     import VIcon from "@/components/VIcon.vue";

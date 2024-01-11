@@ -33,8 +33,8 @@
         VStep,
     } from "../src";
     import {Ref, ref} from "vue";
-    import {useToast} from "../src/components/Composables/toast";
-    import {useDialog} from "../src/components/Composables/dialog";
+    import {useToast} from "../src/composables/toast";
+    import {useDialog} from "../src/composables/dialog";
     import VChip from "@/components/VChip.vue";
 
     const value: Ref<string | null> = ref(null);

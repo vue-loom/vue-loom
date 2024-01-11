@@ -1,4 +1,5 @@
 import {nextTick, type Ref} from "vue";
+import { toCssUnit } from '@/partials/prototypes';
 
 let positionX: number = 0;
 let positionY: number = 0;
@@ -67,7 +68,7 @@ const alignMenu = (menuElBoundingRect: DOMRect, triggerContainerBoundingRect: DO
 };
 
 const setMenuStyles = (menuEl: HTMLElement, styles: Style): void => {
-    Object.keys(styles).forEach((key: string) => menuEl.style[key] = styles[key].toString().replace(/[^.\d]/g, '') + (styles[key].toString().includes('%') ? '%' : 'px'));
+    Object.keys(styles).forEach((key: string) => menuEl.style[key] = toCssUnit(styles[key].toString()));
 }
 
 const absolutePositionStrategy = (menuEl: HTMLElement, align: string, position: string): void => {

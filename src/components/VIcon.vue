@@ -1,8 +1,9 @@
 <script setup lang="ts">
     import {type Component, computed, type ComputedRef} from "vue";
-    import {resolveText} from "@/components/Partials/colors";
+    import {resolveText} from "@/partials/colors";
     import * as OutlineIcons from '@heroicons/vue/24/outline';
     import * as SolidIcons from '@heroicons/vue/24/solid';
+    import { ucFirst } from '@/partials/prototypes';
 
     interface Props {
         icon: string;
@@ -19,7 +20,7 @@
     });
 
     const iconString: ComputedRef<string> = computed(() => `${props.icon.split('-')
-        .map((part) => part[0].toUpperCase() + (part.length > 1 ? part.slice(1).toLowerCase() : ''))
+        .map((part) => ucFirst(part))
         .join('')}Icon`);
 
     const iconComponent: ComputedRef<Component> = computed(() => {

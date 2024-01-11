@@ -1,6 +1,6 @@
 <script setup lang="ts">
     import {computed, type ComputedRef, ref, type Ref, useSlots} from "vue";
-    import {useRipple} from "@/components/Composables/mouse";
+    import {useRipple} from "@/composables/mouse";
 
     interface Props {
         elevated?: boolean;

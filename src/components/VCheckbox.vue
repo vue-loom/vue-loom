@@ -1,5 +1,5 @@
 <script setup lang="ts">
-    import {resolveBg, resolveBorder} from "@/components/Partials/colors";
+    import {resolveBg, resolveBorder} from "@/partials/colors";
     import type {ComputedRef, Ref} from "vue";
     import {computed, ref} from "vue";
     import VIcon from "@/components/VIcon.vue";

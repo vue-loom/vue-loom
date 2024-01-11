@@ -1,5 +1,5 @@
 import {onBeforeUnmount, onMounted, type Ref} from 'vue'
-import {getContrastColor} from "@/components/Partials/colors";
+import {getContrastColor} from "@/partials/colors";
 
 export function useClickOutside(component: Ref<HTMLElement | null>, callback: () => void) {
     if (!component) return;

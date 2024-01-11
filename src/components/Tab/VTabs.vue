@@ -1,6 +1,6 @@
 <script setup lang="ts">
     import {ref, type Ref, computed, type ComputedRef, onMounted, type Component} from "vue";
-    import {getContrastColorClass, resolveBg} from "@/components/Partials/colors";
+    import {getContrastColorClass, resolveBg} from "@/partials/colors";
 
     interface Props {
         modelValue?: number;

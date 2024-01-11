@@ -1,6 +1,6 @@
 <script setup lang="ts">
     import {computed, type ComputedRef, onMounted, ref, type Ref, watch} from 'vue';
-    import {resolveBorderFocus, resolveText} from "@/components/Partials/colors";
+    import {resolveBorderFocus, resolveText} from "@/partials/colors";
     import VIcon from "@/components/VIcon.vue";
 
     interface Props {
@@ -136,7 +136,7 @@
 
         <textarea
             ref="textArea"
-            class="w-full min-h-[40px] p-2 border focus:border rounded-lg ring-0 focus:ring-0 focus:outline-0 transition-all duration-150 align-top"
+            class="w-full border focus:border rounded-lg ring-0 focus:ring-0 focus:outline-0 transition-all duration-150 align-top"
             :class="inputClassObject"
             :rows="rows"
             :readonly="readOnly"

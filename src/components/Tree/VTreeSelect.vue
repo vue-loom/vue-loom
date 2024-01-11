@@ -1,10 +1,10 @@
 <script setup lang="ts">
     import {computed, type ComputedRef, onMounted, type Ref, ref} from 'vue';
-    import {resolveText, resolveRing, resolveBorder} from "@/components/Partials/colors";
+    import {resolveText, resolveRing, resolveBorder} from "@/partials/colors";
     import VTreeNode from "@/components/Tree/Partials/VTreeNode.vue";
     import {watch} from "vue";
     import VMenu from "@/components/VMenu.vue";
-    import {useClickOutside} from "@/components/Composables/mouse";
+    import {useClickOutside} from "@/composables/mouse";
     import VIcon from "@/components/VIcon.vue";
 
     interface Props {

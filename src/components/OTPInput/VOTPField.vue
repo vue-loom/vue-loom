@@ -1,7 +1,7 @@
 <script setup lang="ts">
     import VOTPInput from "@/components/OTPInput/VOTPInput.vue";
     import {computed, type ComputedRef, ref, type Ref, watch} from "vue";
-    import {resolveBorderFocus} from "@/components/Partials/colors";
+    import {resolveBorderFocus} from "@/partials/colors";
 
     interface Props {
         modelValue: string | null;

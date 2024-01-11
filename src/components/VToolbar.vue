@@ -1,7 +1,7 @@
 <script setup lang="ts">
     import {type ComputedRef} from "vue";
     import {computed} from "vue";
-    import {resolveBg} from "@/components/Partials/colors";
+    import {resolveBg} from "@/partials/colors";
     import VIcon from "@/components/VIcon.vue";
 
     interface Props {

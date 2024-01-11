@@ -2,7 +2,7 @@
     import {type Ref, ref} from "vue";
     import dayjs from "dayjs";
     import {ChevronLeftIcon, ChevronRightIcon} from "@heroicons/vue/24/outline";
-    import {resolveBg, resolveText} from "@/components/Partials/colors";
+    import {resolveBg, resolveText} from "@/partials/colors";
 
     interface Props {
         modelValue: string | null,

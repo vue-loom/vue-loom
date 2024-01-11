@@ -5,7 +5,7 @@
     import {computed, type ComputedRef, ref, type Ref} from "vue";
     import VMenu from "@/components/VMenu.vue";
     import VDatePicker from "@/components/Date/VDatePicker.vue";
-    import {resolveText} from "@/components/Partials/colors";
+    import {resolveText} from "@/partials/colors";
     import dayjs from "dayjs";
 
     interface Props {

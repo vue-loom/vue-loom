@@ -1,5 +1,5 @@
 <script setup lang="ts">
-    import {useDialog} from "@/components/Composables/dialog";
+    import {useDialog} from "@/composables/dialog";
     import VDialog from "@/components/Dialog/VDialog.vue";
     import VButton from "@/components/VButton.vue";
 </script>

@@ -4,8 +4,8 @@
         resolveBg,
         resolveBgHover, resolveBorder,
         resolveText
-    } from "@/components/Partials/colors";
-    import {useRipple} from "@/components/Composables/mouse";
+    } from "@/partials/colors";
+    import {useRipple} from "@/composables/mouse";
     import VLoader from "@/components/VLoader.vue";
 
     interface Props {

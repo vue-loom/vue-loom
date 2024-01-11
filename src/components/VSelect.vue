@@ -5,10 +5,10 @@
         resolveText,
         resolveBgHover,
         resolveBorder,
-    } from "@/components/Partials/colors";
+    } from "@/partials/colors";
     import {watch} from "vue";
     import VMenu from "@/components/VMenu.vue";
-    import {useClickOutside} from "@/components/Composables/mouse";
+    import {useClickOutside} from "@/composables/mouse";
     import VIcon from "@/components/VIcon.vue";
 
     interface Props {

@@ -1,4 +1,6 @@
 <script setup lang="ts">
+    import { highlight } from '@/partials/prototypes';
+
     interface Props {
         term?: string;
         searchable?: boolean;
@@ -23,7 +25,7 @@
 <template>
     <div class="text-gray-700"
          v-if="displayText"
-         v-html="searchable ? displayText.highlight(term) : displayText"
+         v-html="searchable ? highlight(displayText, term) : displayText"
     ></div>
     <div v-else>-</div>
 </template>

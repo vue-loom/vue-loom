@@ -1,6 +1,6 @@
 <script setup lang="ts">
     import {computed, type ComputedRef, onMounted, onUnmounted, type Ref, ref, watch} from 'vue';
-    import {useClick, usePosition} from "@/components/Composables/position";
+    import {useClick, usePosition} from "@/composables/position";
 
     interface Props {
         modelValue?: boolean,

@@ -1,6 +1,6 @@
 <script setup lang="ts">
     import {ref, type Ref} from "vue";
-    import {resolveBg} from "@/components/Partials/colors";
+    import {resolveBg} from "@/partials/colors";
 
     interface Props {
         modelValue: boolean | string | number;

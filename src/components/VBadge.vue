@@ -1,6 +1,6 @@
 <script setup lang="ts">
     import {computed, type ComputedRef} from "vue";
-    import {resolveBg} from "@/components/Partials/colors";
+    import {resolveBg} from "@/partials/colors";
 
     interface Props {
         color?: 'primary' | 'secondary' | 'accent' | 'success' | 'warning' | 'danger',

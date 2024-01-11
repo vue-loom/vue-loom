@@ -1,3 +1,5 @@
+//TODO: Delete this file
+
 interface Theme {
     primary: string;
     secondary: string;
