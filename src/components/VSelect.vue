@@ -10,6 +10,7 @@
     import VMenu from "@/components/VMenu.vue";
     import {useClickOutside} from "@/composables/mouse";
     import VIcon from "@/components/VIcon.vue";
+    import type {SelectItem} from "../component-types/SelectItem";
 
     interface Props {
         modelValue: number | string | null;
