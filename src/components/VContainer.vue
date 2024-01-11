@@ -2,8 +2,8 @@
     import {computed, type ComputedRef} from "vue";
 
     interface Props {
-        fullWidth: boolean;
-        maxWidth: string;
+        fullWidth?: boolean;
+        maxWidth?: string;
     }
 
     const props = withDefaults(defineProps<Props>(), {

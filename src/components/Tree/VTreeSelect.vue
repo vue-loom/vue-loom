@@ -83,6 +83,24 @@
         (event.target as HTMLTextAreaElement).blur();
     };
 
+    const findItemFromInnerValue = (items: TreeItem[], value: number | string | null): TreeItem | null => {
+        for (const item of items) {
+            if (item.id === value) {
+                return item;
+            }
+
+            if (item.children.length > 0) {
+                let result: TreeItem | null = findItemFromInnerValue(item.children, value);
+
+                if (result) {
+                    return result;
+                }
+            }
+        }
+
+        return null;
+    };
+
     const findSelectedItem = () => {
         if (innerModelValue.value) {
             return findItemFromInnerValue(props.items, innerModelValue.value);
@@ -134,24 +152,6 @@
     }
 
     const emits = defineEmits<Emits>();
-
-    const findItemFromInnerValue = (items: TreeItem[], value: number | string | null): TreeItem | null => {
-        for (const item of items) {
-            if (item.id === value) {
-                return item;
-            }
-
-            if (item.children.length > 0) {
-                let result: TreeItem | null = findItemFromInnerValue(item.children, value);
-
-                if (result) {
-                    return result;
-                }
-            }
-        }
-
-        return null;
-    };
 
     const findItem = (items: TreeItem[], node: TreeNode): TreeItem | null => {
         return findItemFromInnerValue(items, node.id);
