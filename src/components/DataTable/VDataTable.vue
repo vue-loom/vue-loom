@@ -11,10 +11,15 @@
     import VBooleanColumn from "@/components/DataTable/Partials/VBooleanColumn.vue";
     import VDateColumn from "@/components/DataTable/Partials/VDateColumn.vue";
     import VEnumColumn from "@/components/DataTable/Partials/VEnumColumn.vue";
-    import VSortRenderer from "@/components/DataTable/Partials/VSortRenderer.vue";
+    // import VSortRenderer from "@/components/DataTable/Partials/VSortRenderer.vue";
+    // import type {DataTableColumn} from "@/component-types/DataTableColumn";
+    import type {DataTableItem} from "@/component-types/DataTableItem";
+    import type {DataTableSort} from "@/component-types/DataTableSort";
+    import type {DataTable} from "@/component-types/DataTable";
+    import type {DataTableMenuItem} from "@/component-types/DataTableMenuItem";
 
     interface Props {
-        table: Table;
+        table: DataTable;
         menu?: DataTableMenuItem[];
     }
 
@@ -72,11 +77,11 @@
         setDataMutatorsFromTable();
     });
 
-    const updateSort = (column: DataTableColumn, direction: 'asc' | 'desc' | null): void => {
-        if (direction) {
-            dataMutatorsForm.sort[column.alias] = direction;
-        }
-    };
+    // const updateSort = (column: DataTableColumn, direction: 'asc' | 'desc' | null): void => {
+    //     if (direction) {
+    //         dataMutatorsForm.sort[column.alias] = direction;
+    //     }
+    // };
 
     const applyDataMutators = (): void => {
         dataMutatorsForm.page = 1;
@@ -130,12 +135,12 @@
                         <div class="flex items-center space-x-2">
                             <div>{{ column.header }}</div>
 
-                            <VSortRenderer
-                                class="opacity-0 group-hover:opacity-100 transition-all duration-75"
-                                :sort="dataMutatorsForm.sort"
-                                :column="column"
-                                @update:direction="updateSort(column, $event)"
-                            />
+                            <!--                            <VSortRenderer-->
+                            <!--                                class="opacity-0 group-hover:opacity-100 transition-all duration-75"-->
+                            <!--                                :sort="dataMutatorsForm.sort"-->
+                            <!--                                :column="column"-->
+                            <!--                                @update:direction="updateSort(column, $event)"-->
+                            <!--                            />-->
                         </div>
                     </th>
                     <th v-if="menu.length > 0" class="px-6 py-4 bg-gray-100 font-bold text-sm text-right">Actions</th>

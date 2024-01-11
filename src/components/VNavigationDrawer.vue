@@ -3,6 +3,7 @@
     import {computed, type ComputedRef, nextTick, onMounted, type Ref, ref} from "vue";
     import VDrawer from "@/components/VDrawer.vue";
     import VIcon from "@/components/VIcon.vue";
+    import type {MenuItem} from "@/component-types/MenuItem";
 
     interface Props {
         modelValue: boolean;
