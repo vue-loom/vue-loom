@@ -35,16 +35,31 @@
         'enum-column': VEnumColumn,
     };
 
-    const getItemKey = (item: DataTableItem, index: number): number => {
-        return item.id || index;
+    const determineMenuItemShowState = (menuItem: DataTableMenuItem, item: DataTableItem): boolean => {
+        if ('show' in menuItem && typeof menuItem.show === 'boolean') {
+            return menuItem.show;
+        } else if ('show' in menuItem && typeof menuItem.show === 'function') {
+            return menuItem.show(item);
+        }
+
+        return true;
+    };
+
+    const determineMenuItemDisabledState = (menuItem: DataTableMenuItem, item: DataTableItem): boolean => {
+        if ('disabled' in menuItem && typeof menuItem.disabled === 'boolean') {
+            return menuItem.disabled;
+        } else if ('disabled' in menuItem && typeof menuItem.disabled === 'function') {
+            return menuItem.disabled(item);
+        }
+
+        return false;
     };
 
     const buildItemMenu = (item: DataTableItem): DataTableMenuItem[] => props.menu.reduce((carry: DataTableMenuItem[], menuItem: DataTableMenuItem) => {
-        if (!menuItem.show || (typeof menuItem.show === 'function' && menuItem.show(item))) {
-            // carry.push(menuItem);
+        if (determineMenuItemShowState(menuItem, item)) {
             carry.push({
                 ...menuItem,
-                disabled: (!menuItem.disabled || (typeof menuItem.disabled === 'function' && menuItem.disabled(item))) as boolean,
+                disabled: determineMenuItemDisabledState(menuItem, item),
             });
         }
 
@@ -54,6 +69,10 @@
     interface ItemMenu {
         [key: number]: DataTableMenuItem[];
     }
+
+    const getItemKey = (item: DataTableItem, index: number): number => {
+        return item.id || index;
+    };
 
     const menus: ItemMenu = props.table.list.data.reduce((carry: ItemMenu, item: DataTableItem, itemIndex: number) => {
         carry[getItemKey(item, itemIndex)] = buildItemMenu(item);

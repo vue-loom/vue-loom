@@ -38,6 +38,10 @@
     import VChip from "@/components/VChip.vue";
     import {TreeItem} from "@/component-types/TreeItem";
     import {SelectItem} from "@/component-types/SelectItem";
+    import {VDataTable} from "@";
+    import {simulateDataTableData} from "./helpers/helpers";
+    import {DataTableMenuItem} from "@/component-types/DataTableMenuItem";
+    import {DataTableItem} from "@/component-types/DataTableItem";
 
     const value: Ref<string | null> = ref(null);
     const myValue: Ref<string | null> = ref(null);
@@ -188,6 +192,49 @@
             }
         }
     };
+
+    const dataTableMenu: DataTableMenuItem[] = [
+        {
+            label: 'Menu Item',
+            color: 'primary',
+            handle: () => {
+                console.log('clicked menu item');
+            },
+        },
+        {
+            label: 'Disabled Menu Item',
+            color: 'success',
+            disabled: (item: DataTableItem) => item.id === 2,
+            handle: () => {
+                console.log('clicked disabled menu item');
+            },
+        },
+        {
+            label: 'Disabled Menu Item 2',
+            color: 'secondary',
+            disabled: true,
+            handle: () => {
+                console.log('clicked disabled menu item');
+            },
+        },
+        {
+            label: 'Hidden Menu Item',
+            color: 'warning',
+            show: false,
+            handle: () => {
+                console.log('clicked hidden menu item');
+            },
+        },
+        {
+            label: 'Menu Item',
+            color: 'danger',
+            show: (item: DataTableItem) => item.id === 1,
+            disabled: false,
+            handle: () => {
+                console.log('clicked menu item');
+            },
+        },
+    ];
 </script>
 
 <template>
@@ -195,12 +242,16 @@
         <VDialogService/>
         <VToastService appbar-offset/>
 
-        <VToolbar appbar show-menu-button @click:menu-icon="drawerIsOpen = !drawerIsOpen">
-            Title on Toolbar
+        <VToolbar
+            elevated
+            appbar
+            show-menu-button
+            @click:menu-icon="drawerIsOpen = !drawerIsOpen"
+        >Title on Toolbar
             <template #actions>
                 <VTooltip>
                     <template #trigger>
-                        actions
+                        <VButton color="success">Action</VButton>
                     </template>
                     <template #content>This is the actions suffix to add buttons</template>
                 </VTooltip>
@@ -482,6 +533,8 @@
                         </template>
                     </VStep>
                 </VStepper>
+
+                <VDataTable class="mt-4" :table="simulateDataTableData()" :menu="dataTableMenu"/>
 
                 <VExpansionPanels class="mt-4" :open="[false, true, false]">
                     <VExpansionPanel :key="index" v-for="(item, index) in listItems">
