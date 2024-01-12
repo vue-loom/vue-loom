@@ -34,7 +34,8 @@ import VTextArea from "./components/VTextArea.vue";
 import VTextField from './components/VTextField.vue';
 import VTimePicker from "./components/VTimePicker.vue";
 import VToggle from "./components/VToggle.vue";
-import VToolbar from "./components/VToolbar.vue";
+import VToolbar from "./components/Toolbar/VToolbar.vue";
+import VToolbarAction from "./components/Toolbar/VToolbarAction.vue";
 import VTooltip from "./components/VTooltip.vue";
 import VChip from "./components/VChip.vue";
 
@@ -79,6 +80,7 @@ export {
     VTimePicker,
     VToggle,
     VToolbar,
+    VToolbarAction,
     VTooltip,
     VChip,
 

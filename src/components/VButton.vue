@@ -59,7 +59,7 @@
 <template>
     <button ref="button"
             type="button"
-            class="py-2 px-4 rounded-lg transition-all duration-150 overflow-hidden font-bold"
+            class="h-10 flex items-center py-2 px-4 rounded-lg transition-all duration-150 overflow-hidden font-bold"
             :class="[typeClassMap[type], !noRelative ? 'relative' : '']"
             :disabled="innerDisabled"
             @click="createRipple($event)"

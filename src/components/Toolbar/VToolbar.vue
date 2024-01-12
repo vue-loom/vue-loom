@@ -2,7 +2,7 @@
     import {type ComputedRef} from "vue";
     import {computed} from "vue";
     import {resolveBg} from "@/partials/colors";
-    import VIcon from "@/components/VIcon.vue";
+    import VIcon from "../VIcon.vue";
 
     interface Props {
         color?: string | 'primary' | 'secondary' | 'accent' | 'success' | 'warning' | 'danger';
@@ -52,7 +52,7 @@
                 <slot></slot>
             </div>
         </div>
-        <div>
+        <div class="flex">
             <slot name="actions"></slot>
         </div>
     </header>
