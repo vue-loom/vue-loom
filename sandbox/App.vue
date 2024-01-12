@@ -36,6 +36,8 @@
     import {useToast} from "../src/composables/toast";
     import {useDialog} from "../src/composables/dialog";
     import VChip from "@/components/VChip.vue";
+    import {TreeItem} from "@/component-types/TreeItem";
+    import {SelectItem} from "@/component-types/SelectItem";
 
     const value: Ref<string | null> = ref(null);
     const myValue: Ref<string | null> = ref(null);
@@ -44,24 +46,37 @@
     const checkValue: Ref<string> = ref('Yes');
     const drawerIsOpen: Ref<boolean> = ref(false);
 
-    interface Option {
-        id: number,
-        name: string,
-        disable: boolean,
-        selected: boolean,
+    const selectItems: SelectItem[] = [
+        {id: 1, name: 'January'},
+        {id: 2, name: 'February'},
+        {id: 3, name: 'March'},
+        {id: 4, name: 'April'},
+        {id: 5, name: 'June'},
+        {id: 6, name: 'July'},
+        {id: 7, name: 'September'},
+        {id: 8, name: 'October'},
+        {id: 9, name: 'November'},
+        {id: 10, name: 'December'},
+    ];
+
+    interface ListItem {
+        id: number;
+        name: string;
+        disabled: boolean;
+        selected: boolean;
     }
 
-    const options: Option[] = [
-        {id: 1, name: 'January', disable: true, selected: false},
-        {id: 2, name: 'February', disable: true, selected: false},
-        {id: 3, name: 'March', disable: true, selected: false},
-        {id: 4, name: 'April', disable: false, selected: false},
-        {id: 5, name: 'June', disable: false, selected: false},
-        {id: 6, name: 'July', disable: false, selected: false},
-        {id: 7, name: 'September', disable: false, selected: false},
-        {id: 8, name: 'October', disable: false, selected: false},
-        {id: 9, name: 'November', disable: false, selected: false},
-        {id: 10, name: 'December', disable: false, selected: false},
+    const listItems: ListItem[] = [
+        {id: 1, name: 'January', disabled: true, selected: false},
+        {id: 2, name: 'February', disabled: true, selected: false},
+        {id: 3, name: 'March', disabled: true, selected: false},
+        {id: 4, name: 'April', disabled: false, selected: false},
+        {id: 5, name: 'June', disabled: false, selected: false},
+        {id: 6, name: 'July', disabled: false, selected: false},
+        {id: 7, name: 'September', disabled: false, selected: false},
+        {id: 8, name: 'October', disabled: false, selected: false},
+        {id: 9, name: 'November', disabled: false, selected: false},
+        {id: 10, name: 'December', disabled: false, selected: false},
     ];
 
     const tree: TreeItem[] = [
@@ -108,12 +123,11 @@
         },
     ];
 
-    const selectValue: Ref<number | null> = ref(options[2].id);
-    const selectValues: Ref<number[]> = ref([options[2].id, options[3].id]);
+    const selectValue: Ref<string | number | null> = ref(selectItems[2].id);
+    const selectValues: Ref<number[] | string[]> = ref([selectItems[1].id, selectItems[3].id] as number[] | string[]);
     const treeValue: Ref<number | null> = ref(tree.at(0).id);
     const selectedDate: Ref<string | null> = ref(null);
 
-    //Button
     const isDisabled: Ref<boolean> = ref(false);
     const isLoading: Ref<boolean> = ref(false);
 
@@ -151,8 +165,8 @@
         });
     };
 
-    const selectItem = (option: Option): void => {
-        option.selected = !option.selected;
+    const selectItem = (listItem: ListItem): void => {
+        listItem.selected = !listItem.selected;
     }
 
     const badgeState: Ref<boolean> = ref(false);
@@ -179,9 +193,9 @@
 <template>
     <main class="bg-gray-100">
         <VDialogService/>
-        <!--            <VToastService/>-->
+        <VToastService appbar-offset/>
 
-        <VToolbar show-menu-button @click:menu-icon="drawerIsOpen = !drawerIsOpen">
+        <VToolbar appbar show-menu-button @click:menu-icon="drawerIsOpen = !drawerIsOpen">
             Title on Toolbar
             <template #actions>
                 <VTooltip>
@@ -194,11 +208,11 @@
         </VToolbar>
 
         <div class="transition-all duration-150" :class="[drawerIsOpen ? 'pl-0 xl:pl-80' : 'pl-0 xl:pl-16']">
-            <VDrawer mini toolbar-offset v-model="drawerIsOpen">
+            <VDrawer mini appbar-offset v-model="drawerIsOpen">
                 This is a drawer
             </VDrawer>
 
-            <VContainer toolbar-offset @click="drawerIsOpen = false">
+            <VContainer appbar-offset @click="drawerIsOpen = false">
                 <VCard color="red-500">
                     <template #title>
                         Page Title
@@ -232,7 +246,7 @@
                                     class="w-1/3"
                                     label="Select a Month"
                                     color="primary"
-                                    :items="options"
+                                    :items="selectItems"
                                     v-model="selectValue"
                                 />
                             </div>
@@ -242,7 +256,7 @@
                                     searchable
                                     class="w-1/3"
                                     label="Multi select a Value"
-                                    :items="options"
+                                    :items="selectItems"
                                     v-model="selectValues"
                                 />
                             </div>
@@ -322,14 +336,14 @@
                                         <VButton color="secondary">Menu</VButton>
                                     </template>
                                     <template #content>
-                                        <VListItem v-for="option in options"
-                                                   :key="option.id"
+                                        <VListItem v-for="listItem in listItems"
+                                                   :key="listItem.id"
                                                    clickable
-                                                   :selected="option.selected"
-                                                   @click="selectItem(option)"
+                                                   :selected="listItem.selected"
+                                                   @click="selectItem(listItem)"
                                         >
                                             <template #title>
-                                                This is {{ option.name }}
+                                                This is {{ listItem.name }}
                                             </template>
                                         </VListItem>
                                     </template>
@@ -470,7 +484,7 @@
                 </VStepper>
 
                 <VExpansionPanels class="mt-4" :open="[false, true, false]">
-                    <VExpansionPanel :key="index" v-for="(item, index) in options">
+                    <VExpansionPanel :key="index" v-for="(item, index) in listItems">
                         <template #title>
                             Option {{ item.id }}
                         </template>

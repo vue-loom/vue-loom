@@ -9,18 +9,22 @@
         dense?: boolean;
         showMenuButton?: boolean;
         elevated?: boolean;
+        appbar?: boolean;
     }
 
     const props = withDefaults(defineProps<Props>(), {
         color: 'primary',
+        dense: false,
         showMenuButton: false,
         elevated: false,
+        appbar: false,
     });
 
     const barClassObject: ComputedRef<object> = computed(() => ({
         [resolveBg(props.color)]: true,
         'h-16': !props.dense,
         'shadow-xl': props.elevated,
+        'fixed': props.appbar,
     }));
 
     interface Emits {
@@ -35,7 +39,7 @@
 </script>
 
 <template>
-    <header class="w-full fixed flex justify-between items-center select-none z-40" :class="barClassObject">
+    <header class="w-full flex justify-between items-center select-none z-40" :class="barClassObject">
         <div class="h-full flex items-center">
             <div
                 class="h-full px-3 flex items-center hover:bg-white/10 active:bg-white/20 cursor-pointer transition-all duration-150"
