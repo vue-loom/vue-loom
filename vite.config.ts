@@ -41,7 +41,7 @@ export default defineConfig({
                 '@heroicons/vue/24/outline',
                 '@heroicons/vue/24/solid',
                 '@inertiajs/vue3',
-                '@vitejs/plugin-vue'
+                '@vitejs/plugin-vue',
             ],
             output: {
                 globals: {vue: 'Vue'},
@@ -59,7 +59,9 @@ export default defineConfig({
                 // preserveModules: true
             },
             input: Object.fromEntries(
-                glob.sync('src/**/*.{ts,vue}').map(file => [
+                glob.sync(['src/**/*{.ts,.vue}'], {
+                    ignore: 'src/component-types/*.ts'
+                }).map(file => [
                     // The name of the entry point
                     // src/nested/foo.ts becomes nested/foo
                     relative(
@@ -70,7 +72,7 @@ export default defineConfig({
                     // src/nested/foo.ts becomes /project/src/nested/foo.ts
                     fileURLToPath(new URL(file, import.meta.url))
                 ])
-            )
+            ),
         },
         cssCodeSplit: true,
     },
