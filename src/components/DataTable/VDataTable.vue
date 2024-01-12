@@ -41,7 +41,11 @@
 
     const buildItemMenu = (item: DataTableItem): DataTableMenuItem[] => props.menu.reduce((carry: DataTableMenuItem[], menuItem: DataTableMenuItem) => {
         if (!menuItem.show || (typeof menuItem.show === 'function' && menuItem.show(item))) {
-            carry.push(menuItem);
+            // carry.push(menuItem);
+            carry.push({
+                ...menuItem,
+                disabled: (!menuItem.disabled || (typeof menuItem.disabled === 'function' && menuItem.disabled(item))) as boolean,
+            });
         }
 
         return carry;
@@ -169,7 +173,7 @@
                              class="flex justify-end items-center"
                         >
                             <VButton no-relative type="text"
-                                     @click="menus[getItemKey(item, itemIndex)][0].closure(item)">
+                                     @click="menus[getItemKey(item, itemIndex)][0].handle(item)">
                                 <div class="flex flex-row items-center">
                                     <div>{{ menus[getItemKey(item, itemIndex)][0].label }}</div>
                                 </div>
@@ -190,11 +194,11 @@
 
                                 <template #content>
                                     <VListItem
-                                        :clickable="!(menuItem.hasOwnProperty('disabled') && menuItem.disabled(item))"
+                                        :clickable="!menuItem.disabled"
                                         :color="menuItem.color"
                                         :key="menuItem.label"
                                         v-for="menuItem in menus[getItemKey(item, itemIndex)]"
-                                        @click="!(menuItem.hasOwnProperty('disabled') && menuItem.disabled(item)) && menuItem.closure(item)"
+                                        @click="!menuItem.disabled && menuItem.handle(item)"
                                     >
                                         <template #title>{{ menuItem.label }}</template>
                                     </VListItem>
