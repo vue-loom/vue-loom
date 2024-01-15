@@ -184,7 +184,7 @@
         [`${resolveText(props.color)} ${resolveBg(props.color)} bg-opacity-10`]: isToday(day),
         [`text-white font-bold ${resolveBg(props.color)}`]: isSelected(day),
         'hover:bg-gray-100': !isToday(day) && !isSelected(day),
-        'text-gray-200': (props.allowedDates.length > 0 && !validDates.value.includes(day)) ||
+        'text-gray-200 !cursor-default hover:!bg-transparent': (props.allowedDates.length > 0 && !validDates.value.includes(day)) ||
             (props.disableDates.length > 0 && disabledDatesList.value.includes(day)) ||
             (fromDate.value !== null && (day <= fromDate.value || fromDate.value === 0)) ||
             (toDate.value !== null && (day >= toDate.value || toDate.value === 0)),

@@ -3,7 +3,7 @@
     import {resolveText} from "@/partials/colors";
     import * as OutlineIcons from '@heroicons/vue/24/outline';
     import * as SolidIcons from '@heroicons/vue/24/solid';
-    import { ucFirst } from '@/partials/prototypes';
+    import {ucFirst} from '@/partials/prototypes';
 
     interface Props {
         icon: string;
@@ -19,9 +19,19 @@
         color: 'gray-500',
     });
 
-    const iconString: ComputedRef<string> = computed(() => `${props.icon.split('-')
-        .map((part) => ucFirst(part))
-        .join('')}Icon`);
+    interface SpecialCase {
+        [key: string]: string;
+    }
+
+    const specialCases: SpecialCase = {
+        'squares-2x2': 'Squares2X2Icon',
+    };
+
+    const iconString: ComputedRef<string> = computed(() => Object.keys(specialCases).includes(props.icon)
+        ? specialCases[props.icon]
+        : `${props.icon.split('-')
+            .map((part) => ucFirst(part))
+            .join('')}Icon`);
 
     const iconComponent: ComputedRef<Component> = computed(() => {
         if (!props.solid) {
