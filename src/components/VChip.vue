@@ -20,8 +20,8 @@
         [`${resolveBg(props.color)} bg-opacity-10`]: props.disabled && props.color,
         'bg-gray-200': !props.color,
         'bg-opacity-60': props.disabled && !props.color,
-        'px-2': !props.closable,
-        'pl-2 pr-1': props.closable,
+        'px-2': !props.closable || (props.closable && props.disabled),
+        'pl-2 pr-1': props.closable && !props.disabled,
     }));
 
     interface Emits {
@@ -47,7 +47,7 @@
 
         <div class="w-4 h-4 bg-white rounded-full"
              :class="[!disabled ? 'cursor-pointer' : '']"
-             v-if="closable"
+             v-if="closable && !disabled"
              @click.stop="closeChip"
         >
             <VIcon icon="x-mark" :size="16"/>
