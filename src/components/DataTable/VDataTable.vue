@@ -13,10 +13,10 @@
     import VEnumColumn from "@/components/DataTable/Partials/VEnumColumn.vue";
     // import VSortRenderer from "@/components/DataTable/Partials/VSortRenderer.vue";
     // import type {DataTableColumn} from "@/component-types/DataTableColumn";
-    import type {DataTableItem} from "@/component-types/DataTableItem";
-    import type {DataTableSort} from "@/component-types/DataTableSort";
-    import type {DataTable} from "@/component-types/DataTable";
-    import type {DataTableMenuItem} from "@/component-types/DataTableMenuItem";
+    import type {DataTableItem} from "@/globals/DataTableItem";
+    import type {DataTableSort} from "@/globals/DataTableSort";
+    import type {DataTable} from "@/globals/DataTable";
+    import type {DataTableMenuItem} from "@/globals/DataTableMenuItem";
 
     interface Props {
         table: DataTable;

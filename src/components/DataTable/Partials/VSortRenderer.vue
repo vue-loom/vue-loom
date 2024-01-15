@@ -1,8 +1,8 @@
 <script setup lang="ts">
     import VIcon from "@/components/VIcon.vue";
     import {computed, type ComputedRef} from "vue";
-    import type {DataTableColumn} from "@/component-types/DataTableColumn";
-    import type {DataTableSort} from "@/component-types/DataTableSort";
+    import type {DataTableColumn} from "@/globals/DataTableColumn";
+    import type {DataTableSort} from "@/globals/DataTableSort";
 
     interface Props {
         sort: DataTableSort;

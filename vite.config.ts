@@ -19,7 +19,6 @@ export default defineConfig({
             vue(/*{ style: { filename: 'style.css' } }*/),
             libInjectCss(),
         ],
-
     build: {
         // Output compiled files to /dist.
         outDir: './dist',
@@ -55,12 +54,12 @@ export default defineConfig({
                 },
                 chunkFileNames: (chunkInfo) => {
                     return 'shared/' + chunkInfo.name.split('.')[0] + '.[format].js';
-                }
+                },
                 // preserveModules: true
             },
             input: Object.fromEntries(
                 glob.sync(['src/**/*{.ts,.vue}'], {
-                    ignore: 'src/component-types/*.ts'
+                    ignore: 'src/globals/*.ts'
                 }).map(file => [
                     // The name of the entry point
                     // src/nested/foo.ts becomes nested/foo

@@ -2,8 +2,8 @@
     import VTreeNode from "@/components/Tree/Partials/VTreeNode.vue";
     import {ref, type Ref} from "vue";
     import {computed, type ComputedRef, watch} from "vue";
-    import type {TreeItem} from "../../component-types/TreeItem";
-    import type {TreeNode} from "../../component-types/TreeNode";
+    import type {TreeItem} from "../../globals/TreeItem";
+    import type {TreeNode} from "../../globals/TreeNode";
 
     interface Props {
         modelValue: number | string | null;

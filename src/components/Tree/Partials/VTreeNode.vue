@@ -3,7 +3,7 @@
     import {type ComputedRef} from "vue";
     import {computed} from "vue";
     import VIcon from "@/components/VIcon.vue";
-    import type {TreeNode} from "../../../component-types/TreeNode";
+    import type {TreeNode} from "../../../globals/TreeNode";
 
     interface Props {
         node: TreeNode;

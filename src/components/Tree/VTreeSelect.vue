@@ -6,8 +6,8 @@
     import VMenu from "@/components/VMenu.vue";
     import {useClickOutside} from "@/composables/mouse";
     import VIcon from "@/components/VIcon.vue";
-    import type {TreeItem} from "../../component-types/TreeItem";
-    import type {TreeNode} from "../../component-types/TreeNode";
+    import type {TreeItem} from "../../globals/TreeItem";
+    import type {TreeNode} from "../../globals/TreeNode";
 
     interface Props {
         modelValue: number | string | null;
