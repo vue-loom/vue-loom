@@ -14,7 +14,8 @@
         errorMessage?: string,
         color?: "primary" | "secondary" | "accent" | "success" | "warning" | "danger";
         autofocus?: boolean;
-        allowedDates?: number[] | string[],
+        allowedDates?: string[],
+        disableDates?: string[],
         min?: string,
         max?: string,
         elevation?: boolean,
@@ -29,9 +30,10 @@
         errorMessage: '',
         color: 'primary',
         autofocus: false,
+        allowedDates: () => ([]),
+        disableDates: () => ([]),
         min: '',
         max: '',
-        allowedDates: () => [],
         elevation: false,
         align: 'left',
         position: 'bottom',
@@ -105,6 +107,7 @@
                     :min="min"
                     :max="max"
                     :allowed-dates="allowedDates"
+                    :disable-dates="disableDates"
                     @click="selectedDate()"
                 />
             </template>

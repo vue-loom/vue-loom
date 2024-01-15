@@ -302,6 +302,8 @@
                                     label="Date of Birth"
                                     v-model="selectedDate"
                                     :format="'DD-MMMM-YYYY'"
+                                    min="2024-01-03"
+                                    max="2024-02-25"
                                 />
                             </div>
 
