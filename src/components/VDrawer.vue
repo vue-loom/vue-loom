@@ -7,7 +7,7 @@
         right?: boolean;
         mini?: boolean;
         overlay?: boolean;
-        toolbarOffset?: boolean;
+        appbarOffset?: boolean;
     }
 
     const props = withDefaults(defineProps<Props>(), {
@@ -16,7 +16,7 @@
         right: false,
         mini: false,
         overlay: false,
-        toolbarOffset: false,
+        appbarOffset: false,
     });
 
     const innerModelValue: Ref<boolean> = ref(props.modelValue);
@@ -67,8 +67,8 @@
     const drawerClassObject: ComputedRef<object> = computed(() => ({
         'left-0': props.left,
         'right-0': props.right,
-        'top-16 h-[calc(100vh-56px)]': props.toolbarOffset,
-        'top-0 h-screen': !props.toolbarOffset,
+        'top-16 h-[calc(100vh-56px)]': props.appbarOffset,
+        'top-0 h-screen': !props.appbarOffset,
         [drawerWidth.value]: true,
     }));
 </script>

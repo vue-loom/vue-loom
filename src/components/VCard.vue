@@ -43,9 +43,9 @@
                  fillHeight ? 'h-full' : '',
              ]"
              @click="clickable && createCardRipple($event)">
-            <h1 class="text-xl px-4 text-gray-700 shrink font-bold">
+            <div class="text-xl px-4 text-gray-700 shrink font-bold">
                 <slot name="title"/>
-            </h1>
+            </div>
             <div class="px-4 text-gray-500 shrink">
                 <slot name="subtitle"/>
             </div>

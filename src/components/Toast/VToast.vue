@@ -10,6 +10,7 @@
         duration?: number,
         rounded?: boolean,
         type?: 'info' | 'warning' | 'error' | 'success',
+        appbarOffset?: boolean;
     }
 
     const props = withDefaults(defineProps<Props>(), {
@@ -19,6 +20,7 @@
         duration: 3000,
         rounded: false,
         type: 'info',
+        appbarOffset: false,
     });
 
     interface Emits {
@@ -44,8 +46,10 @@
     const toastClassObject: ComputedRef<object> = computed(() => ({
         'bottom-2 right-2': props.position === 'bottom-right',
         'bottom-2 left-2': props.position === 'bottom-left',
-        'top-[72px] right-2': props.position === 'top-right',
-        'top-[72px] left-2': props.position === 'top-left',
+        'top-[72px] right-2': props.position === 'top-right' && props.appbarOffset,
+        'top-2 right-2': props.position === 'top-right' && !props.appbarOffset,
+        'top-[72px] left-2': props.position === 'top-left' && props.appbarOffset,
+        'top-2 left-2': props.position === 'top-left' && !props.appbarOffset,
     }));
 
     const closeToast = (): void => {

@@ -4,7 +4,6 @@
     import {resolveBgHover, resolveText} from "@/partials/colors";
 
     interface Props {
-        item?: object,
         color?: string,
         disabled?: boolean,
         selected?: boolean,

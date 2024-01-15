@@ -23,6 +23,10 @@
 
     const innerModelValue: Ref<number> = ref(props.modelValue);
 
+    watch((): number => props.modelValue, (val): void => {
+        innerModelValue.value = val;
+    });
+
     // console.log(useSlots().default());
     // const steps: VNodeNormalizedChildren = useSlots().default();
 

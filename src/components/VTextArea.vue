@@ -118,9 +118,9 @@
 
 <template>
     <div class="relative">
-        <div ref="textAreaLabel" class="absolute left-0 top-0 text-xs invisible z-[-1]" v-text="label"/>
+        <div ref="textAreaLabel" class="absolute left-0 top-0 scale-75 invisible z-[-1]" v-text="label"/>
 
-        <div class="absolute left-3 -top-[2px] border-y-[2px] border-white transition-all duration-150"
+        <div class="absolute left-3 top-0 border-b border-white transition-all duration-150"
              :style="{width: focused || innerModelValue ? `${textAreaLabelWidth}px` : '0px'}"
         ></div>
 

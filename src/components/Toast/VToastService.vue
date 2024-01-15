@@ -3,18 +3,26 @@
     import VToast from "@/components/Toast/VToast.vue";
     import {computed, type ComputedRef, watch} from "vue";
     import {usePage} from "@inertiajs/vue3";
-    import type {Flash} from "../../globals/flash";
+    import type {Flash} from "@/globals/flash";
 
-    const flash: ComputedRef<Flash> = computed(() => usePage().props.flash as Flash);
-    const type = computed(() => flash.value.messageStyle || 'success');
-    const subtitle = computed(() => flash.value.message);
-    const duration = computed(() => flash.value.messageDuration || 3000);
+    interface Props {
+        appbarOffset?: boolean;
+    }
 
-    const clearMessage = () => {
+    withDefaults(defineProps<Props>(), {
+        appbarOffset: false,
+    });
+
+    const flash: ComputedRef<Flash | null> = computed(() => usePage().props ? usePage().props.flash as Flash : null);
+    const type: ComputedRef<string> = computed(() => flash.value?.messageStyle || 'success');
+    const subtitle: ComputedRef<string> = computed(() => flash.value?.message || '');
+    const duration: ComputedRef<number> = computed(() => flash.value?.messageDuration || 3000);
+
+    const clearMessage = (): void => {
         (usePage().props.flash as Flash).message = '';
     };
 
-    watch(subtitle, () => {
+    watch(subtitle, (): void => {
         if (subtitle.value) {
             useToast().show({
                 title: type.value,
@@ -33,6 +41,7 @@
             :type="useToast().type"
             :duration="useToast().duration"
             :position="useToast().position"
+            :appbar-offset="appbarOffset"
     >
         <template #title>
             {{ useToast().title }}
