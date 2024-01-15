@@ -17,9 +17,9 @@ export function useClickOutside(component: Ref<HTMLElement | null>, callback: ()
     return {listener};
 }
 
-export function useRipple(mouseEvent: MouseEvent, componentRef: Ref<HTMLElement | null>): void {
+export function useRipple(mouseEvent: MouseEvent, componentRef: Ref<HTMLElement | null>, color: string | null = null): void {
     if (componentRef) {
-        const contrastColor: string = getContrastColor(getComputedStyle(componentRef.value).getPropertyValue('background-color'));
+        const contrastColor: string = color || getContrastColor(getComputedStyle(componentRef.value).getPropertyValue('background-color'));
         const rippleDiv: HTMLElement = document.createElement('div');
 
         const componentRect: DOMRect = componentRef.value.getBoundingClientRect();

@@ -12,7 +12,7 @@
 
     const clickAction = (event: MouseEvent): void => {
         if (toolbarAction.value) {
-            useRipple(event, toolbarAction);
+            useRipple(event, toolbarAction, '#fff');
         }
 
         emits('click');
