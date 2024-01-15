@@ -31,13 +31,19 @@
         VExpansionPanel,
         VStepper,
         VStep,
-    } from "../src";
+        VDataTable,
+        VChip,
+        VToolbarAction,
+
+        useToast,
+        useDialog,
+    } from "@";
     import {Ref, ref} from "vue";
-    import {useToast} from "../src/composables/toast";
-    import {useDialog} from "../src/composables/dialog";
-    import VChip from "@/components/VChip.vue";
     import {TreeItem} from "@/component-types/TreeItem";
     import {SelectItem} from "@/component-types/SelectItem";
+    import {simulateDataTableData} from "./helpers/helpers";
+    import {DataTableMenuItem} from "@/component-types/DataTableMenuItem";
+    import {DataTableItem} from "@/component-types/DataTableItem";
 
     const value: Ref<string | null> = ref(null);
     const myValue: Ref<string | null> = ref(null);
@@ -178,6 +184,16 @@
     }
 
     const tabIndex: Ref<number> = ref(0);
+    const stepperIndex: Ref<number> = ref(0);
+
+    const navigateStepper = (): void => {
+        if (stepperIndex.value === 2) {
+            stepperIndex.value = 0;
+        } else {
+            stepperIndex.value++;
+        }
+    };
+
     const barProgress: Ref<number> = ref(50);
 
     const increaseBarProgress = (): void => {
@@ -188,6 +204,49 @@
             }
         }
     };
+
+    const dataTableMenu: DataTableMenuItem[] = [
+        {
+            label: 'Menu Item',
+            color: 'primary',
+            handle: () => {
+                console.log('clicked menu item');
+            },
+        },
+        {
+            label: 'Disabled Menu Item',
+            color: 'success',
+            disabled: (item: DataTableItem) => item.id === 2,
+            handle: () => {
+                console.log('clicked disabled menu item');
+            },
+        },
+        {
+            label: 'Disabled Menu Item 2',
+            color: 'secondary',
+            disabled: true,
+            handle: () => {
+                console.log('clicked disabled menu item');
+            },
+        },
+        {
+            label: 'Hidden Menu Item',
+            color: 'warning',
+            show: false,
+            handle: () => {
+                console.log('clicked hidden menu item');
+            },
+        },
+        {
+            label: 'Menu Item',
+            color: 'danger',
+            show: (item: DataTableItem) => item.id === 1,
+            disabled: false,
+            handle: () => {
+                console.log('clicked menu item');
+            },
+        },
+    ];
 </script>
 
 <template>
@@ -195,15 +254,21 @@
         <VDialogService/>
         <VToastService appbar-offset/>
 
-        <VToolbar appbar show-menu-button @click:menu-icon="drawerIsOpen = !drawerIsOpen">
-            Title on Toolbar
+        <VToolbar
+            elevated
+            appbar
+            show-menu-button
+            @click:menu-icon="drawerIsOpen = !drawerIsOpen"
+        >Title on Toolbar
             <template #actions>
-                <VTooltip>
-                    <template #trigger>
-                        actions
-                    </template>
-                    <template #content>This is the actions suffix to add buttons</template>
-                </VTooltip>
+                <VToolbarAction>Text Action</VToolbarAction>
+                <VToolbarAction>
+                    <VIcon solid icon="bell-alert" color="white"/>
+                    <div>Action</div>
+                </VToolbarAction>
+                <VToolbarAction>
+                    <VIcon solid icon="cog-8-tooth" color="white" size="md"/>
+                </VToolbarAction>
             </template>
         </VToolbar>
 
@@ -213,7 +278,9 @@
             </VDrawer>
 
             <VContainer appbar-offset @click="drawerIsOpen = false">
-                <VCard color="red-500">
+                <VBanner type="error">This is my banner</VBanner>
+
+                <VCard class="mt-4">
                     <template #title>
                         Page Title
                     </template>
@@ -222,8 +289,6 @@
                     </template>
                     <template #content>
                         <div class="flex flex-wrap gap-4">
-                            <VBanner class="col-span-3" type="error">This is my banner</VBanner>
-
                             <div class="w-full">
                                 <VTextField
                                     class="w-1/3"
@@ -381,8 +446,9 @@
                         </div>
                     </template>
                     <template #actions>
+                        <VButton type="text" color="danger">Button</VButton>
+                        <VButton type="outlined" color="warning">Button</VButton>
                         <VButton @click="buttonCancel()" color="secondary">Cancel</VButton>
-
                         <VButton @click="buttonClicked()" :disabled="isDisabled" :loading="isLoading">Next</VButton>
                     </template>
                 </VCard>
@@ -458,32 +524,40 @@
                     </VTab>
                 </VTabs>
 
-                <VStepper class="mt-4" clickable preserve-state v-model="tabIndex" elevation>
-                    <VStep>
-                        <template #step>
-                            Step One
-                        </template>
-                        <template #content>
-                            The first step is to move to step two!
-                        </template>
-                    </VStep>
-                    <VStep>
-                        <template #step>
-                            Step Two
-                        </template>
-                        <template #content>
-                            The second step is to move to step three!
-                        </template>
-                    </VStep>
-                    <VStep>
-                        <template #step>
-                            Step Three
-                        </template>
-                        <template #content>
-                            This is the last step. Weldon!!
-                        </template>
-                    </VStep>
-                </VStepper>
+                <div class="flex flex-col space-y-3 items-end">
+                    <VStepper class="w-full mt-4" clickable preserve-state v-model="stepperIndex" elevation>
+                        <VStep>
+                            <template #step>
+                                Step One
+                            </template>
+                            <template #content>
+                                The first step is to move to step two!
+                            </template>
+                        </VStep>
+                        <VStep>
+                            <template #step>
+                                Step Two
+                            </template>
+                            <template #content>
+                                The second step is to move to step three!
+                            </template>
+                        </VStep>
+                        <VStep>
+                            <template #step>
+                                Step Three
+                            </template>
+                            <template #content>
+                                This is the last step. Well done!!
+                            </template>
+                        </VStep>
+                    </VStepper>
+
+                    <VButton @click="navigateStepper">
+                        {{ stepperIndex < 2 ? 'Next Step' : 'Start Over' }}
+                    </VButton>
+                </div>
+
+                <VDataTable class="mt-4" :table="simulateDataTableData()" :menu="dataTableMenu"/>
 
                 <VExpansionPanels class="mt-4" :open="[false, true, false]">
                     <VExpansionPanel :key="index" v-for="(item, index) in listItems">

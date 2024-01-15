@@ -1,7 +1,6 @@
 import {DataTable} from "../../src/component-types/DataTable";
 
 export const simulateDataTableData = (): DataTable => {
-    //TODO: in progress
     return {
         list: {
             current_page: 1,
@@ -9,7 +8,18 @@ export const simulateDataTableData = (): DataTable => {
             last_page_url: null,
             prev_page_url: '',
             next_page_url: null,
-            data: [],
+            data: [
+                {
+                    id: 1,
+                    name: 'John Doe',
+                    email: 'john@doe.com',
+                },
+                {
+                    id: 2,
+                    name: 'Jane Doe',
+                    email: 'jane@doe.com',
+                },
+            ],
             from: null,
             to: null,
             last_page: null,

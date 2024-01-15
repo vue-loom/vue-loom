@@ -12,7 +12,7 @@
     import {onMounted} from "vue";
     import {watch} from "vue";
     import VIcon from "@/components/VIcon.vue";
-    import type {SelectItem} from "../component-types/SelectItem";
+    import type {SelectItem} from "@/component-types/SelectItem";
 
     interface Props {
         modelValue: number[] | string[];
@@ -163,9 +163,9 @@
     <VMenu width="w-full" :disabled="readonly" :close-on-content-click="false">
         <template #trigger="{ open }">
             <div class="relative">
-                <div ref="textFieldLabel" class="absolute left-0 top-0 text-xs invisible z-[-1]" v-text="label"/>
+                <div ref="textFieldLabel" class="absolute left-0 top-0 scale-75 invisible z-[-1]" v-text="label"/>
 
-                <div class="absolute left-3 -top-[2px] border-y-[2px] border-white transition-all duration-150"
+                <div class="absolute left-3 top-0 border-b border-white transition-all duration-150"
                      :style="{width: focused || innerModelValue.length > 0 ? `${textFieldLabelWidth}px` : '0px'}"
                 ></div>
 

@@ -8,11 +8,13 @@
     interface Props {
         modelValue: boolean;
         items: MenuItem[];
+        appbarOffset?: boolean;
     }
 
     const props = withDefaults(defineProps<Props>(), {
         modelValue: true,
         items: () => ([]),
+        appbarOffset: false,
     });
 
     interface Emits {
@@ -67,7 +69,7 @@
 
 <template>
     <VDrawer
-        toolbar-offset
+        :appbar-offset="appbarOffset"
         :mini="mini"
         :model-value="modelValue"
         @update:modelValue="$emit('update:modelValue', $event)"

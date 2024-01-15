@@ -11,12 +11,12 @@
     import VBooleanColumn from "@/components/DataTable/Partials/VBooleanColumn.vue";
     import VDateColumn from "@/components/DataTable/Partials/VDateColumn.vue";
     import VEnumColumn from "@/components/DataTable/Partials/VEnumColumn.vue";
-    // import VSortRenderer from "@/components/DataTable/Partials/VSortRenderer.vue";
-    // import type {DataTableColumn} from "@/component-types/DataTableColumn";
     import type {DataTableItem} from "@/component-types/DataTableItem";
     import type {DataTableSort} from "@/component-types/DataTableSort";
     import type {DataTable} from "@/component-types/DataTable";
     import type {DataTableMenuItem} from "@/component-types/DataTableMenuItem";
+    // import VSortRenderer from "@/components/DataTable/Partials/VSortRenderer.vue";
+    // import type {DataTableColumn} from "@/component-types/DataTableColumn";
 
     interface Props {
         table: DataTable;
@@ -35,16 +35,31 @@
         'enum-column': VEnumColumn,
     };
 
-    const getItemKey = (item: DataTableItem, index: number): number => {
-        return item.id || index;
+    const determineMenuItemShowState = (menuItem: DataTableMenuItem, item: DataTableItem): boolean => {
+        if ('show' in menuItem && typeof menuItem.show === 'boolean') {
+            return menuItem.show;
+        } else if ('show' in menuItem && typeof menuItem.show === 'function') {
+            return menuItem.show(item);
+        }
+
+        return true;
+    };
+
+    const determineMenuItemDisabledState = (menuItem: DataTableMenuItem, item: DataTableItem): boolean => {
+        if ('disabled' in menuItem && typeof menuItem.disabled === 'boolean') {
+            return menuItem.disabled;
+        } else if ('disabled' in menuItem && typeof menuItem.disabled === 'function') {
+            return menuItem.disabled(item);
+        }
+
+        return false;
     };
 
     const buildItemMenu = (item: DataTableItem): DataTableMenuItem[] => props.menu.reduce((carry: DataTableMenuItem[], menuItem: DataTableMenuItem) => {
-        if (!menuItem.show || (typeof menuItem.show === 'function' && menuItem.show(item))) {
-            // carry.push(menuItem);
+        if (determineMenuItemShowState(menuItem, item)) {
             carry.push({
                 ...menuItem,
-                disabled: (!menuItem.disabled || (typeof menuItem.disabled === 'function' && menuItem.disabled(item))) as boolean,
+                disabled: determineMenuItemDisabledState(menuItem, item),
             });
         }
 
@@ -54,6 +69,10 @@
     interface ItemMenu {
         [key: number]: DataTableMenuItem[];
     }
+
+    const getItemKey = (item: DataTableItem, index: number): number => {
+        return item.id || index;
+    };
 
     const menus: ItemMenu = props.table.list.data.reduce((carry: ItemMenu, item: DataTableItem, itemIndex: number) => {
         carry[getItemKey(item, itemIndex)] = buildItemMenu(item);
@@ -81,9 +100,11 @@
         setDataMutatorsFromTable();
     });
 
-    // const updateSort = (column: DataTableColumn, direction: 'asc' | 'desc' | null): void => {
+    // const updateSort = (column: DataTableColumn, direction: 'asc' | 'desc' | ''): void => {
     //     if (direction) {
     //         dataMutatorsForm.sort[column.alias] = direction;
+    //     } else {
+    //         delete dataMutatorsForm.sort[column.alias];
     //     }
     // };
 
@@ -140,7 +161,8 @@
                             <div>{{ column.header }}</div>
 
                             <!--                            <VSortRenderer-->
-                            <!--                                class="opacity-0 group-hover:opacity-100 transition-all duration-75"-->
+                            <!--                                class="transition-all duration-150"-->
+                            <!--                                :class="[!dataMutatorsForm.sort[column.alias] ? 'opacity-0 group-hover:opacity-100' : '']"-->
                             <!--                                :sort="dataMutatorsForm.sort"-->
                             <!--                                :column="column"-->
                             <!--                                @update:direction="updateSort(column, $event)"-->
