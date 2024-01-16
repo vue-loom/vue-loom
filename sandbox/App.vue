@@ -46,6 +46,7 @@
     import {DataTableItem} from "@/component-types/DataTableItem";
     import VRow from "@/components/Grid/VRow.vue";
     import VCol from "@/components/Grid/VCol.vue";
+    import VDivider from "@/components/VDivider.vue";
 
     const value: Ref<string | null> = ref(null);
     const myValue: Ref<string | null> = ref(null);
@@ -395,8 +396,18 @@
                                 <VCol class="bg-danger text-center" cols="3">3</VCol>
                             </VRow>
 
+                            <VDivider/>
+                            <VDivider thickness="md" color="secondary"/>
+                            <div class="h-16 flex space-x-3">
+                                <VDivider vertical/>
+                                <VDivider thickness="sm" vertical color="warning"/>
+                                <VDivider thickness="md" vertical color="danger"/>
+                                <VDivider thickness="lg" vertical color="primary"/>
+                                <VDivider thickness="xl" vertical/>
+                            </div>
+
                             <div class="w-full">
-                                <VLoader width="sm" color="success"/>
+                                <VLoader width="lg" size="50" color="success"/>
                             </div>
 
                             <div class="w-full">
