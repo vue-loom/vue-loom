@@ -398,12 +398,28 @@
                             </div>
 
                             <div class="w-full flex space-x-3 mt-4">
-                                <VBadge color="warning">
-                                    <template #component>
-                                        <VButton @click="showBadge()">Badge</VButton>
+                                <VMenu position="bottom" align="right">
+                                    <template #trigger>
+                                        <VBadge color="warning">
+                                            <template #component>
+                                                <VButton @click="showBadge()">Badge</VButton>
+                                            </template>
+                                            <template #content>BETA</template>
+                                        </VBadge>
                                     </template>
-                                    <template #content>BETA</template>
-                                </VBadge>
+                                    <template #content>
+                                        <VListItem v-for="listItem in listItems"
+                                                   :key="listItem.id"
+                                                   clickable
+                                                   :selected="listItem.selected"
+                                                   @click="selectItem(listItem)"
+                                        >
+                                            <template #title>
+                                                This is a very long, but lets make it a longer {{ listItem.name }}
+                                            </template>
+                                        </VListItem>
+                                    </template>
+                                </VMenu>
 
                                 <VTooltip>
                                     <template #trigger>
