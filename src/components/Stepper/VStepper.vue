@@ -54,8 +54,8 @@
     const headerRef: Ref<HTMLElement | null> = ref(null);
 
     onMounted((): void => {
-        if (localStorage.step && props.preserveState) {
-            innerModelValue.value = localStorage.step
+        if (sessionStorage.getItem('vue_loom_stepper_step')  && props.preserveState) {
+            innerModelValue.value = parseInt(sessionStorage.getItem('vue_loom_stepper_step') || '0');
         }
 
         if (headerRef.value) {
@@ -66,7 +66,7 @@
 
     watch((): number => innerModelValue.value, (value: number): void => {
         if (props.preserveState) {
-            localStorage.step = value;
+            sessionStorage.setItem('vue_loom_stepper_step',value.toString());
         }
     });
 
@@ -99,17 +99,17 @@
                  :key="index"
                  class="relative text-center overflow-hidden w-fit grow select-none transition-all duration-150"
             >
-                <div class="relative flex justify-center items-center">
+                <div class="relative flex justify-center h-full">
                     <div class="absolute h-1/2 w-1/2 left-0 top-0 border-b border-gray-300"
                          v-if="index !== 0"
                     ></div>
-                    <div class="bg-white w-fit z-10 p-2"
+                    <div class="bg-white w-fit z-10 p-2 h-full flex justify-center items-center"
                          :class="clickable ? 'cursor-pointer hover:bg-gray-100' : ''"
                          @click="selectStep(index)">
                         <component :is="stepHeader"></component>
                     </div>
                     <div class="absolute h-1/2 w-1/2 right-0 top-0 border-b border-gray-300"
-                         v-if="index !== stepHeader.length - 1"
+                         v-if="index !== stepHeaders.length - 1"
                     ></div>
                 </div>
             </div>
