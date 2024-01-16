@@ -208,7 +208,6 @@
     const dataTableMenu: DataTableMenuItem[] = [
         {
             label: 'Menu Item',
-            color: 'primary',
             handle: () => {
                 console.log('clicked menu item');
             },
@@ -266,7 +265,7 @@
                     <VIcon solid icon="bell-alert" color="white"/>
                     <div>Action</div>
                 </VToolbarAction>
-                <VMenu position="bottom">
+                <VMenu width="w-96" position="bottom" align="right">
                     <template #trigger>
                         <VToolbarAction>
                             <VIcon solid icon="cog-8-tooth" color="white" size="md"/>

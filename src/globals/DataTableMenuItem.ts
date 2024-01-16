@@ -5,5 +5,5 @@ export interface DataTableMenuItem {
     label: string;
     show?: boolean | ((item: DataTableItem) => boolean);
     disabled?: boolean | ((item: DataTableItem) => boolean);
-    color: 'primary' | 'secondary' | 'accent' | 'success' | 'warning' | 'danger';
+    color?: 'primary' | 'secondary' | 'accent' | 'success' | 'warning' | 'danger';
 }
