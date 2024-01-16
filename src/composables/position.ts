@@ -51,6 +51,10 @@ const alignMenu = (menuElBoundingRect: DOMRect, triggerContainerBoundingRect: DO
         } else {
             if (triggerContainerBoundingRect) {
                 styles.left = triggerContainerBoundingRect.left;
+                if (styles.left + menuElBoundingRect.width >= innerWidth) {
+                    styles.left = '';
+                    styles.right = 4;
+                }
             } else {
                 styles.right = Math.abs(innerWidth - positionX);
             }

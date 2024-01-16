@@ -266,9 +266,25 @@
                     <VIcon solid icon="bell-alert" color="white"/>
                     <div>Action</div>
                 </VToolbarAction>
-                <VToolbarAction>
-                    <VIcon solid icon="cog-8-tooth" color="white" size="md"/>
-                </VToolbarAction>
+                <VMenu position="bottom">
+                    <template #trigger>
+                        <VToolbarAction>
+                            <VIcon solid icon="cog-8-tooth" color="white" size="md"/>
+                        </VToolbarAction>
+                    </template>
+                    <template #content>
+                        <VListItem v-for="listItem in listItems"
+                                   :key="listItem.id"
+                                   clickable
+                                   :selected="listItem.selected"
+                                   @click="selectItem(listItem)"
+                        >
+                            <template #title>
+                                This is {{ listItem.name }}
+                            </template>
+                        </VListItem>
+                    </template>
+                </VMenu>
             </template>
         </VToolbar>
 
