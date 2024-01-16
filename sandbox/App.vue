@@ -44,6 +44,8 @@
     import {simulateDataTableData} from "./helpers/helpers";
     import {DataTableMenuItem} from "@/component-types/DataTableMenuItem";
     import {DataTableItem} from "@/component-types/DataTableItem";
+    import VRow from "@/components/Grid/VRow.vue";
+    import VCol from "@/components/Grid/VCol.vue";
 
     const value: Ref<string | null> = ref(null);
     const myValue: Ref<string | null> = ref(null);
@@ -386,6 +388,12 @@
                                     max="2024-02-25"
                                 />
                             </div>
+
+                            <VRow class="text-white" reverse>
+                                <VCol class="bg-success text-center" cols="3">1</VCol>
+                                <VCol class="bg-warning text-center" cols="6">2</VCol>
+                                <VCol class="bg-danger text-center" cols="3">3</VCol>
+                            </VRow>
 
                             <div class="w-full">
                                 <VLoader width="sm" color="success"/>
