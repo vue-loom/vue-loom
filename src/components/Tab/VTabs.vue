@@ -1,15 +1,16 @@
 <script setup lang="ts">
-    import {ref, type Ref, computed, type ComputedRef, onMounted, type Component} from "vue";
+    import {ref, type Ref, computed, type ComputedRef, onMounted, type Component, watch} from "vue";
     import {getContrastColorClass, resolveBg} from "@/partials/colors";
 
     interface Props {
-        modelValue?: number;
-        readonly?: boolean;
-        disabled?: boolean;
-        elevation?: boolean;
-        alignTabs?: 'start' | 'center' | 'end'
+        modelValue?: number,
+        readonly?: boolean,
+        disabled?: boolean,
+        elevation?: boolean,
+        alignTabs?: 'start' | 'center' | 'end',
         growTabs?: boolean,
-        color?: string | 'primary' | 'secondary' | 'accent' | 'success' | 'warning' | 'danger';
+        color?: string | 'primary' | 'secondary' | 'accent' | 'success' | 'warning' | 'danger',
+        preserveState?: boolean,
     }
 
     const props = withDefaults(defineProps<Props>(), {
@@ -19,7 +20,8 @@
         elevation: false,
         alignTabs: 'start',
         growTabs: false,
-        color: 'primary'
+        color: 'primary',
+        preserveState: false,
     });
 
     interface Emits {
@@ -30,9 +32,13 @@
 
     const innerModelValue: Ref<number> = ref(props.modelValue);
 
+    watch((): number => props.modelValue, (val): void => {
+        innerModelValue.value = val;
+    });
+
     interface Tab {
         children: {
-            tab(): {children: string}[];
+            tab(): { children: string }[];
             content(): Component[];
         };
     }
@@ -44,7 +50,7 @@
     const slots = defineSlots<Slot>();
     const tabs: Tab[] = slots.default();
 
-    const tabLabels: string[] = tabs.map((tab) => tab.children.tab()[0].children.toString().trim());
+    const tabHeaders: Component[] = tabs.map((tab) => tab.children.tab()[0]);
     const tabContentSections: Component[] = tabs.map((tab) => tab.children.content()[0]);
 
     const labelRefs: Ref<HTMLElement[]> = ref([]);
@@ -54,10 +60,20 @@
     const headerRef: Ref<HTMLElement | null> = ref(null);
 
     onMounted((): void => {
-            if (headerRef.value) {
-                headerHeight.value = headerRef.value.getBoundingClientRect().height;
-            }
-            contentHeight.value = Math.max(...contentRefs.value.map((contentEl: HTMLElement) => contentEl.getBoundingClientRect().height)) + headerHeight.value;
+        if (sessionStorage.getItem('vue_loom_tabs_tab') && props.preserveState) {
+            innerModelValue.value = parseInt(sessionStorage.getItem('vue_loom_tabs_tab') || '0');
+        }
+
+        if (headerRef.value) {
+            headerHeight.value = headerRef.value.getBoundingClientRect().height;
+        }
+        contentHeight.value = Math.max(...contentRefs.value.map((contentEl: HTMLElement) => contentEl.getBoundingClientRect().height)) + headerHeight.value;
+    });
+
+    watch((): number => innerModelValue.value, (value: number): void => {
+        if (props.preserveState) {
+            sessionStorage.setItem('vue_loom_tabs_tab',value.toString());
+        }
     });
 
     const selectTab = (index: number): void => {
@@ -91,15 +107,18 @@
 </script>
 
 <template>
-    <div class="overflow-hidden relative rounded-lg bg-white" :class="frameClassObject" :style="{height: `${contentHeight}px`}">
+    <div class="overflow-hidden relative rounded-lg bg-white" :class="frameClassObject"
+         :style="{height: `${contentHeight}px`}">
         <div ref="headerRef" class="flex" :class="headerClassObject">
             <div ref="labelRefs"
-                 v-for="(tabLabel, index) in tabLabels"
+                 v-for="(tabHeader, index) in tabHeaders"
                  :key="index"
                  class="relative text-center overflow-hidden w-fit cursor-pointer select-none transition-all duration-150"
                  :class="[tabClassObject(), `hover:bg-${getContrastColorClass(props.color)}/10`]"
                  @click="selectTab(index)">
-                <div class="py-2 px-4">{{ tabLabel }}</div>
+                <div class="p-2">
+                    <component :is="tabHeader"></component>
+                </div>
                 <transition
                     enter-active-class="transition-all duration-300"
                     enter-from-class="scale-x-0"

@@ -481,19 +481,27 @@
                     </template>
                 </VCard>
 
-                <VTabs class="mt-4" grow-tabs v-model="tabIndex" elevation>
+                <VTabs class="mt-4" preserve-state v-model="tabIndex" elevation>
                     <VTab>
-                        <template #tab>Tab One</template>
+                        <template #tab>
+                            <div class="flex flex-col justify-center items-center">
+                                <VIcon icon="phone" solid color="white"/>
+                                <div>RESENTS</div>
+                            </div>
+                        </template>
                         <template #content>
                             <div>
                                 This is the content of tab one
-                                <VButton>Text</VButton>
+                                <VButton>Clear</VButton>
                             </div>
                         </template>
                     </VTab>
                     <VTab>
                         <template #tab>
-                            Tab two
+                            <div class="flex flex-col justify-center items-center">
+                                <VIcon icon="heart" solid color="white"/>
+                                <div>FAVOURITES</div>
+                            </div>
                         </template>
                         <template #content>
                             <div>
@@ -508,7 +516,10 @@
                     </VTab>
                     <VTab>
                         <template #tab>
-                            Tab three
+                            <div class="flex flex-col justify-center items-center">
+                                <VIcon icon="list-bullet" solid color="white"/>
+                                <div>CONTACTS</div>
+                            </div>
                         </template>
                         <template #content>
                             <div>
@@ -517,24 +528,6 @@
                                 <div>This is the third tab content with element div</div>
                                 <div>This is the third tab content with element div</div>
                             </div>
-                        </template>
-                    </VTab>
-                    <VTab>
-                        <template #tab>
-                            Tab four
-                        </template>
-                        <template #content>
-                            <div>
-                                <div>This is the fourth tab content with element div</div>
-                            </div>
-                        </template>
-                    </VTab>
-                    <VTab>
-                        <template #tab>
-                            Tab five
-                        </template>
-                        <template #content>
-                            <VButton>This works</VButton>
                         </template>
                     </VTab>
                 </VTabs>
@@ -543,7 +536,10 @@
                     <VStepper class="w-full mt-4" clickable preserve-state v-model="stepperIndex" elevation>
                         <VStep>
                             <template #step>
-                                Step One
+                                <div class="flex space-x-2 justify-center items-center">
+                                    <VIcon icon="check-circle" size="md" solid color="gray-400"/>
+                                    <div class="text-gray-400">CONTACTS</div>
+                                </div>
                             </template>
                             <template #content>
                                 The first step is to move to step two!
@@ -551,7 +547,13 @@
                         </VStep>
                         <VStep>
                             <template #step>
-                                Step Two
+                                <div class="flex-col justify-center items-center">
+                                    <div class="flex space-x-2 justify-center items-center">
+                                        <VIcon icon="x-circle" size="md" solid color="red-400"/>
+                                        <div class="text-red-400">SUBMIT APPLICATION</div>
+                                    </div>
+                                    <div class="text-red-400 text-sm">Missing details!</div>
+                                </div>
                             </template>
                             <template #content>
                                 The second step is to move to step three!
@@ -559,7 +561,10 @@
                         </VStep>
                         <VStep>
                             <template #step>
-                                Step Three
+                                <div class="flex space-x-2 justify-center items-center">
+                                    <VIcon icon="user" solid color="black"/>
+                                    <div class="text-black">Schedule Interview</div>
+                                </div>
                             </template>
                             <template #content>
                                 This is the last step. Well done!!
