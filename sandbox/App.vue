@@ -47,6 +47,7 @@
     import VRow from "@/components/Grid/VRow.vue";
     import VCol from "@/components/Grid/VCol.vue";
     import VDivider from "@/components/VDivider.vue";
+    import VImage from "@/components/VImage.vue";
 
     const value: Ref<string | null> = ref(null);
     const myValue: Ref<string | null> = ref(null);
@@ -477,6 +478,12 @@
                                 <VIcon icon="folder-arrow-down" color="danger" size="xl"/>
                                 <VIcon icon="phone-x-mark" color="accent" :size="150"/>
                             </div>
+
+                            <VImage src="assets/images/test.jpg" :width="150"/>
+                            <VImage src="assets/images/test.jpg" blur :width="150"/>
+                            <VImage src="assets/images/test.jpg" aspect-ratio="square" color="warning" :width="100"/>
+                            <VImage src="assets/images/test.jpg" aspect-ratio="square" color="danger" :width="100"/>
+                            <VImage src="assets/images/test.jpg" aspect-ratio="square" color="success" :width="100"/>
                         </div>
                     </template>
                     <template #actions>

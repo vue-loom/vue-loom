@@ -5,7 +5,7 @@
     interface Props {
         color?: string | 'primary' | 'secondary' | 'accent' | 'success' | 'warning' | 'danger',
         width?: 'sm' | 'md' | 'lg' | 'xl',
-        size?: number,
+        size?: number | string,
         overlay?: boolean,
     }
 
