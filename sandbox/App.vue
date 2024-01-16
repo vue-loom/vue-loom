@@ -265,7 +265,7 @@
                     <VIcon solid icon="bell-alert" color="white"/>
                     <div>Action</div>
                 </VToolbarAction>
-                <VMenu width="w-96" position="bottom" align="right">
+                <VMenu position="bottom" align="right">
                     <template #trigger>
                         <VToolbarAction>
                             <VIcon solid icon="cog-8-tooth" color="white" size="md"/>
