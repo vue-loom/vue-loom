@@ -7,7 +7,7 @@
         color?: string | 'primary' | 'secondary' | 'accent' | 'success' | 'warning' | 'danger',
         max?: number,
         type?: 'linear' | 'circular'
-        radius?: number,
+        strokeWidth?: number,
         width?: number,
         height?: number,
         textSize?: 'md' | 'xs' | 'sm' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl',
@@ -19,17 +19,17 @@
         color: 'primary',
         max: 100,
         type: 'linear',
-        radius: 70,
-        width: 12,
+        strokeWidth: 12,
+        width: 100,
         height: 20,
         textSize: '4xl',
         dense: false,
     });
 
     const innerModelValue: Ref<number> = ref(props.modelValue);
-    const circleRadius: Ref<number> = ref(props.radius);
+    const circleStrokeWidth: Ref<number> = ref(props.strokeWidth);
     const circleWidth: Ref<number> = ref(props.width);
-    const circleDimension: Ref<number> = ref(props.radius * 2);
+    const circleDimension: Ref<number> = ref(props.width);
     const circumference: Ref<number> = ref(0);
     const percentage: Ref<number> = ref(0);
 
@@ -49,8 +49,8 @@
         if (props.type === 'linear') {
             innerModelValue.value = percentage.value;
         } else {
-            circumference.value = 2 * Math.PI * circleRadius.value
-            innerModelValue.value = circumference.value * ((104.5 - percentage.value) / 100);
+            circumference.value = 2 * Math.PI * (circleWidth.value / 2);
+            innerModelValue.value = circumference.value * ((107 - percentage.value) / 100);
         }
     }
 
@@ -84,22 +84,22 @@
                 :width="circleDimension"
                 :height="circleDimension"
                 :viewBox="`0 0 ${circleDimension} ${circleDimension}`"
-                style="transform: rotate(-90deg)">
-                <circle :r="circleRadius-(circleWidth/2)"
-                        :cx="circleRadius"
-                        :cy="circleRadius"
+                style="transform: rotate(-90deg) rotate(3deg)">
+                <circle :r="(circleWidth / 2) - (circleStrokeWidth / 2)"
+                        :cx="(circleWidth / 2)"
+                        :cy="(circleWidth / 2)"
                         fill="transparent"
                         stroke="#e0e0e0"
-                        :stroke-width="`${circleWidth}px`"
+                        :stroke-width="`${circleStrokeWidth}px`"
                 ></circle>
                 <circle class="transition-all duration-300 ease-in-out"
                         :class="[resolveStroke(color)]"
-                        :r="circleRadius-(circleWidth/2)"
-                        :cx="circleRadius"
-                        :cy="circleRadius"
+                        :r="(circleWidth / 2) - (circleStrokeWidth / 2)"
+                        :cx="(circleWidth / 2)"
+                        :cy="(circleWidth / 2)"
                         fill="transparent"
                         stroke-linecap="round"
-                        :stroke-width="`${circleWidth}px`"
+                        :stroke-width="`${circleStrokeWidth}px`"
                         :stroke-dasharray="`${circumference}px`"
                         :stroke-dashoffset="`${innerModelValue}px`"
                 ></circle>

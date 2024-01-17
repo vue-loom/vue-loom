@@ -408,7 +408,7 @@
                             </div>
 
                             <div class="w-full">
-                                <VLoader width="lg" size="50" color="success"/>
+                                <VLoader width="lg" :size="50" color="success"/>
                             </div>
 
                             <div class="w-full">
