@@ -1,7 +1,7 @@
 <script setup lang="ts">
     import {computed, type ComputedRef, onMounted, type Ref, ref, type StyleValue} from "vue";
     import {resolveBg} from "@/partials/colors";
-    import {VLoader} from "@";
+    import VLoader from "@/components/VLoader.vue";
 
     interface Props {
         src: string;
