@@ -482,8 +482,8 @@
                             <VImage src="assets/images/test.jpg" :width="150"/>
                             <VImage src="assets/images/test.jpg" blur :width="150"/>
                             <VImage src="assets/images/test.jpg" aspect-ratio="square" color="warning" :width="100"/>
-                            <VImage src="assets/images/test.jpg" aspect-ratio="square" color="danger" :width="100"/>
-                            <VImage src="assets/images/test.jpg" aspect-ratio="square" color="success" :width="100"/>
+                            <VImage src="assets/images/test.jpg" blur aspect-ratio="video" color="danger" :width="100"/>
+                            <VImage src="assets/images/test.jpg" aspect-ratio="auto" color="success" :width="100"/>
                         </div>
                     </template>
                     <template #actions>

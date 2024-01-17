@@ -40,9 +40,18 @@
 
     const imageId: string = getImageRef();
     let image: HTMLElement | null = null;
+    const imageWidth: Ref<string | null> = ref(null);
+    const imageHeight: Ref<string | null> = ref(null);
 
     const setImage = (): void => {
         image = document.getElementById(imageId);
+
+        setTimeout(() => {
+            if (image) {
+                imageWidth.value = getComputedStyle(image).width || null;
+                imageHeight.value = getComputedStyle(image).height || null;
+            }
+        }, 0);
     };
 
     const loading: Ref<boolean> = ref(false);
@@ -97,13 +106,15 @@
         [parsedAspectRatio.value]: props.aspectRatio,
     }));
 
-    const butDivClassObject: ComputedRef<object> = computed(() => ({
-        [`${props.color ? resolveBg(props.color) : ''} bg-opacity-30`]: props.color,
-    }));
-
     const imageStyleObject: ComputedRef<StyleValue> = computed(() => ({
         width: props.width ? `${props.width}px` : '',
         height: props.height ? `${props.height}px` : '',
+    }));
+
+    const blurDivClassObject: ComputedRef<object> = computed(() => ({
+        [`${props.color ? resolveBg(props.color) : ''} bg-opacity-30`]: props.color,
+        [parsedBlur.value]: props.blur,
+        [parsedAspectRatio.value]: props.aspectRatio,
     }));
 
     const placeholderSize: ComputedRef<number> = computed(() => {
@@ -123,8 +134,6 @@
 
 <template>
     <div class="relative" :class="imageClassObject" :style="imageStyleObject">
-        <div class="absolute top-0 left-0 w-full h-full" :class="[parsedBlur, butDivClassObject]"
-             v-if="blur || color"></div>
         <img
             class="transition-all duration-150"
             :id="imageId"
@@ -133,6 +142,13 @@
             :class="[imageClassObject, loading ? 'opacity-0' : 'opacity-100']"
             :style="imageStyleObject"
         >
+
+        <div class="absolute top-0 left-0"
+             :class="blurDivClassObject"
+             :style="{width: imageWidth, height: imageHeight} as StyleValue"
+             v-if="blur || color"
+        />
+
         <div class="absolute top-0 left-0 w-full h-full" v-if="loading">
             <slot name="placeholder">
                 <div class="flex justify-center items-center w-full h-full">
