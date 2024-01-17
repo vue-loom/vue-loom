@@ -48,6 +48,7 @@
     import VCol from "@/components/Grid/VCol.vue";
     import VDivider from "@/components/VDivider.vue";
     import VImage from "@/components/VImage.vue";
+    import VRadio from "@/components/Radio/VRadio.vue";
 
     const value: Ref<string | null> = ref(null);
     const myValue: Ref<string | null> = ref(null);
@@ -191,7 +192,7 @@
     const stepperIndex: Ref<number> = ref(0);
 
     const navigateStepper = (): void => {
-        if (stepperIndex.value === 2) {
+        if (stepperIndex.value === 4) {
             stepperIndex.value = 0;
         } else {
             stepperIndex.value++;
@@ -391,6 +392,15 @@
                                 />
                             </div>
 
+                            <div class="w-full">
+                                <VRadio value="new">
+                                    <template #label>This is a label for this radio button</template>
+                                </VRadio>
+                                <VRadio value="old">
+                                    <template #label>This is a label for the second radio button</template>
+                                </VRadio>
+                            </div>
+
                             <VRow class="text-white" reverse>
                                 <VCol class="bg-success text-center" cols="3">1</VCol>
                                 <VCol class="bg-warning text-center" cols="6">2</VCol>
@@ -494,65 +504,32 @@
                     </template>
                 </VCard>
 
-                <VCard clickable hover class="mt-4">
+                <VCard clickable hover class="mt-4" disabled>
                     <template #title>This is a clickable card</template>
                     <template #content>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                        labore
-                        et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
-                        ut
-                        aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-                        culpa qui officia deserunt mollit anim id est laborum.
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+                        ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                        laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+                        voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
+                        non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                     </template>
                 </VCard>
 
+                <VCard flat tile class="mt-4">
+                    <template #title>Flat Card</template>
+                </VCard>
+
                 <VTabs class="mt-4" preserve-state v-model="tabIndex" elevation>
-                    <VTab>
+                    <VTab v-for="(tab) in 4">
                         <template #tab>
                             <div class="flex flex-col justify-center items-center">
                                 <VIcon icon="phone" solid color="white"/>
-                                <div>RESENTS</div>
+                                <div>Tab {{ tab }}</div>
                             </div>
                         </template>
                         <template #content>
                             <div>
-                                This is the content of tab one
-                                <VButton>Clear</VButton>
-                            </div>
-                        </template>
-                    </VTab>
-                    <VTab>
-                        <template #tab>
-                            <div class="flex flex-col justify-center items-center">
-                                <VIcon icon="heart" solid color="white"/>
-                                <div>FAVOURITES</div>
-                            </div>
-                        </template>
-                        <template #content>
-                            <div>
-                                <div>This is the second tab content with element div</div>
-                                <div>This is the second tab content with element div</div>
-                                <div>This is the second tab content with element div</div>
-                                <div>This is the second tab content with element div</div>
-                                <div>This is the second tab content with element div</div>
-                                <div>This is the second tab content with element div</div>
-                            </div>
-                        </template>
-                    </VTab>
-                    <VTab>
-                        <template #tab>
-                            <div class="flex flex-col justify-center items-center">
-                                <VIcon icon="list-bullet" solid color="white"/>
-                                <div>CONTACTS</div>
-                            </div>
-                        </template>
-                        <template #content>
-                            <div>
-                                <div>This is the third tab content with element div</div>
-                                <div>This is the third tab content with element div</div>
-                                <div>This is the third tab content with element div</div>
-                                <div>This is the third tab content with element div</div>
+                                This is the content of tab {{ tab }}
                             </div>
                         </template>
                     </VTab>
@@ -560,50 +537,26 @@
 
                 <div class="flex flex-col space-y-3 items-end">
                     <VStepper class="w-full mt-4" clickable preserve-state v-model="stepperIndex" elevation>
-                        <VStep>
+                        <VStep v-for="(step) in 4" :key="step">
                             <template #step>
                                 <div class="flex space-x-2 justify-center items-center">
                                     <VIcon icon="check-circle" size="md" solid color="gray-400"/>
-                                    <div class="text-gray-400">CONTACTS</div>
+                                    <div class="text-gray-400">CONTACTS - {{ step }}</div>
                                 </div>
                             </template>
                             <template #content>
-                                The first step is to move to step two!
-                            </template>
-                        </VStep>
-                        <VStep>
-                            <template #step>
-                                <div class="flex-col justify-center items-center">
-                                    <div class="flex space-x-2 justify-center items-center">
-                                        <VIcon icon="x-circle" size="md" solid color="red-400"/>
-                                        <div class="text-red-400">SUBMIT APPLICATION</div>
-                                    </div>
-                                    <div class="text-red-400 text-sm">Missing details!</div>
-                                </div>
-                            </template>
-                            <template #content>
-                                The second step is to move to step three!
-                            </template>
-                        </VStep>
-                        <VStep>
-                            <template #step>
-                                <div class="flex space-x-2 justify-center items-center">
-                                    <VIcon icon="user" solid color="black"/>
-                                    <div class="text-black">Schedule Interview</div>
-                                </div>
-                            </template>
-                            <template #content>
-                                This is the last step. Well done!!
+                                The first step is to move to step {{ step }}!
                             </template>
                         </VStep>
                     </VStepper>
 
                     <VButton @click="navigateStepper">
-                        {{ stepperIndex < 2 ? 'Next Step' : 'Start Over' }}
+                        {{ stepperIndex < 3 ? 'Next Step' : 'Start Over' }}
                     </VButton>
                 </div>
 
                 <VDataTable class="mt-4" :table="simulateDataTableData()" :menu="dataTableMenu"/>
+
 
                 <VExpansionPanels class="mt-4" :open="[false, true, false]">
                     <VExpansionPanel :key="index" v-for="(item, index) in listItems">

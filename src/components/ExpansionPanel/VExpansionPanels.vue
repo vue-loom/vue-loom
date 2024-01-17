@@ -28,7 +28,7 @@
     interface Slot {
         default(): {
             children: ExpansionPanel[];
-        }[];
+        }[] | ExpansionPanel[];
     }
 
     const slots = defineSlots<Slot>();
@@ -43,7 +43,13 @@
         validateOpenProp();
     });
 
-    const expansionPanels: ExpansionPanel[] = slots.default()[0].children;
+    let expansionPanels: ExpansionPanel[];
+
+    if (Array.isArray(slots.default()[0].children)) {
+        expansionPanels = slots.default()[0].children as ExpansionPanel[];
+    } else {
+        expansionPanels = slots.default() as ExpansionPanel[];
+    }
 
 
     const panelClassObject = (index: number) => ({

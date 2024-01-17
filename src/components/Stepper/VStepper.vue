@@ -44,8 +44,16 @@
     const slots = defineSlots<Slot>();
     const steps: Step[] = slots.default();
 
-    const stepHeaders: Component[] = steps.map((step) => step.children.step()[0]);
-    const stepContentSections: Component[] = steps.map((step) => step.children.content()[0]);
+    let stepHeaders: Component[];
+    let stepContentSections: Component[];
+
+    if (Array.isArray(steps[0].children)) {
+        stepHeaders = steps[0].children.map((child) => child.children.step()[0]);
+        stepContentSections = steps[0].children.map((child) => child.children.content()[0]);
+    } else {
+        stepHeaders = steps.map((step) => step.children.step()[0]);
+        stepContentSections = steps.map((step) => step.children.content()[0]);
+    }
 
     const labelRefs: Ref<HTMLElement[]> = ref([]);
     const contentRefs: Ref<HTMLElement[]> = ref([]);
@@ -54,7 +62,7 @@
     const headerRef: Ref<HTMLElement | null> = ref(null);
 
     onMounted((): void => {
-        if (sessionStorage.getItem('vue_loom_stepper_step')  && props.preserveState) {
+        if (sessionStorage.getItem('vue_loom_stepper_step') && props.preserveState) {
             innerModelValue.value = parseInt(sessionStorage.getItem('vue_loom_stepper_step') || '0');
         }
 
@@ -66,7 +74,7 @@
 
     watch((): number => innerModelValue.value, (value: number): void => {
         if (props.preserveState) {
-            sessionStorage.setItem('vue_loom_stepper_step',value.toString());
+            sessionStorage.setItem('vue_loom_stepper_step', value.toString());
         }
     });
 

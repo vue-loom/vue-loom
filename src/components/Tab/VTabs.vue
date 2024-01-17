@@ -38,7 +38,7 @@
 
     interface Tab {
         children: {
-            tab(): { children: string }[];
+            tab(): Component[];
             content(): Component[];
         };
     }
@@ -50,8 +50,16 @@
     const slots = defineSlots<Slot>();
     const tabs: Tab[] = slots.default();
 
-    const tabHeaders: Component[] = tabs.map((tab) => tab.children.tab()[0]);
-    const tabContentSections: Component[] = tabs.map((tab) => tab.children.content()[0]);
+    let tabHeaders: Component[];
+    let tabContentSections: Component[];
+
+    if (Array.isArray(tabs[0].children)) {
+        tabHeaders = tabs[0].children.map((child) => child.children.tab()[0]);
+        tabContentSections = tabs[0].children.map((child) => child.children.content()[0]);
+    } else {
+        tabHeaders = tabs.map((step) => step.children.tab()[0]);
+        tabContentSections = tabs.map((step) => step.children.content()[0]);
+    }
 
     const labelRefs: Ref<HTMLElement[]> = ref([]);
     const contentRefs: Ref<HTMLElement[]> = ref([]);
@@ -72,7 +80,7 @@
 
     watch((): number => innerModelValue.value, (value: number): void => {
         if (props.preserveState) {
-            sessionStorage.setItem('vue_loom_tabs_tab',value.toString());
+            sessionStorage.setItem('vue_loom_tabs_tab', value.toString());
         }
     });
 

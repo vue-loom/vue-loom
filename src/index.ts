@@ -38,6 +38,10 @@ import VToolbar from "./components/Toolbar/VToolbar.vue";
 import VToolbarAction from "./components/Toolbar/VToolbarAction.vue";
 import VTooltip from "./components/VTooltip.vue";
 import VChip from "./components/VChip.vue";
+import VDivider from "./components/VDivider.vue";
+import VRow from "./components/Grid/VRow.vue";
+import VCol from "./components/Grid/VRow.vue";
+import VImage from "./components/VImage.vue";
 
 import {useDialog} from "./composables/dialog";
 import {useToast} from "./composables/toast";
@@ -83,6 +87,10 @@ export {
     VToolbarAction,
     VTooltip,
     VChip,
+    VDivider,
+    VRow,
+    VCol,
+    VImage,
 
     useDialog,
     useToast,
