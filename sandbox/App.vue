@@ -49,6 +49,7 @@
     import VDivider from "@/components/VDivider.vue";
     import VImage from "@/components/VImage.vue";
     import VRadio from "@/components/Radio/VRadio.vue";
+    import VIconButton from "@/components/VIconButton.vue";
 
     const value: Ref<string | null> = ref(null);
     const myValue: Ref<string | null> = ref(null);
@@ -462,6 +463,14 @@
                                 </VMenu>
                             </div>
 
+                            <div class="w-full flex space-x-2 mt-4">
+                                <VIconButton icon="plus" icon-color="white" elevation rounded color="primary" size="md"/>
+                                <VIconButton icon="plus" :disabled="isDisabled" :loading="isLoading" @click="buttonClicked" icon-color="white" elevation rounded color="primary" size="md"/>
+                                <VIconButton icon="trash" icon-color="danger" rounded size="md"/>
+                                <VIconButton icon="arrow-top-right-on-square" icon-color="success" size="md"/>
+                                <VIconButton icon="arrow-top-right-on-square" :loading="isLoading" icon-color="success" size="md"/>
+                            </div>
+
                             <div class="w-full mt-4">
                                 <VTag class="w-fit" color="accent">
                                     <template #content>TAG</template>
@@ -545,7 +554,33 @@
                                 </div>
                             </template>
                             <template #content>
-                                The first step is to move to step {{ step }}!
+                                <div>
+                                    <VSelect
+                                        searchable
+                                        class="w-1/3"
+                                        label="Select a Month"
+                                        color="primary"
+                                        :items="selectItems"
+                                        v-model="selectValue"
+                                    />
+                                    <div>sdmfomsdofmsdo</div>
+                                    <div>sdmfomsdofmsdo</div>
+                                    <div>sdmfomsdofmsdo</div>
+                                    <div>sdmfomsdofmsdo</div>
+                                    <div>sdmfomsdofmsdo</div>
+                                    <div>sdmfomsdofmsdo</div>
+                                    <div>sdmfomsdofmsdo</div>
+                                    <div>sdmfomsdofmsdo</div>
+                                    <div>sdmfomsdofmsdo</div>
+                                    <div>sdmfomsdofmsdo</div>
+                                    <div>sdmfomsdofmsdo</div>
+                                    <div>sdmfomsdofmsdo</div>
+                                    <div>sdmfomsdofmsdo</div>
+                                    <div>sdmfomsdofmsdo</div>
+                                    <div>sdmfomsdofmsdo</div>
+                                    <div>sdmfomsdofmsdo</div>
+                                    <div>sdmfomsdofmsdo</div>
+                                </div>
                             </template>
                         </VStep>
                     </VStepper>
