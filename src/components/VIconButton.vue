@@ -41,7 +41,6 @@
         if (button.value) {
             buttonWidth.value = button.value.getBoundingClientRect().width;
             buttonHeight.value = button.value.getBoundingClientRect().height;
-            console.log(buttonWidth.value, buttonHeight.value);
         }
     }
 
