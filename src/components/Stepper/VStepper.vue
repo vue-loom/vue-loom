@@ -15,20 +15,7 @@
         preserveState: false,
     });
 
-    interface Emits {
-        (event: 'update:modelValue', data: number): void;
-    }
-
-    const emits = defineEmits<Emits>();
-
     const innerModelValue: Ref<number> = ref(props.modelValue);
-
-    watch((): number => props.modelValue, (val): void => {
-        innerModelValue.value = val;
-    });
-
-    // console.log(useSlots().default());
-    // const steps: VNodeNormalizedChildren = useSlots().default();
 
     interface Step {
         children: {
@@ -47,13 +34,23 @@
     let stepHeaders: Component[];
     let stepContentSections: Component[];
 
-    if (Array.isArray(steps[0].children)) {
-        stepHeaders = steps[0].children.map((child) => child.children.step()[0]);
-        stepContentSections = steps[0].children.map((child) => child.children.content()[0]);
-    } else {
-        stepHeaders = steps.map((step) => step.children.step()[0]);
-        stepContentSections = steps.map((step) => step.children.content()[0]);
-    }
+    const setStepperSlots = (): void => {
+        if (Array.isArray(steps[0].children)) {
+            stepHeaders = steps[0].children.map((child) => child.children.step()[0]);
+            stepContentSections = steps[0].children.map((child) => child.children.content()[0]);
+        } else {
+            stepHeaders = steps.map((step) => step.children.step()[0]);
+            stepContentSections = steps.map((step) => step.children.content()[0]);
+        }
+    };
+
+    setStepperSlots();
+
+    watch((): number => props.modelValue, (val): void => {
+        innerModelValue.value = val;
+
+        setStepperSlots();
+    });
 
     const labelRefs: Ref<HTMLElement[]> = ref([]);
     const contentRefs: Ref<HTMLElement[]> = ref([]);
@@ -69,6 +66,7 @@
         if (headerRef.value) {
             headerHeight.value = headerRef.value.getBoundingClientRect().height;
         }
+
         contentHeight.value = Math.max(...contentRefs.value.map((contentEl: HTMLElement) => contentEl.getBoundingClientRect().height)) + headerHeight.value;
     });
 
@@ -76,7 +74,15 @@
         if (props.preserveState) {
             sessionStorage.setItem('vue_loom_stepper_step', value.toString());
         }
+
+        setStepperSlots();
     });
+
+    interface Emits {
+        (event: 'update:modelValue', data: number): void;
+    }
+
+    const emits = defineEmits<Emits>();
 
     const selectStep = (index: number): void => {
         if (props.clickable) {
@@ -87,7 +93,7 @@
     }
 
     const frameClassObject: ComputedRef<object> = computed(() => ({
-        'shadow-xl': props.elevation,
+        'shadow-md': props.elevation,
     }));
 
     const contentClassObject = (index: number) => ({
@@ -99,8 +105,10 @@
 </script>
 
 <template>
-    <div class="overflow-hidden relative rounded-lg bg-white" :class="frameClassObject"
-         :style="{height: `${contentHeight}px`}">
+    <div class="overflow-hidden relative rounded-lg bg-white"
+         :style="{height: `${contentHeight}px`}"
+         :class="frameClassObject"
+    >
         <div ref="headerRef" class="flex shadow-md">
             <div ref="labelRefs"
                  v-for="(stepHeader, index) in stepHeaders"
@@ -113,7 +121,8 @@
                     ></div>
                     <div class="bg-white w-fit z-10 p-2 h-full flex justify-center items-center"
                          :class="clickable ? 'cursor-pointer hover:bg-gray-100' : ''"
-                         @click="selectStep(index)">
+                         @click="selectStep(index)"
+                    >
                         <component :is="stepHeader"></component>
                     </div>
                     <div class="absolute h-1/2 w-1/2 right-0 top-0 border-b border-gray-300"
@@ -123,11 +132,11 @@
             </div>
         </div>
         <div ref="contentRefs"
-             class="p-2 absolute w-full transition-all duration-300 ease-in-out"
+             class="absolute w-full transition-all duration-300 ease-in-out"
              :class="contentClassObject(index)"
+             :key="index"
              v-if="stepContentSections"
              v-for="(stepContent, index) in stepContentSections"
-             :key="index"
         >
             <component :is="stepContent"></component>
         </div>
