@@ -24,17 +24,7 @@
         preserveState: false,
     });
 
-    interface Emits {
-        (event: 'update:modelValue', data: number): void;
-    }
-
-    const emits = defineEmits<Emits>();
-
     const innerModelValue: Ref<number> = ref(props.modelValue);
-
-    watch((): number => props.modelValue, (val): void => {
-        innerModelValue.value = val;
-    });
 
     interface Tab {
         children: {
@@ -53,13 +43,23 @@
     let tabHeaders: Component[];
     let tabContentSections: Component[];
 
-    if (Array.isArray(tabs[0].children)) {
-        tabHeaders = tabs[0].children.map((child) => child.children.tab()[0]);
-        tabContentSections = tabs[0].children.map((child) => child.children.content()[0]);
-    } else {
-        tabHeaders = tabs.map((step) => step.children.tab()[0]);
-        tabContentSections = tabs.map((step) => step.children.content()[0]);
-    }
+    const setTabSlots = (): void => {
+        if (Array.isArray(tabs[0].children)) {
+            tabHeaders = tabs[0].children.map((child) => child.children.tab()[0]);
+            tabContentSections = tabs[0].children.map((child) => child.children.content()[0]);
+        } else {
+            tabHeaders = tabs.map((step) => step.children.tab()[0]);
+            tabContentSections = tabs.map((step) => step.children.content()[0]);
+        }
+    };
+
+    setTabSlots();
+
+    watch((): number => props.modelValue, (val): void => {
+        innerModelValue.value = val;
+
+        setTabSlots();
+    });
 
     const labelRefs: Ref<HTMLElement[]> = ref([]);
     const contentRefs: Ref<HTMLElement[]> = ref([]);
@@ -82,7 +82,15 @@
         if (props.preserveState) {
             sessionStorage.setItem('vue_loom_tabs_tab', value.toString());
         }
+
+        setTabSlots();
     });
+
+    interface Emits {
+        (event: 'update:modelValue', data: number): void;
+    }
+
+    const emits = defineEmits<Emits>();
 
     const selectTab = (index: number): void => {
         innerModelValue.value = index;
@@ -91,7 +99,7 @@
     }
 
     const frameClassObject: ComputedRef<object> = computed(() => ({
-        'shadow-xl': props.elevation,
+        'shadow-md': props.elevation,
     }));
 
     const tabClassObject = (): object => ({

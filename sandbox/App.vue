@@ -49,6 +49,9 @@
     import VDivider from "@/components/VDivider.vue";
     import VImage from "@/components/VImage.vue";
     import VRadio from "@/components/Radio/VRadio.vue";
+    import Stepper from "@/components/Stepper/Stepper.vue";
+    import StepHeader from "@/components/Stepper/StepHeader.vue";
+    import StepContent from "@/components/Stepper/StepContent.vue";
 
     const value: Ref<string | null> = ref(null);
     const myValue: Ref<string | null> = ref(null);
@@ -251,6 +254,8 @@
             },
         },
     ];
+
+    const selectedStep: Ref<number | string> = ref('step_1');
 </script>
 
 <template>
@@ -270,7 +275,7 @@
                     <VIcon solid icon="bell-alert" color="white"/>
                     <div>Action</div>
                 </VToolbarAction>
-                <VMenu position="bottom" align="right">
+                <VMenu position="bottom">
                     <template #trigger>
                         <VToolbarAction>
                             <VIcon solid icon="cog-8-tooth" color="white" size="md"/>
@@ -299,6 +304,19 @@
 
             <VContainer appbar-offset @click="drawerIsOpen = false">
                 <VBanner type="error">This is my banner</VBanner>
+
+                <!--                <Stepper v-model="selectedStep">-->
+                <!--                    <template #steps>-->
+                <!--                        <StepHeader value="step_1" label="Step 1" icon="plus"></StepHeader>-->
+                <!--                        <StepHeader value="step_2" label="Step 2" icon="plus"></StepHeader>-->
+                <!--                        <StepHeader value="step_3" label="Step 3" icon="plus"></StepHeader>-->
+                <!--                    </template>-->
+                <!--                    <template #content>-->
+                <!--                        <StepContent value="step_1">Content 1</StepContent>-->
+                <!--                        <StepContent value="step_2">Content 1</StepContent>-->
+                <!--                        <StepContent value="step_3">Content 1</StepContent>-->
+                <!--                    </template>-->
+                <!--                </Stepper>-->
 
                 <VCard class="mt-4">
                     <template #title>
@@ -520,10 +538,12 @@
                 </VCard>
 
                 <VTabs class="mt-4" preserve-state v-model="tabIndex" elevation>
-                    <VTab v-for="(tab) in 4">
+                    <VTab v-for="(tab, index) in 4">
                         <template #tab>
                             <div class="flex flex-col justify-center items-center">
-                                <VIcon icon="phone" solid color="white"/>
+                                <VIcon icon="phone" :solid="tabIndex === index"
+                                       :color="tabIndex === index ? 'danger' : 'secondary'"
+                                />
                                 <div>Tab {{ tab }}</div>
                             </div>
                         </template>
@@ -536,16 +556,33 @@
                 </VTabs>
 
                 <div class="flex flex-col space-y-3 items-end">
-                    <VStepper class="w-full mt-4" clickable preserve-state v-model="stepperIndex" elevation>
-                        <VStep v-for="(step) in 4" :key="step">
+                    <VStepper class="w-full mt-4" clickable v-model="stepperIndex" elevation>
+                        <VStep v-for="(step, index) in 4" :key="step">
                             <template #step>
                                 <div class="flex space-x-2 justify-center items-center">
-                                    <VIcon icon="check-circle" size="md" solid color="gray-400"/>
+                                    <VIcon icon="check-circle" size="md" :solid="stepperIndex === index"
+                                           :color="stepperIndex === index ? 'primary' : 'gray-400'"/>
                                     <div class="text-gray-400">CONTACTS - {{ step }}</div>
                                 </div>
                             </template>
                             <template #content>
-                                The first step is to move to step {{ step }}!
+                                <VCard tile flat>
+                                    <template #title>This is a title</template>
+                                    <template #content>
+                                        <div>
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                                            tempor
+                                            incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+                                            nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                                            consequat.
+                                            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore
+                                            eu
+                                            fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt
+                                            in
+                                            culpa qui officia deserunt mollit anim id est laborum.
+                                        </div>
+                                    </template>
+                                </VCard>
                             </template>
                         </VStep>
                     </VStepper>
@@ -557,20 +594,21 @@
 
                 <VDataTable class="mt-4" :table="simulateDataTableData()" :menu="dataTableMenu"/>
 
-
                 <VExpansionPanels class="mt-4" :open="[false, true, false]">
                     <VExpansionPanel :key="index" v-for="(item, index) in listItems">
                         <template #title>
                             Option {{ item.id }}
                         </template>
                         <template #subtitle>
-                            This is the subtitle for option {{ item.id }}
+                            <div>This is the subtitle for option {{ item.id }}</div>
                         </template>
                         <template #content>
-                            <div class="p-2">This is {{ item.name }}</div>
-                            <div class="p-2">This is {{ item.name }}</div>
-                            <div class="p-2">This is {{ item.name }}</div>
-                            <div class="p-2">This is {{ item.name }}</div>
+                            <div>
+                                <div class="p-2">This is {{ item.name }}</div>
+                                <div class="p-2">This is {{ item.name }}</div>
+                                <div class="p-2">This is {{ item.name }}</div>
+                                <div class="p-2">This is {{ item.name }}</div>
+                            </div>
                         </template>
                     </VExpansionPanel>
                 </VExpansionPanels>

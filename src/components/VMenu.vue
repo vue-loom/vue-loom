@@ -1,6 +1,7 @@
 <script setup lang="ts">
     import {computed, type ComputedRef, onMounted, onUnmounted, type Ref, ref, watch} from 'vue';
     import {useClick, usePosition} from "@/composables/position";
+    import {useClickOutside} from "@/composables/mouse";
 
     interface Props {
         modelValue?: boolean,
@@ -30,6 +31,7 @@
 
     const open: Ref<boolean> = ref(false);
     const menu: Ref<HTMLElement | null> = ref(null);
+
     const triggerContainer: Ref<HTMLElement | null> = ref(null);
 
     const closeOnEscape = (e: KeyboardEvent): void => {
@@ -55,6 +57,10 @@
     const closeMenu = (): void => {
         open.value = false;
     };
+
+    useClickOutside(menu, () => {
+        closeMenu();
+    });
 
     watch((): boolean => props.modelValue, (): void => {
         if (!props.modelValue) {
@@ -89,9 +95,6 @@
             <slot name="trigger" :open="open"/>
         </div>
 
-        <!-- Full Screen Dropdown Overlay -->
-        <div v-show="open" class="fixed inset-0 z-30" @click="closeMenu"/>
-
         <transition
             enter-active-class="transition-all duration-150"
             enter-from-class="opacity-0"
@@ -100,15 +103,17 @@
             leave-from-class="opacity-100"
             leave-to-class="opacity-0"
         >
-            <div
-                ref="menu"
-                v-show="open"
-                class="fixed z-30 bg-white shadow-md sm:rounded-lg overflow-hidden border border-gray-200"
-                :class="[width !== 'w-full' ? width : '', alignmentClasses, contentClasses]"
-                @click="closeOnContent"
-            >
-                <slot name="content"/>
-            </div>
+            <Teleport to="body">
+                <div
+                    ref="menu"
+                    v-show="open"
+                    class="fixed z-30 bg-white shadow-md sm:rounded-lg overflow-hidden border border-gray-200"
+                    :class="[width !== 'w-full' ? width : '', alignmentClasses, contentClasses]"
+                    @click="closeOnContent"
+                >
+                    <slot name="content"/>
+                </div>
+            </Teleport>
         </transition>
     </div>
 </template>

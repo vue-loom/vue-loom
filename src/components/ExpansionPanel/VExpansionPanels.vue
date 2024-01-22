@@ -75,7 +75,7 @@
 <template>
     <div class="divide-y">
         <component
-            class="shadow-lg"
+            class="shadow-md"
             :is="expansionPanel"
             :open="innerOpen[index]"
             :key="index"
