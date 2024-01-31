@@ -1,5 +1,5 @@
 <script setup lang="ts">
-    import {type Component, onMounted, type Ref, ref} from "vue";
+    import {type Component, computed, ComputedRef, onMounted, type Ref, ref} from "vue";
 
     interface Props {
         open?: boolean[],
@@ -8,6 +8,7 @@
         type?: 'default' | 'accordion',
         multiple?: boolean,
         flat?: boolean,
+        rounded?: boolean | 'none' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | 'full';
     }
 
     const props = withDefaults(defineProps<Props>(), {
@@ -17,6 +18,82 @@
         type: 'default',
         multiple: false,
         flat: false,
+        rounded: 'lg',
+    });
+
+    const innerRounding: ComputedRef<string> = computed(() => {
+        switch (props.rounded) {
+            case true:
+                return 'rounded';
+            case 'none':
+                return 'rounded-none';
+            case 'sm':
+                return 'rounded-sm';
+            case 'md':
+                return 'rounded-md';
+            case 'lg':
+                return 'rounded-lg';
+            case 'xl':
+                return 'rounded-xl';
+            case '2xl':
+                return 'rounded-2xl';
+            case '3xl':
+                return 'rounded-3xl';
+            case 'full':
+                return 'rounded-full';
+            default:
+                return '';
+        }
+    });
+
+    const innerTopRounding: ComputedRef<string> = computed(() => {
+        switch (props.rounded) {
+            case true:
+                return 'rounded-t';
+            case 'none':
+                return 'rounded-t-none';
+            case 'sm':
+                return 'rounded-t-sm';
+            case 'md':
+                return 'rounded-t-md';
+            case 'lg':
+                return 'rounded-t-lg';
+            case 'xl':
+                return 'rounded-t-xl';
+            case '2xl':
+                return 'rounded-t-2xl';
+            case '3xl':
+                return 'rounded-t-3xl';
+            case 'full':
+                return 'rounded-t-full';
+            default:
+                return '';
+        }
+    });
+
+    const innerBottomRounding: ComputedRef<string> = computed(() => {
+        switch (props.rounded) {
+            case true:
+                return 'rounded-b';
+            case 'none':
+                return 'rounded-b-none';
+            case 'sm':
+                return 'rounded-b-sm';
+            case 'md':
+                return 'rounded-b-md';
+            case 'lg':
+                return 'rounded-b-lg';
+            case 'xl':
+                return 'rounded-b-xl';
+            case '2xl':
+                return 'rounded-b-2xl';
+            case '3xl':
+                return 'rounded-b-3xl';
+            case 'full':
+                return 'rounded-b-full';
+            default:
+                return '';
+        }
     });
 
     interface ExpansionPanel {
@@ -57,9 +134,9 @@
     const panelClassObject = (index: number) => ({
         'border-none': innerOpen.value[index] || innerOpen.value[index - 1],
         'shadow-md': !props.flat,
-        'rounded-t-lg': index === 0 || innerOpen.value[index - 1] && props.type !== 'accordion',
-        'rounded-b-lg': index === expansionPanels.length as number - 1 || innerOpen.value[index + 1] && props.type !== 'accordion',
-        'my-4 rounded-lg': innerOpen.value[index] && props.type !== 'accordion',
+        [innerTopRounding.value]: index === 0 || innerOpen.value[index - 1] && props.type !== 'accordion',
+        [innerBottomRounding.value]: index === expansionPanels.length as number - 1 || innerOpen.value[index + 1] && props.type !== 'accordion',
+        [`my-4 ${innerRounding.value}`]: innerOpen.value[index] && props.type !== 'accordion',
     });
 
     const innerOpen: Ref<boolean[]> = ref(expansionPanels.map((_: ExpansionPanel, index: number) => (props.open[index] || false)));
