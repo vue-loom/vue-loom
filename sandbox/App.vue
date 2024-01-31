@@ -479,11 +479,15 @@
                             </div>
 
                             <div class="w-full flex space-x-2 mt-4">
-                                <VIconButton icon="plus" icon-color="white" elevation rounded color="primary" size="md"/>
-                                <VIconButton icon="plus" :disabled="isDisabled" :loading="isLoading" @click="buttonClicked" icon-color="white" elevation rounded color="primary" size="md"/>
+                                <VIconButton icon="plus" icon-color="white" elevation rounded color="primary"
+                                             size="md"/>
+                                <VIconButton icon="plus" :disabled="isDisabled" :loading="isLoading"
+                                             @click="buttonClicked" icon-color="white" elevation rounded color="primary"
+                                             size="md"/>
                                 <VIconButton icon="trash" icon-color="danger" rounded size="md"/>
                                 <VIconButton icon="arrow-top-right-on-square" icon-color="success" size="md"/>
-                                <VIconButton icon="arrow-top-right-on-square" :loading="isLoading" icon-color="success" size="md"/>
+                                <VIconButton icon="arrow-top-right-on-square" :loading="isLoading" icon-color="success"
+                                             size="md"/>
                             </div>
 
                             <div class="w-full mt-4">
@@ -528,8 +532,7 @@
                     </template>
                 </VCard>
 
-                <VCard clickable hover class="mt-4" disabled>
-                    <template #title>This is a clickable card</template>
+                <VCard clickable hover class="mt-4">
                     <template #content>
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
                         ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco

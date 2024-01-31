@@ -10,6 +10,8 @@
         clickable?: boolean;
         disabled?: boolean;
         fillHeight?: boolean;
+        noPadding?: boolean;
+        rounded?: boolean | 'none' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | 'full';
     }
 
     const props = withDefaults(defineProps<Props>(), {
@@ -20,6 +22,8 @@
         clickable: false,
         disabled: false,
         fillHeight: false,
+        noPadding: false,
+        rounded: 'lg',
     });
 
     const validateProps = (): void => {
@@ -32,6 +36,31 @@
         validateProps();
     });
 
+    const innerRounding: ComputedRef<string> = computed(() => {
+        switch (props.rounded) {
+            case true:
+                return 'rounded';
+            case 'none':
+                return 'rounded-none';
+            case 'sm':
+                return 'rounded-sm';
+            case 'md':
+                return 'rounded-md';
+            case 'lg':
+                return 'rounded-lg';
+            case 'xl':
+                return 'rounded-xl';
+            case '2xl':
+                return 'rounded-2xl';
+            case '3xl':
+                return 'rounded-3xl';
+            case 'full':
+                return 'rounded-full';
+            default:
+                return '';
+        }
+    });
+
     const cardClassObject: ComputedRef<object> = computed(() => ({
         'shadow-2xl': props.elevated && !props.flat,
         'shadow-none': props.flat && !props.elevated,
@@ -39,12 +68,12 @@
         'hover:shadow-xl': props.hover,
         'cursor-pointer relative overflow-hidden': props.clickable,
         'h-full': props.fillHeight,
-        'rounded-md sm:rounded-lg': !props.tile,
+        [innerRounding.value]: !props.tile,
     }));
 
     const disableDivClassObject: ComputedRef<object> = computed(() => ({
         'absolute bg-white opacity-40 w-full h-full z-30': props.disabled,
-        'rounded-md sm:rounded-lg': !props.tile,
+        [innerRounding.value]: !props.tile,
     }));
 
     const slots: string[] = Object.keys(useSlots());
@@ -64,21 +93,25 @@
     <div class="w-full" :class="[disabled ? 'relative' : '']">
         <div :class="disableDivClassObject" v-if="disabled"/>
         <div ref="cardClickable"
-             class="bg-white flex flex-col pt-4 transition-all duration-300"
+             class="bg-white flex flex-col transition-all duration-300"
              :class="cardClassObject"
              @click="clickable && createCardRipple($event)">
-            <div class="text-xl px-4 text-gray-700 shrink font-bold">
+            <div class="text-xl text-gray-700 shrink font-bold"
+                 :class="[hasTitle && !noPadding ? 'pt-4 px-4' : '']"
+            >
                 <slot name="title"/>
             </div>
-            <div class="px-4 text-gray-500 shrink">
+            <div class="text-gray-500 shrink"
+                 :class="[hasSubtitle && !noPadding ? 'px-4' : '']"
+            >
                 <slot name="subtitle"/>
             </div>
-            <div class="text-gray-500 px-4 grow"
-                 :class="[hasTitle || hasSubtitle ? 'mt-4' : '']">
+            <div class="text-gray-500 grow"
+                 :class="[!noPadding ? 'p-4' : '']">
                 <slot name="content"/>
             </div>
             <div class="flex flex-nowrap space-x-3 items-center shrink"
-                 :class="[hasActions ? 'mt-4 p-4' : 'px-4 pb-4']">
+                 :class="[hasActions && !noPadding ? 'pb-4 px-4' : '']">
                 <slot name="actionsLeft"/>
                 <div class="grow"></div>
                 <slot name="actions"/>

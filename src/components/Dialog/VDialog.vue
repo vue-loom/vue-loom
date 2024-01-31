@@ -1,18 +1,51 @@
 <script setup lang="ts">
-    import {type Ref} from "vue";
+    import {computed, type ComputedRef, type Ref} from "vue";
     import VCard from "@/components/VCard.vue";
     import {ref} from "vue";
 
     interface Props {
         modelValue: boolean,
-        width?: string,
+        maxWidth?: 'fit' | 'full' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | '5xl' | '6xl' | '7xl',
         persistent?: boolean,
     }
 
     const props = withDefaults(defineProps<Props>(), {
         modelValue: false,
-        width: 'max-w-4xl',
+        maxWidth: '4xl',
         persistent: false,
+    });
+
+    const innerMaxWidth: ComputedRef<string> = computed(() => {
+        switch (props.maxWidth) {
+            case 'xs':
+                return 'max-w-xs';
+            case 'sm':
+                return 'max-w-sm';
+            case 'md':
+                return 'max-w-md';
+            case 'lg':
+                return 'max-w-lg';
+            case 'xl':
+                return 'max-w-xl';
+            case '2xl':
+                return 'max-w-2xl';
+            case '3xl':
+                return 'max-w-3xl';
+            case '4xl':
+                return 'max-w-4xl';
+            case '5xl':
+                return 'max-w-5xl';
+            case '6xl':
+                return 'max-w-6xl';
+            case '7xl':
+                return 'max-w-7xl';
+            case 'full':
+                return 'max-w-full';
+            case 'fit':
+                return 'max-w-fit';
+            default:
+                return '';
+        }
     });
 
     interface Emits {
@@ -58,7 +91,7 @@
         >
             <VCard ref="dialogCard"
                    class="p-4 transition-all duration-[50ms] ease-in w-full"
-                   :class="[persistentAnimation ? 'scale-[1.01]' : '', width]"
+                   :class="[persistentAnimation ? 'scale-[1.01]' : '', innerMaxWidth]"
                    @click.stop
             >
                 <template #title>
