@@ -1,17 +1,17 @@
 <script setup lang="ts">
-    import type {Ref} from "vue";
+    import {type Ref} from "vue";
     import VCard from "@/components/VCard.vue";
     import {ref} from "vue";
 
     interface Props {
         modelValue: boolean,
-        width?: number | null,
+        width?: string,
         persistent?: boolean,
     }
 
     const props = withDefaults(defineProps<Props>(), {
         modelValue: false,
-        width: null,
+        width: 'max-w-4xl',
         persistent: false,
     });
 
@@ -38,7 +38,6 @@
             persistentAnimation.value = false;
         }, 200);
     }
-
 </script>
 
 <template>
@@ -50,32 +49,32 @@
         leave-from-class="opacity-100"
         leave-to-class="opacity-0"
     >
-        <Teleport to="body">
-            <div ref="dialogScreen"
-                 class="fixed top-0 left-0 h-screen w-screen overflow-hidden bg-black bg-opacity-30 backdrop-blur-sm z-50 flex items-center justify-center select-none"
-                 @wheel.prevent
-                 @scroll.prevent
-                 @click="persistent ? togglePersistent() : closeDialog()"
-                 v-if="modelValue">
-                <VCard ref="dialogCard"
-                       class="p-4 transition-all duration-[50ms] ease-in max-w-4xl w-full"
-                       :class="[persistentAnimation ? 'scale-[1.01]' : '']"
-                       @click.stop>
-                    <template #title>
-                        <slot name="title"/>
-                    </template>
-                    <template #subtitle>
-                        <slot name="subtitle"/>
-                    </template>
-                    <template #content>
-                        <slot name="content"/>
-                    </template>
-                    <template #actions>
-                        <slot name="actions"/>
-                    </template>
-                </VCard>
-            </div>
-        </Teleport>
+        <div ref="dialogScreen"
+             class="fixed top-0 left-0 h-screen w-screen overflow-hidden bg-black bg-opacity-30 backdrop-blur-sm z-50 flex items-center justify-center select-none"
+             @wheel.prevent
+             @scroll.prevent
+             @click="persistent ? togglePersistent() : closeDialog()"
+             v-if="modelValue"
+        >
+            <VCard ref="dialogCard"
+                   class="p-4 transition-all duration-[50ms] ease-in w-full"
+                   :class="[persistentAnimation ? 'scale-[1.01]' : '', width]"
+                   @click.stop
+            >
+                <template #title>
+                    <slot name="title"/>
+                </template>
+                <template #subtitle>
+                    <slot name="subtitle"/>
+                </template>
+                <template #content>
+                    <slot name="content"/>
+                </template>
+                <template #actions>
+                    <slot name="actions"/>
+                </template>
+            </VCard>
+        </div>
     </Transition>
 </template>
 
