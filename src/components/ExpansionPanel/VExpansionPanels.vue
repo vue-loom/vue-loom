@@ -2,11 +2,12 @@
     import {type Component, onMounted, type Ref, ref} from "vue";
 
     interface Props {
-        open?: boolean[];
-        readonly?: boolean;
-        disabled?: boolean;
-        type?: 'default' | 'accordion';
-        multiple?: boolean;
+        open?: boolean[],
+        readonly?: boolean,
+        disabled?: boolean,
+        type?: 'default' | 'accordion',
+        multiple?: boolean,
+        flat?: boolean,
     }
 
     const props = withDefaults(defineProps<Props>(), {
@@ -15,6 +16,7 @@
         disabled: false,
         type: 'default',
         multiple: false,
+        flat: false,
     });
 
     interface ExpansionPanel {
@@ -54,6 +56,7 @@
 
     const panelClassObject = (index: number) => ({
         'border-none': innerOpen.value[index] || innerOpen.value[index - 1],
+        'shadow-md': !props.flat,
         'rounded-t-lg': index === 0 || innerOpen.value[index - 1] && props.type !== 'accordion',
         'rounded-b-lg': index === expansionPanels.length as number - 1 || innerOpen.value[index + 1] && props.type !== 'accordion',
         'my-4 rounded-lg': innerOpen.value[index] && props.type !== 'accordion',
@@ -75,7 +78,7 @@
 <template>
     <div class="divide-y">
         <component
-            class="shadow-md"
+            class=""
             :is="expansionPanel"
             :open="innerOpen[index]"
             :key="index"

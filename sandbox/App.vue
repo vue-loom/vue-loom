@@ -528,7 +528,7 @@
                     </template>
                 </VCard>
 
-                <VCard clickable hover class="mt-4" disabled>
+                <VCard clickable hover class="mt-4">
                     <template #title>This is a clickable card</template>
                     <template #content>
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
