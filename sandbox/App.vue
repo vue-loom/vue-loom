@@ -479,11 +479,15 @@
                             </div>
 
                             <div class="w-full flex space-x-2 mt-4">
-                                <VIconButton icon="plus" icon-color="white" elevation rounded color="primary" size="md"/>
-                                <VIconButton icon="plus" :disabled="isDisabled" :loading="isLoading" @click="buttonClicked" icon-color="white" elevation rounded color="primary" size="md"/>
+                                <VIconButton icon="plus" icon-color="white" elevation rounded color="primary"
+                                             size="md"/>
+                                <VIconButton icon="plus" :disabled="isDisabled" :loading="isLoading"
+                                             @click="buttonClicked" icon-color="white" elevation rounded color="primary"
+                                             size="md"/>
                                 <VIconButton icon="trash" icon-color="danger" rounded size="md"/>
                                 <VIconButton icon="arrow-top-right-on-square" icon-color="success" size="md"/>
-                                <VIconButton icon="arrow-top-right-on-square" :loading="isLoading" icon-color="success" size="md"/>
+                                <VIconButton icon="arrow-top-right-on-square" :loading="isLoading" icon-color="success"
+                                             size="md"/>
                             </div>
 
                             <div class="w-full mt-4">
