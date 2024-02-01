@@ -474,7 +474,7 @@
 
                                 <VButton @click="toggleDialog()" color="secondary">Show Dialog</VButton>
 
-                                <VMenu position="top" :close-on-content-click="false">
+                                <VMenu align="right" position="top">
                                     <template #trigger>
                                         <VButton color="secondary">Menu</VButton>
                                     </template>
@@ -483,7 +483,7 @@
                                                    :key="listItem.id"
                                                    clickable
                                                    :selected="listItem.selected"
-                                                   @click="selectItem(listItem)"
+                                                   @click="toggleDialog"
                                         >
                                             <template #title>
                                                 This is {{ listItem.name }}

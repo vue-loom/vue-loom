@@ -1,7 +1,6 @@
 <script setup lang="ts">
     import {computed, type ComputedRef, onMounted, onUnmounted, type Ref, ref, watch} from 'vue';
     import {useClick, usePosition} from "@/composables/position";
-    import {useClickOutside} from "@/composables/mouse";
 
     interface Props {
         modelValue?: boolean,
@@ -31,7 +30,6 @@
 
     const open: Ref<boolean> = ref(false);
     const menu: Ref<HTMLElement | null> = ref(null);
-
     const triggerContainer: Ref<HTMLElement | null> = ref(null);
 
     const closeOnEscape = (e: KeyboardEvent): void => {
@@ -40,9 +38,14 @@
         }
     };
 
-    const openMenu = (): void => {
+    const openMenu = (event: MouseEvent | null = null): void => {
         if (!props.disabled) {
-            open.value = true;
+            if (props.position === 'absolute' && event) {
+                useClick(event);
+            }
+
+            open.value = !open.value;
+
             emits('update:modelValue', open.value);
             usePosition(props.position, props.align, props.width, menu, triggerContainer);
         }
@@ -58,9 +61,9 @@
         open.value = false;
     };
 
-    useClickOutside(menu, () => {
-        closeMenu();
-    });
+    // useClickOutside(menu, () => {
+    //     closeMenu();
+    // });
 
     watch((): boolean => props.modelValue, (): void => {
         if (!props.modelValue) {
@@ -91,19 +94,21 @@
 
 <template>
     <div>
-        <div @click.stop="useClick($event); openMenu()" ref="triggerContainer">
+        <div @click.stop="openMenu" ref="triggerContainer">
             <slot name="trigger" :open="open"/>
         </div>
 
-        <transition
-            enter-active-class="transition-all duration-150"
-            enter-from-class="opacity-0"
-            enter-to-class="opacity-100"
-            leave-active-class="transition-all duration-150"
-            leave-from-class="opacity-100"
-            leave-to-class="opacity-0"
-        >
-            <Teleport to="body">
+        <div v-show="open" class="fixed inset-0 z-30" @click="closeMenu"/>
+
+        <Teleport to="body">
+            <Transition
+                enter-active-class="transition-all duration-150"
+                enter-from-class="opacity-0"
+                enter-to-class="opacity-100"
+                leave-active-class="transition-all duration-150"
+                leave-from-class="opacity-100"
+                leave-to-class="opacity-0"
+            >
                 <div
                     ref="menu"
                     v-show="open"
@@ -113,8 +118,8 @@
                 >
                     <slot name="content"/>
                 </div>
-            </Teleport>
-        </transition>
+            </Transition>
+        </Teleport>
     </div>
 </template>
 
