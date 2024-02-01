@@ -458,6 +458,13 @@
                                     <template #content>BETA</template>
                                 </VBadge>
 
+                                <VBadge dense color="secondary">
+                                    <template #component>
+                                        <VButton>Badge 2</VButton>
+                                    </template>
+                                    <template #content>99+</template>
+                                </VBadge>
+
                                 <VTooltip>
                                     <template #trigger>
                                         <VButton @click="toastState()">Show Toast</VButton>
