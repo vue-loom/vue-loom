@@ -139,6 +139,7 @@
     const selectValues: Ref<number[] | string[]> = ref([selectItems[1].id, selectItems[3].id] as number[] | string[]);
     const treeValue: Ref<number | null> = ref(tree.at(0).id);
     const selectedDate: Ref<string | null> = ref(null);
+    const selectedDate2: Ref<string | null> = ref(null);
 
     const isDisabled: Ref<boolean> = ref(false);
     const isLoading: Ref<boolean> = ref(false);
@@ -403,8 +404,15 @@
                                     label="Date of Birth"
                                     v-model="selectedDate"
                                     :format="'DD-MMMM-YYYY'"
-                                    min="2024-01-03"
-                                    max="2024-02-25"
+                                />
+                            </div>
+                            <div class="w-full">
+                                <VDateField
+                                    class="w-1/3"
+                                    label="Date of Birth"
+                                    v-model="selectedDate2"
+                                    :format="'DD-MMMM-YYYY'"
+                                    :max="selectedDate"
                                 />
                             </div>
 
