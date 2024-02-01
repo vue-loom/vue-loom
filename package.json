@@ -1,12 +1,13 @@
 {
   "name": "vue-loom",
-  "version": "1.0.7-dev",
+  "version": "1.0.8-dev",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build && npm run build:types",
     "build:types": "vue-tsc --project tsconfig.build-types.json --declaration --emitDeclarationOnly --outDir dist/types ",
-    "typecheck": "vue-tsc --project tsconfig.build-types.json --noEmit"
+    "typecheck": "vue-tsc --project tsconfig.build-types.json --noEmit",
+    "pub": "npm run build && npm publish"
   },
   "devDependencies": {
     "@babel/types": "^7.23.6",

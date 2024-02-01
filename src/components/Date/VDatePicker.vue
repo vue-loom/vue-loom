@@ -108,12 +108,19 @@
         getMaxDate();
     });
 
+    const innerAllowedDates: Ref<string[]> = ref(props.allowedDates);
+
+    watch(() => props.allowedDates, () => {
+        innerAllowedDates.value = props.allowedDates;
+        getAllowedDates();
+    })
+
     const validDates: Ref<number[]> = ref([]);
 
     const getAllowedDates = (): void => {
         validDates.value = [];
-        if (props.allowedDates.length > 0) {
-            props.allowedDates.forEach((value) => {
+        if (innerAllowedDates.value.length > 0) {
+            innerAllowedDates.value.forEach((value) => {
                 let date = dayjs(value).format('YYYY-MM-DD');
                 if (date !== 'Invalid Date') {
                     if (parseInt(date.split('-')[0]) === year.value && parseInt(date.split('-')[1]) === month.value + 1) {
@@ -126,12 +133,19 @@
         }
     }
 
+    const innerDisabledDates: Ref<string[]> = ref(props.disableDates);
+
+    watch(() => props.disableDates, () => {
+        innerDisabledDates.value = props.disableDates;
+        getDisableDates();
+    })
+
     const disabledDatesList: Ref<number[]> = ref([]);
 
     const getDisableDates = (): void => {
         disabledDatesList.value = [];
-        if (props.disableDates.length > 0) {
-            props.disableDates.forEach((value) => {
+        if (innerDisabledDates.value.length > 0) {
+            innerDisabledDates.value.forEach((value) => {
                 let date = dayjs(value).format('YYYY-MM-DD');
                 if (date !== 'Invalid Date') {
                     if (parseInt(date.split('-')[0]) === year.value && parseInt(date.split('-')[1]) === month.value + 1) {
@@ -144,12 +158,19 @@
         }
     }
 
+    const innerMinDates: Ref<string> = ref(props.min);
+
+    watch(() => props.min, () => {
+        innerMinDates.value = props.min;
+        getMinDate();
+    })
+
     const fromDate: Ref<number | null> = ref(null);
 
     const getMinDate = (): void => {
         fromDate.value = null;
-        if (props.min !== '') {
-            let date = dayjs(props.min).format('YYYY-MM-DD');
+        if (innerMinDates.value !== '') {
+            let date = dayjs(innerMinDates.value).format('YYYY-MM-DD');
             if (date !== 'Invalid Date') {
                 if (parseInt(date.split('-')[0]) === year.value && parseInt(date.split('-')[1]) === month.value + 1) {
                     fromDate.value = parseInt(date.split('-')[2]);
@@ -157,17 +178,24 @@
                     fromDate.value = 0;
                 }
             } else {
-                console.warn(`Invalid date format provided - ${props.min}. Try the following format "YYYY-MM-DD".`);
+                console.warn(`Invalid date format provided - ${innerMinDates.value}. Try the following format "YYYY-MM-DD".`);
             }
         }
     }
+
+    const innerMaxDates: Ref<string> = ref(props.max);
+
+    watch(() => props.max, () => {
+        innerMaxDates.value = props.max;
+        getMaxDate();
+    })
 
     const toDate: Ref<number | null> = ref(null);
 
     const getMaxDate = (): void => {
         toDate.value = null;
-        if (props.max !== '') {
-            let date = dayjs(props.max).format('YYYY-MM-DD');
+        if (innerMaxDates.value !== '') {
+            let date = dayjs(innerMaxDates.value).format('YYYY-MM-DD');
             if (date !== 'Invalid Date') {
                 if (parseInt(date.split('-')[0]) === year.value && parseInt(date.split('-')[1]) === month.value + 1) {
                     toDate.value = parseInt(date.split('-')[2]);
@@ -175,7 +203,7 @@
                     fromDate.value = 0;
                 }
             } else {
-                console.warn(`Invalid date format provided - ${props.max}. Try the following format "YYYY-MM-DD".`);
+                console.warn(`Invalid date format provided - ${innerMaxDates.value}. Try the following format "YYYY-MM-DD".`);
             }
         }
     }
@@ -184,7 +212,7 @@
         [`${resolveText(props.color)} ${resolveBg(props.color)} bg-opacity-10`]: isToday(day),
         [`text-white font-bold ${resolveBg(props.color)}`]: isSelected(day),
         'hover:bg-gray-100': !isToday(day) && !isSelected(day),
-        'text-gray-200 !cursor-default hover:!bg-transparent': (props.allowedDates.length > 0 && !validDates.value.includes(day)) ||
+        'text-gray-400 !cursor-default': (props.allowedDates.length > 0 && !validDates.value.includes(day)) ||
             (props.disableDates.length > 0 && disabledDatesList.value.includes(day)) ||
             (fromDate.value !== null && (day <= fromDate.value || fromDate.value === 0)) ||
             (toDate.value !== null && (day >= toDate.value || toDate.value === 0)),
