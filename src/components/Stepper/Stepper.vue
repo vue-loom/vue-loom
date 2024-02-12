@@ -18,7 +18,6 @@
     const emits = defineEmits<Emits>();
 
     const selectStep = (stepValue: number | string) => {
-        console.log(stepValue);
         innerModelValue.value = stepValue;
 
         emits('update:modelValue', innerModelValue.value);

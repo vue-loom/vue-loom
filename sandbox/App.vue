@@ -50,6 +50,7 @@
     import VImage from "@/components/VImage.vue";
     import VRadio from "@/components/Radio/VRadio.vue";
     import VIconButton from "@/components/VIconButton.vue";
+    import VDialog from "@/components/Dialog/VDialog.vue";
 
     const value: Ref<string | null> = ref(null);
     const myValue: Ref<string | null> = ref(null);
@@ -255,6 +256,8 @@
     ];
 
     const selectedStep: Ref<number | string> = ref('step_1');
+
+    const showVDialog: Ref<boolean> = ref(false);
 </script>
 
 <template>
@@ -467,6 +470,8 @@
 
                                 <VButton @click="toggleDialog()" color="secondary">Show Dialog</VButton>
 
+                                <VButton @click="showVDialog = true" color="secondary">Show VDialog</VButton>
+
                                 <VMenu position="top" :close-on-content-click="false">
                                     <template #trigger>
                                         <VButton color="secondary">Menu</VButton>
@@ -632,5 +637,17 @@
                 </VExpansionPanels>
             </VContainer>
         </div>
+
+        <VDialog v-model="showVDialog">
+            <template #title>VDialog</template>
+            <template #content>
+                <div>This is a VDialog that is build in our dom</div>
+                <VSelect class="mt-4" label="List Name"/>
+                <VSelect class="mt-6" label="List Name"/>
+            </template>
+            <template #actions>
+                <VButton @click="showVDialog = false">Close</VButton>
+            </template>
+        </VDialog>
     </main>
 </template>
