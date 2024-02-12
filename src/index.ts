@@ -42,6 +42,7 @@ import VDivider from "./components/VDivider.vue";
 import VRow from "./components/Grid/VRow.vue";
 import VCol from "./components/Grid/VRow.vue";
 import VImage from "./components/VImage.vue";
+import VIconButton from "./components/VIconButton.vue";
 
 import {useDialog} from "./composables/dialog";
 import {useToast} from "./composables/toast";
@@ -91,6 +92,7 @@ export {
     VRow,
     VCol,
     VImage,
+    VIconButton,
 
     useDialog,
     useToast,

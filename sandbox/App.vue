@@ -461,6 +461,13 @@
                                     <template #content>BETA</template>
                                 </VBadge>
 
+                                <VBadge dense color="secondary">
+                                    <template #component>
+                                        <VButton>Badge 2</VButton>
+                                    </template>
+                                    <template #content>99+</template>
+                                </VBadge>
+
                                 <VTooltip>
                                     <template #trigger>
                                         <VButton @click="toastState()">Show Toast</VButton>
@@ -472,7 +479,7 @@
 
                                 <VButton @click="showVDialog = true" color="secondary">Show VDialog</VButton>
 
-                                <VMenu position="top" :close-on-content-click="false">
+                                <VMenu align="right" position="top">
                                     <template #trigger>
                                         <VButton color="secondary">Menu</VButton>
                                     </template>
@@ -481,7 +488,7 @@
                                                    :key="listItem.id"
                                                    clickable
                                                    :selected="listItem.selected"
-                                                   @click="selectItem(listItem)"
+                                                   @click="toggleDialog"
                                         >
                                             <template #title>
                                                 This is {{ listItem.name }}

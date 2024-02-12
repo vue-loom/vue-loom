@@ -11,6 +11,7 @@ export function useClickOutside(component: Ref<HTMLElement | null>, callback: ()
 
         callback();
     }
+
     onMounted(() => window.addEventListener('click', listener));
     onBeforeUnmount(() => window.removeEventListener('click', listener));
 

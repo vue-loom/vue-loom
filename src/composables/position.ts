@@ -1,5 +1,5 @@
 import {nextTick, type Ref} from "vue";
-import { toCssUnit } from '@/partials/prototypes';
+import {toCssUnit} from '@/partials/prototypes';
 
 let positionX: number = 0;
 let positionY: number = 0;
@@ -44,8 +44,8 @@ const alignMenu = (menuElBoundingRect: DOMRect, triggerContainerBoundingRect: DO
                 if (menuElBoundingRect.left + menuElBoundingRect.width >= innerWidth) {
                     styles.right = 4;
                 } else if (menuElBoundingRect.left <= 0) {
-                    styles.right = '';
-                    styles.left = 4;
+                    // styles.right = '';
+                    // styles.left = 4;
                 }
             } else {
                 styles.left = positionX;
