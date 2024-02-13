@@ -29,17 +29,6 @@
     });
 
     const button: Ref<HTMLElement | null> = ref(null);
-    const buttonWidth: Ref<number> = ref(0);
-    const buttonHeight: Ref<number> = ref(0);
-
-    const calculateButtonDimensions = (): void => {
-        if (button.value) {
-            buttonWidth.value = button.value.getBoundingClientRect().width - 32;
-            buttonHeight.value = button.value.getBoundingClientRect().height - 16;
-        }
-    }
-
-    onMounted(() => calculateButtonDimensions());
 
     interface TypeClass {
         [key: string]: string;
@@ -51,6 +40,12 @@
         text: `${resolveText(props.color)} ${resolveBgHover(props.color)} hover:bg-opacity-10 disabled:opacity-60`,
     }));
 
+    const loaderClassMap: ComputedRef<TypeClass> = computed(() => ({
+        default: `${resolveBg(props.color)}`,
+        outlined: `bg-white`,
+        text: `bg-white`,
+    }));
+
     const createRipple = (event: MouseEvent) => {
         useRipple(event, button);
     }
@@ -59,16 +54,18 @@
 <template>
     <button ref="button"
             type="button"
-            class="h-10 flex items-center py-2 px-4 rounded-lg transition-all duration-150 overflow-hidden font-bold"
+            class="relative h-10 flex items-center rounded-lg transition-all duration-150 overflow-hidden font-bold"
             :class="[typeClassMap[type], !noRelative ? 'relative' : '']"
             :disabled="innerDisabled"
             @click="createRipple($event)"
     >
-        <div v-if="!loading">
+        <div class="px-4 py-2">
             <slot/>
         </div>
-        <div v-else class="flex justify-center items-center"
-             :style="{width: `${buttonWidth}px`, height: `${buttonHeight}px`}">
+        <div class="absolute w-full h-full flex justify-center items-center"
+             :class="[loaderClassMap[type]]"
+             v-if="loading"
+             >
             <VLoader :color="type !== 'default' ? color : 'default'"/>
         </div>
     </button>

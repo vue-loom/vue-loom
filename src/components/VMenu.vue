@@ -59,19 +59,20 @@
 
     const closeMenu = (): void => {
         open.value = false;
+        emits('update:modelValue', open.value);
     };
 
     // useClickOutside(menu, () => {
     //     closeMenu();
     // });
 
-    watch((): boolean => props.modelValue, (): void => {
-        if (!props.modelValue) {
-            closeMenu();
-        } else {
-            openMenu();
-        }
-    });
+    // watch((): boolean => props.modelValue, (): void => {
+    //     if (!props.modelValue) {
+    //         closeMenu();
+    //     } else {
+    //         openMenu();
+    //     }
+    // });
 
     onMounted((): void => {
         document.addEventListener('keydown', closeOnEscape);

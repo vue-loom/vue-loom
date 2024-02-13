@@ -5,7 +5,7 @@
 </script>
 
 <template>
-    <VDialog v-model="useDialog().value" :persistent="useDialog().persistent">
+    <VDialog v-model="useDialog().value" :persistent="useDialog().persistent" :maxWidth="useDialog().maxWidth">
         <template #title>
             {{ useDialog().title }}
         </template>

@@ -30,21 +30,10 @@
     });
 
     const button: Ref<HTMLElement | null> = ref(null);
-    const buttonWidth: Ref<number> = ref(0);
-    const buttonHeight: Ref<number> = ref(0);
 
     const innerDisabled: ComputedRef<boolean> = computed(() => {
         return props.loading || props.disabled;
     });
-
-    const calculateButtonDimensions = (): void => {
-        if (button.value) {
-            buttonWidth.value = button.value.getBoundingClientRect().width;
-            buttonHeight.value = button.value.getBoundingClientRect().height;
-        }
-    }
-
-    onMounted(() => calculateButtonDimensions());
 
     const createRipple = (event: MouseEvent) => {
         useRipple(event, button);
@@ -58,19 +47,29 @@
         'hover:bg-gray-200 p-1': !props.color,
     }));
 
+    const loaderClassObject: ComputedRef<object> = computed(() => ({
+        [resolveBg(props.color)]: props.color,
+        'rounded-full': props.rounded,
+        'rounded-lg': !props.rounded,
+        'shadow-md': props.elevation,
+        'hover:bg-gray-200 p-1 bg-white': !props.color,
+    }));
+
 </script>
 
 <template>
     <button ref="button"
             type="button"
             :disabled="innerDisabled"
-            class="relative w-fit h-fit hover:bg-opacity-90 cursor-pointer disabled:opacity-50 disabled:cursor-default"
+            class="relative w-fit h-fit hover:bg-opacity-90 cursor-pointer disabled:opacity-50 disabled:cursor-default flex justify-center items-center"
             :class="buttonClassObject"
             @click="createRipple($event)"
     >
-        <VIcon v-if="!loading" :icon="icon" :size="size" :solid="solid" :color="iconColor"/>
-        <div v-else class="flex justify-center items-center"
-             :style="{width: `${buttonWidth}px`, height: `${buttonHeight}px`}">
+        <VIcon :icon="icon" :size="size" :solid="solid" :color="iconColor"/>
+        <div v-if="loading"
+             class="absolute flex justify-center items-center w-full h-full"
+             :class="loaderClassObject"
+        >
             <VLoader :color="!color ? iconColor : 'default'"/>
         </div>
     </button>

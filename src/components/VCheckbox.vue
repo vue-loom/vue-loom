@@ -46,12 +46,11 @@
 </script>
 
 <template>
-    <div class="space-x-2 flex items-center select-none">
+    <div class="space-x-2 flex items-center select-none !w-fit cursor-pointer" @click="toggleCheckbox()">
         <div class="cursor-pointer" :class="[disabled ? 'relative' : '']">
             <div :class="disabled ? 'absolute bg-white border-white opacity-30 rounded-sm w-full h-full' : ''"/>
             <div class="h-5 w-5 border-2 rounded transition-all duration-150"
                  :class="checkboxClassObject"
-                 @click="toggleCheckbox()"
             >
                 <div class="h-full w-full transition-all duration-150"
                      :class="[toggleState ? 'scale-100 opacity-100' : 'scale-50 opacity-0', resolveBg(color)]"
