@@ -144,7 +144,7 @@
 <template>
     <div class="relative">
         <VMenu width="w-full" position="bottom" align="left" v-model="focused">
-            <template #trigger="">
+            <template #trigger>
                 <div ref="textFieldLabel" class="absolute left-0 top-0 scale-75 invisible z-[-1]" v-text="label"/>
 
                 <div class="absolute left-3 top-0 border-b border-white transition-all duration-150"

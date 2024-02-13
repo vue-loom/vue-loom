@@ -183,8 +183,8 @@
 
 <template>
     <div class="relative">
-        <VMenu width="w-full" :close-on-content-click="false">
-            <template #trigger="{ open }">
+        <VMenu width="w-full" :close-on-content-click="false" v-model="focused">
+            <template #trigger>
                 <div ref="textFieldLabel" class="absolute left-0 top-0 scale-75 invisible z-[-1]" v-text="label"/>
 
                 <div class="absolute left-3 top-0 border-b border-white transition-all duration-150"
@@ -199,8 +199,8 @@
 
                 <VIcon icon="chevron-down"
                        class="absolute right-2 top-1/2 -translate-y-1/2 transition-all duration-150"
-                       :color="open ? color : ''"
-                       :class="{'rotate-180': open}"
+                       :color="focused ? color : ''"
+                       :class="{'rotate-180': focused}"
                 />
 
                 <div
