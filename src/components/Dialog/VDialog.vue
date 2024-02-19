@@ -83,7 +83,7 @@
         leave-to-class="opacity-0"
     >
         <div ref="dialogScreen"
-             class="fixed top-0 left-0 h-screen w-screen overflow-hidden bg-black bg-opacity-30 backdrop-blur-sm z-50 flex items-center justify-center select-none"
+             class="fixed top-0 left-0 h-dvh w-screen overflow-hidden bg-black bg-opacity-30 backdrop-blur-sm z-50 flex items-center justify-center select-none"
              @wheel.prevent
              @scroll.prevent
              @click="persistent ? togglePersistent() : closeDialog()"
