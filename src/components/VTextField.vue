@@ -6,7 +6,7 @@
         modelValue: string | number | null;
         label?: string;
         color?: string | 'primary' | 'secondary' | 'accent' | 'success' | 'warning' | 'danger';
-        type?: 'text' | 'password' | 'number',
+        type?: 'text' | 'password' | 'number' | 'email',
         autofocus?: boolean;
         readonly?: boolean;
         errorMessage?: string;
