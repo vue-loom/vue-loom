@@ -38,7 +38,7 @@
         useToast,
         useDialog,
     } from "@";
-    import {Ref, ref} from "vue";
+    import {Ref, ref, watch} from "vue";
     import {TreeItem} from "@/component-types/TreeItem";
     import {SelectItem} from "@/component-types/SelectItem";
     import {simulateDataTableData} from "./helpers/helpers";
@@ -51,6 +51,7 @@
     import VRadio from "@/components/Radio/VRadio.vue";
     import VIconButton from "@/components/VIconButton.vue";
     import VDialog from "@/components/Dialog/VDialog.vue";
+    import VOTPField from "@/components/OTPInput/VOTPField.vue";
 
     const value: Ref<string | null> = ref(null);
     const myValue: Ref<string | null> = ref(null);
@@ -259,6 +260,12 @@
     const selectedStep: Ref<number | string> = ref('step_1');
 
     const showVDialog: Ref<boolean> = ref(false);
+
+    const otpValue: Ref<string | null> = ref(null);
+
+    watch(() => otpValue.value, () => {
+      isLoading.value = true;
+    })
 </script>
 
 <template>
@@ -427,6 +434,10 @@
                                 <VRadio value="old">
                                     <template #label>This is a label for the second radio button</template>
                                 </VRadio>
+                            </div>
+
+                            <div>
+                                <VOTPField v-model="otpValue" :loading="isLoading"/>
                             </div>
 
                             <VRow class="text-white" reverse>
