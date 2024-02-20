@@ -14,13 +14,12 @@
 
     interface Props {
         modelValue: number | string | null;
-        items?: SelectItem[];
+        items: SelectItem[];
         itemValue?: string;
         itemName?: string;
         label?: string;
         errorMessage?: string;
         color?: 'primary' | 'secondary' | 'accent' | 'success' | 'warning' | 'danger';
-        multiple?: boolean;
         autofocus?: boolean;
         readonly?: boolean;
         searchable?: boolean;
@@ -34,7 +33,6 @@
         label: '',
         errorMessage: '',
         color: 'primary',
-        multiple: false,
         autofocus: false,
         readonly: false,
         searchable: false,

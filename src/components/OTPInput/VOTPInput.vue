@@ -12,7 +12,7 @@
     }
 
     const props = withDefaults(defineProps<Props>(), {
-        modelValue: null,
+        modelValue: '',
         color: 'primary',
         autofocus: false,
         loading: false,
@@ -23,22 +23,23 @@
     const innerAutofocus: Ref<boolean> = ref(props.autofocus);
     const textField: Ref<HTMLElement | null> = ref(null);
 
-    watch(() => props.autofocus, () => {
-        if (props.autofocus) {
+    watch((): boolean => props.autofocus, (value): void => {
+        if (value) {
             innerModelValue.value = '';
             textField.value?.focus();
         }
+
         innerAutofocus.value = props.autofocus;
     });
 
-    watch(() => props.loading, () => {
-        if (props.loading) {
+    watch((): boolean => props.loading, (value): void => {
+        if (value) {
             textField.value?.blur();
         }
     })
 
-    watch(() => props.disabled, () => {
-        if (props.disabled) {
+    watch((): boolean => props.disabled, (value): void => {
+        if (value) {
             textField.value?.blur();
         }
     })
@@ -49,26 +50,21 @@
 
     const emits = defineEmits<Emits>();
 
-    watch(() => innerModelValue.value, () => {
-        emits('update:modelValue', innerModelValue.value);
+    watch((): string | null => innerModelValue.value, (val): void => {
+        emits('update:modelValue', val);
     });
-
 </script>
 
 <template>
-    <div>
-        <div>
-            <input
-                ref="textField"
-                class="w-12 h-12 text-center border border-gray-300 focus:border ring-0 focus:ring-0 focus:outline-0 rounded-md text-2xl transition-all duration-150"
-                :class="resolveBorderFocus(color)"
-                type="text"
-                maxlength="1"
-                v-model="innerModelValue"
-                :autofocus="innerAutofocus"
-            >
-        </div>
-    </div>
+    <input
+        ref="textField"
+        class="w-10 h-10 text-center border border-gray-300 focus:border ring-0 focus:ring-0 focus:outline-0 rounded-md text-2xl transition-all duration-150"
+        type="text"
+        :maxlength="1"
+        :class="resolveBorderFocus(color)"
+        :autofocus="innerAutofocus"
+        v-model="innerModelValue"
+    >
 </template>
 
 <style scoped>
