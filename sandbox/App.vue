@@ -265,6 +265,7 @@
 
     watch(() => otpValue.value, () => {
       isLoading.value = true;
+      console.log(otpValue.value)
     })
 </script>
 

@@ -49,6 +49,10 @@
 
     const emits = defineEmits<Emits>();
 
+    watch(() => props.modelValue, () => {
+        innerModelValue.value = props.modelValue;
+    });
+
     watch(() => innerModelValue.value, () => {
         emits('update:modelValue', innerModelValue.value);
     });
@@ -63,7 +67,6 @@
                 class="w-12 h-12 text-center border border-gray-300 focus:border ring-0 focus:ring-0 focus:outline-0 rounded-md text-2xl transition-all duration-150"
                 :class="resolveBorderFocus(color)"
                 type="text"
-                maxlength="1"
                 v-model="innerModelValue"
                 :autofocus="innerAutofocus"
             >

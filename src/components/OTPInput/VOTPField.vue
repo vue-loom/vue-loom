@@ -29,21 +29,35 @@
 
     const autofocus: Ref<number> = ref(0);
 
-    const navigateThroughInput = (event: KeyboardEvent) => {
+    const navigateThroughInput = (event: KeyboardEvent, currentIndex: number) => {
         if (event.key === 'Backspace') {
             if (autofocus.value > 0) {
-                autofocus.value--;
+                console.log(otpList.value)
+                if (otpList.value.length === props.length) {
+                    autofocus.value--;
+                } else if (otpList.value.length < props.length) {
+                    autofocus.value--;
+                }
                 otpList.value.pop();
             }
         } else {
             if (autofocus.value < props.length - 1) {
-                autofocus.value++;
+                if (otpList.value[currentIndex].length > 1 && otpList.value[currentIndex] !== '') {
+                    let list = otpList.value[currentIndex].split('');
+                    list.forEach((val, index) => {
+                        otpList.value[index] = val;
+                    });
+                    autofocus.value = props.length;
+                } else {
+                    autofocus.value++;
+                }
             }
         }
     }
 
     watch(otpList.value, (value) => {
-        if (value.length === props.length && value[props.length - 1] !== '') {
+        if (value.length === props.length && value[props.length - 1] !== '' && autofocus.value !== 0) {
+            autofocus.value++;
             emits('update:modelValue', value.join(""));
         }
     });
@@ -62,7 +76,7 @@
                 :loading="loading"
                 :disabled="disabled"
                 :autofocus="autofocus === index && !disabled"
-                @keyup="navigateThroughInput"
+                @keyup="navigateThroughInput($event, index)"
             />
         </div>
     </div>
