@@ -37,7 +37,7 @@
             }
         } else {
             if (autofocus.value < props.length - 1) {
-                if (otpList.value[currentIndex].length > 1 && otpList.value[currentIndex] !== '') {
+                if (otpList.value[currentIndex] && otpList.value[currentIndex].length > 1 && otpList.value[currentIndex] !== '') {
                     let list = otpList.value[currentIndex].split('');
                     list.forEach((val, index) => {
                         otpList.value[index] = val;
@@ -71,8 +71,10 @@
         <div v-if="loading || disabled" class="absolute w-full h-full bg-white/70 flex justify-center items-center">
             <VLoader v-if="loading" color="primary"/>
         </div>
-        <div v-for="(_, index) in length" :key="index">
-            <VOTPInput
+        <div>
+            <VOTPInput  ref="otpInputs"
+                v-for="(_, index) in length"
+                :key="index"
                 :class="index === length-1 ? '' : 'mr-2'"
                 v-model="otpList[index]"
                 :loading="loading"
