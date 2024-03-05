@@ -113,7 +113,7 @@
                 <div
                     ref="menu"
                     v-show="open"
-                    class="fixed z-50 bg-white shadow-md sm:rounded-lg overflow-hidden border border-gray-200"
+                    class="fixed z-50 bg-white rounded-lg overflow-hidden border border-gray-200"
                     :class="[width !== 'w-full' ? width : '', alignmentClasses, contentClasses]"
                     @click="closeOnContent"
                 >

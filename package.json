@@ -6,8 +6,7 @@
     "dev": "vite",
     "build": "vite build && npm run build:types",
     "build:types": "vue-tsc --project tsconfig.build-types.json --declaration --emitDeclarationOnly --outDir dist/types ",
-    "typecheck": "vue-tsc --project tsconfig.build-types.json --noEmit",
-    "pub": "npm run build && npm publish"
+    "typecheck": "vue-tsc --project tsconfig.build-types.json --noEmit"
   },
   "devDependencies": {
     "@babel/types": "^7.23.6",

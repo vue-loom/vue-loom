@@ -257,15 +257,18 @@
         },
     ];
 
-    const selectedStep: Ref<number | string> = ref('step_1');
-
     const showVDialog: Ref<boolean> = ref(false);
 
     const otpValue: Ref<string | null> = ref(null);
 
-    watch(() => otpValue.value, () => {
-      isLoading.value = true;
-      console.log(otpValue.value)
+    const otpUpdated = (): void => {
+        console.log(otpValue.value);
+    };
+
+    watch(() => otpValue.value, (val) => {
+        if (val.length === 6) {
+            isLoading.value = true;
+        }
     })
 </script>
 
@@ -438,7 +441,8 @@
                             </div>
 
                             <div>
-                                <VOTPField v-model="otpValue" :loading="isLoading"/>
+                                <VOTPField :length="6" v-model="otpValue" :loading="isLoading"
+                                           @update:modelValue="otpUpdated"/>
                             </div>
 
                             <VRow class="text-white" reverse>
