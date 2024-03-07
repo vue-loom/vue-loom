@@ -3,13 +3,14 @@
     import {resolveText, resolveBorderFocus} from "@/partials/colors";
 
     interface Props {
-        modelValue: string | number | null;
-        label?: string;
-        color?: string | 'primary' | 'secondary' | 'accent' | 'success' | 'warning' | 'danger';
+        modelValue: string | number | null,
+        label?: string,
+        color?: string | 'primary' | 'secondary' | 'accent' | 'success' | 'warning' | 'danger',
         type?: 'text' | 'password' | 'number' | 'email',
-        autofocus?: boolean;
-        readonly?: boolean;
-        errorMessage?: string;
+        autofocus?: boolean,
+        readonly?: boolean,
+        errorMessage?: string,
+        maxLength?: number | null,
     }
 
     const props = withDefaults(defineProps<Props>(), {
@@ -20,6 +21,7 @@
         autofocus: false,
         readonly: false,
         errorMessage: '',
+        maxLength: null,
     });
 
     const innerModelValue: Ref<string | number | null> = ref(props.modelValue);
@@ -114,6 +116,7 @@
             ref="textField"
             class="w-full border focus:border ring-0 focus:ring-0 focus:outline-0 rounded-md transition-all duration-150"
             :type="type"
+            :maxlength="maxLength as number"
             :class="inputClassObject"
             :autofocus="autofocus"
             :readonly="readonly"
@@ -129,5 +132,15 @@
 </template>
 
 <style scoped>
+    /* Chrome, Safari, Edge, Opera */
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
 
+    /* Firefox */
+    input[type=number] {
+        -moz-appearance: textfield;
+    }
 </style>

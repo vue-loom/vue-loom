@@ -344,6 +344,8 @@
                             <div class="w-full">
                                 <VTextField
                                     class="w-1/3"
+                                    :max-length="3"
+                                    type="number"
                                     label="This is a very long label for my input"
                                     v-model="value"
                                 />
