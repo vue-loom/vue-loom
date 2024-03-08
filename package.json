@@ -1,6 +1,6 @@
 {
   "name": "vue-loom",
-  "version": "1.0.13-dev",
+  "version": "1.0.14-dev",
   "type": "module",
   "scripts": {
     "dev": "vite",
