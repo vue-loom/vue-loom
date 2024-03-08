@@ -50,6 +50,10 @@
 
     const emits = defineEmits<Emits>();
 
+    watch(() => props.modelValue, () => {
+        innerModelValue.value = props.modelValue;
+    });
+
     watch((): string | null => innerModelValue.value, (val): void => {
         emits('update:modelValue', val);
     });
@@ -59,11 +63,11 @@
     <input
         ref="textField"
         class="w-10 h-10 text-center border border-gray-300 focus:border ring-0 focus:ring-0 focus:outline-0 rounded-md text-2xl transition-all duration-150"
-        type="text"
-        :maxlength="1"
         :class="resolveBorderFocus(color)"
-        :autofocus="innerAutofocus"
+        type="text"
+        maxlength="1"
         v-model="innerModelValue"
+        :autofocus="innerAutofocus"
     >
 </template>
 
