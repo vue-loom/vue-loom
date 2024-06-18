@@ -5,20 +5,23 @@ import {defineConfig} from 'vite'
 import vue from '@vitejs/plugin-vue'
 import {libInjectCss} from 'vite-plugin-lib-inject-css'
 import path from "path";
+import tailwind from "tailwindcss";
+import autoprefixer from "autoprefixer";
 
 // https://vitejs.dev/config/
 export default defineConfig({
+    css: {
+        postcss: {
+            plugins: [tailwind(), autoprefixer()],
+        },
+    },
     resolve: {
         alias: {
             "@": path.resolve(__dirname, "./src/"),
         },
     },
     // If our .vue files have a style, it will be compiled as a single `.css` file under /dist.
-    plugins:
-        [
-            vue(/*{ style: { filename: 'style.css' } }*/),
-            libInjectCss(),
-        ],
+    plugins: [vue(), libInjectCss()],
     build: {
         // Output compiled files to /dist.
         outDir: './dist',
@@ -45,8 +48,8 @@ export default defineConfig({
             output: {
                 globals: {vue: 'Vue'},
                 assetFileNames: 'assets/[name][extname]',
-                entryFileNames: function({name}) {
-                    if(name === 'index') {
+                entryFileNames: function ({name}) {
+                    if (name === 'index') {
                         return 'vue-loom.[format].js'
                     }
 
@@ -75,4 +78,4 @@ export default defineConfig({
         },
         cssCodeSplit: true,
     },
-})
+});
