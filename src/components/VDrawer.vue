@@ -15,7 +15,7 @@
         left: true,
         right: false,
         mini: false,
-        overlay: false,
+        w: false,
         appbarOffset: false,
     });
 
