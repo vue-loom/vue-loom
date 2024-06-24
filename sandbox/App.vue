@@ -52,6 +52,7 @@
     import VIconButton from "@/components/VIconButton.vue";
     import VDialog from "@/components/Dialog/VDialog.vue";
     import VOTPField from "@/components/OTPInput/VOTPField.vue";
+    import VTreeView from "@/components/Tree/VTreeView.vue";
 
     const value: Ref<string | null> = ref(null);
     const myValue: Ref<string | null> = ref(null);
@@ -381,14 +382,22 @@
                             </div>
 
                             <div class="w-full">
-                                <VTreeSelect
-                                    searchable
-                                    class="w-1/3"
-                                    label="Select a Value"
+                                <VTreeView
                                     color="primary"
                                     :items="tree"
                                     v-model="treeValue"
-                                />
+                                >
+                                    <template #name="{node}">
+                                        <div>
+                                            {{ node.name + ' ' + node.id }}
+                                        </div>
+                                    </template>
+                                    <template #suffix="{node}">
+                                        <div @click="console.log(node)">
+                                            Edit
+                                        </div>
+                                    </template>
+                                </VTreeView>
                             </div>
 
                             <VToggle
