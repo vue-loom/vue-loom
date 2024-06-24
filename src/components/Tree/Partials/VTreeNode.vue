@@ -3,7 +3,7 @@
     import {type ComputedRef} from "vue";
     import {computed} from "vue";
     import VIcon from "@/components/VIcon.vue";
-    import type {TreeNode} from "../../../globals/TreeNode";
+    import type {TreeNode} from "@/globals/TreeNode";
 
     interface Props {
         node: TreeNode;
@@ -47,10 +47,10 @@
 
 <template>
     <div class="w-full">
-        <div class="w-full px-2 select-none cursor-pointer transition-all duration-75"
+        <div class="w-full px-2 flex justify-between select-none cursor-pointer transition-all duration-75"
              :class="nodeClassObject"
         >
-            <div class="w-full h-9 flex space-x-1 items-center">
+            <div class="grow h-9 flex space-x-1 items-center">
                 <div class="w-4 h-full flex items-center" @click="$emit('node:expand', node)">
                     <VIcon icon="chevron-down"
                            class="transition-all duration-150"
@@ -60,7 +60,13 @@
                     />
                 </div>
 
-                <div class="grow h-9 flex items-center" @click="$emit('node:select', node)">{{ node.name }}</div>
+                <div class="grow h-9 flex items-center" @click="$emit('node:select', node)">
+                    <slot name="name" :node="node">{{ node.name }}</slot>
+                </div>
+            </div>
+
+            <div class="shrink flex items-center h-9">
+                <slot name="suffix" :node="node"/>
             </div>
         </div>
 
@@ -73,7 +79,14 @@
                 v-for="(child) in node.children"
                 @node:select="$emit('node:select', $event || child)"
                 @node:expand="$emit('node:expand', $event || child)"
-            />
+            >
+                <template #name="{node: innerNode}">
+                    <slot name="name" :node="innerNode"/>
+                </template>
+                <template #suffix="{node: innerNode}">
+                    <slot name="suffix" :node="innerNode"/>
+                </template>
+            </VTreeNode>
         </div>
     </div>
 </template>

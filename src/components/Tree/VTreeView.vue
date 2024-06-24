@@ -8,8 +8,6 @@
     interface Props {
         modelValue: number | string | null;
         items: TreeItem[];
-        itemValue?: string;
-        itemName?: string;
         color?: string;
         openAll?: boolean;
     }
@@ -17,8 +15,6 @@
     const props = withDefaults(defineProps<Props>(), {
         modelValue: null,
         items: () => [],
-        itemValue: 'id',
-        itemName: 'name',
         color: 'primary',
         openAll: false,
     });
@@ -129,7 +125,14 @@
         v-for="(node) in parsedNodes"
         @node:select="selectItem"
         @node:expand="toggleNodeOpenState"
-    />
+    >
+        <template #name="{node: innerNode}">
+            <slot name="name" :node="innerNode"/>
+        </template>
+        <template #suffix="{node: innerNode}">
+            <slot name="suffix" :node="innerNode"/>
+        </template>
+    </VTreeNode>
 </template>
 
 <style scoped>
