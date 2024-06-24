@@ -2,8 +2,8 @@
     import VTreeNode from "@/components/Tree/Partials/VTreeNode.vue";
     import {ref, type Ref} from "vue";
     import {computed, type ComputedRef, watch} from "vue";
-    import type {TreeItem} from "../../globals/TreeItem";
-    import type {TreeNode} from "../../globals/TreeNode";
+    import type {TreeItem} from "@/globals/TreeItem";
+    import type {TreeNode} from "@/globals/TreeNode";
 
     interface Props {
         modelValue: number | string | null;
@@ -27,13 +27,18 @@
 
     const open: Ref<Open> = ref({});
 
-    const parseTreeNode = (item: TreeItem): TreeNode => ({
-        id: item.id,
-        name: item.name,
-        children: item.children.map((item: TreeItem) => parseTreeNode(item)),
-        selected: innerModelValue.value === item.id,
-        expanded: open.value[item.id] || props.openAll,
-    });
+    const parseTreeNode = (item: TreeItem): TreeNode => {
+        const {children, ...remainingItem} = item;
+
+        return {
+            id: item.id,
+            name: item.name,
+            item: remainingItem,
+            children: item.children.map((item: TreeItem) => parseTreeNode(item)),
+            selected: innerModelValue.value === item.id,
+            expanded: open.value[item.id] || props.openAll,
+        }
+    };
 
     const parsedNodes: ComputedRef<TreeNode[]> = computed(() => props.items.map((item: TreeItem) => parseTreeNode(item)));
 
