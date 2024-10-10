@@ -119,6 +119,7 @@ import VTabsList from './components/VTabsList.vue';
 import VTabsTrigger from './components/VTabsTrigger.vue';
 import VTagsInput from './components/VTagsInput.vue';
 import VTextarea from './components/VTextarea.vue';
+import VToast from './components/VToast.vue';
 import VToggle from './components/VToggle.vue';
 import VToggleGroup from './components/VToggleGroup.vue';
 import VToggleGroupItem from './components/VToggleGroupItem.vue';
@@ -250,6 +251,7 @@ export {
     VTabsTrigger,
     VTagsInput,
     VTextarea,
+    VToast,
     VToggle,
     VToggleGroup,
     VToggleGroupItem,

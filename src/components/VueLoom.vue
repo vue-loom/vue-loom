@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {VButton, VCard, VCardContent} from "@vue-loom/vue-loom";
+import {VButton, VCard, VCardContent, VToast} from "@vue-loom/vue-loom";
 
 const click = () => {
   console.log('Clicked!');
@@ -12,6 +12,8 @@ const click = () => {
   <VCard>
     <VCardContent></VCardContent>
   </VCard>
+
+  <VToast></VToast>
 </template>
 
 <style scoped>
