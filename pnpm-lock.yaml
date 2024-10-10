@@ -139,6 +139,9 @@ importers:
       vue:
         specifier: ^3.4.5
         version: 3.4.29(typescript@5.4.5)
+      vue-sonner:
+        specifier: ^1.2.1
+        version: 1.2.1
 
 packages:
 
@@ -1289,6 +1292,9 @@ packages:
       '@vue/composition-api':
         optional: true
 
+  vue-sonner@1.2.1:
+    resolution: {integrity: sha512-J5+TwkayiBkieYBG8PGk5PMys8+UZxDmT/CCaX9otDzRONRr5hgTgo2Fha2krUFnUw1d576jsNGXhmAL06ixfA==}
+
   vue-template-compiler@2.7.16:
     resolution: {integrity: sha512-AYbUWAJHLGGQM7+cNTELw+KsOG9nl2CnSv467WobS5Cv9uk3wFcnr1Etsz2sEIHEZvw1U+o9mRlEO6QbZvUPGQ==}
 
@@ -2407,6 +2413,8 @@ snapshots:
   vue-demi@0.14.10(vue@3.4.29(typescript@5.4.5)):
     dependencies:
       vue: 3.4.29(typescript@5.4.5)
+
+  vue-sonner@1.2.1: {}
 
   vue-template-compiler@2.7.16:
     dependencies:

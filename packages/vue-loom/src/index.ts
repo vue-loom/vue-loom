@@ -97,6 +97,7 @@ import VSheetTitle from './components/VSheetTitle.vue';
 import VSheetTrigger from './components/VSheetTrigger.vue';
 import VSkeleton from './components/VSkeleton.vue';
 import VSlider from './components/VSlider.vue';
+import VSonner from './components/VSonner.vue';
 import VSpacer from './components/VSpacer.vue';
 import VStepper from './components/VStepper.vue';
 import VStepperDescription from './components/VStepperDescription.vue';
@@ -120,6 +121,13 @@ import VTabsTrigger from './components/VTabsTrigger.vue';
 import VTagsInput from './components/VTagsInput.vue';
 import VTextarea from './components/VTextarea.vue';
 import VToast from './components/VToast.vue';
+import VToastAction from './components/VToastAction.vue';
+import VToastClose from './components/VToastClose.vue';
+import VToastDescription from './components/VToastDescription.vue';
+import VToaster from './components/VToaster.vue';
+import VToastProvider from './components/VToastProvider.vue';
+import VToastTitle from './components/VToastTitle.vue';
+import VToastViewport from './components/VToastViewport.vue';
 import VToggle from './components/VToggle.vue';
 import VToggleGroup from './components/VToggleGroup.vue';
 import VToggleGroupItem from './components/VToggleGroupItem.vue';
@@ -229,6 +237,7 @@ export {
     VSheetTrigger,
     VSkeleton,
     VSlider,
+    VSonner,
     VSpacer,
     VStepper,
     VStepperDescription,
@@ -252,6 +261,13 @@ export {
     VTagsInput,
     VTextarea,
     VToast,
+    VToastAction,
+    VToastClose,
+    VToastDescription,
+    VToaster,
+    VToastProvider,
+    VToastTitle,
+    VToastViewport,
     VToggle,
     VToggleGroup,
     VToggleGroupItem,

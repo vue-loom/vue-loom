@@ -44,5 +44,8 @@
       "types": "./dist/types/components/ui/*.d.ts"
     }
   },
-  "prepublishOnly": "pnpm run build"
+  "prepublishOnly": "pnpm run build",
+  "dependencies": {
+    "vue-sonner": "^1.2.1"
+  }
 }
