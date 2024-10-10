@@ -1,0 +1,27 @@
+{
+  "name": "@vue-loom/data-table",
+  "version": "1.0.0",
+  "publishConfig": {
+    "access": "public"
+  },
+  "type": "module",
+  "scripts": {
+    "build": "vite build && pnpm run build:types",
+    "build:types": "vue-tsc --project tsconfig.build-types.json",
+    "typecheck": "vue-tsc --project tsconfig.build-types.json --noEmit",
+    "analyze": "npx vite-bundle-visualizer"
+  },
+  "peerDependencies": {
+    "@tanstack/vue-table": "^8.19.2",
+    "@vue-loom/vue-loom": "workspace:*"
+  },
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/index.es.js",
+  "types": "./dist/types/index.d.ts",
+  "prepublishOnly": "pnpm run build",
+  "devDependencies": {
+    "@inertiajs/core": "^1.2.0"
+  }
+}

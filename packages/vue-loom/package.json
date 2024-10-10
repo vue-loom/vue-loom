@@ -1,0 +1,48 @@
+{
+  "name": "@vue-loom/vue-loom",
+  "version": "1.0.0",
+  "publishConfig": {
+    "access": "public"
+  },
+  "type": "module",
+  "scripts": {
+    "build": "vite build && pnpm run build:types",
+    "build:types": "vue-tsc --project tsconfig.build-types.json",
+    "typecheck": "vue-tsc --project tsconfig.build-types.json --noEmit",
+    "analyze": "npx vite-bundle-visualizer"
+  },
+  "peerDependencies": {
+    "@tailwindcss/forms": "^0.5.2",
+    "@tailwindcss/typography": "^0.5.2",
+    "@vueuse/core": "^11.1.0",
+    "autoprefixer": "^10.4.20",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.1",
+    "lucide-vue-next": "^0.446.0",
+    "radix-vue": "^1.9.6",
+    "tailwind-merge": "^2.5.2",
+    "tailwindcss": "^3.4.1",
+    "tailwindcss-animate": "^1.0.7",
+    "vue": "^3.4.5"
+  },
+  "files": [
+    "dist"
+  ],
+  "main": "dist/index.es.js",
+  "types": "dist/types/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.es.js",
+      "types": "./dist/types/index.d.ts"
+    },
+    "./ui": {
+      "import": "./dist/ui.es.js",
+      "types": "./dist/types/ui.d.ts"
+    },
+    "./ui/*": {
+      "import": "./dist/components/ui/*.es.js",
+      "types": "./dist/types/components/ui/*.d.ts"
+    }
+  },
+  "prepublishOnly": "pnpm run build"
+}

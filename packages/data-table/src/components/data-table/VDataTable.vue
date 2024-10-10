@@ -1,0 +1,168 @@
+<script setup lang="ts">
+import {
+  ColumnDef,
+  createColumnHelper,
+} from "@tanstack/vue-table";
+import {h} from "vue";
+import {
+  FlexRender,
+  getCoreRowModel,
+  useVueTable,
+} from '@tanstack/vue-table';
+import {
+  VTable,
+  VTableHeader,
+  VTableRow,
+  VTableHead,
+  VTableBody,
+  VTableCell,
+  VButton,
+  VDropdownMenu, VDropdownMenuTrigger, VDropdownMenuContent, VDropdownMenuItem
+} from "@vue-loom/vue-loom";
+import {ChevronLeft, ChevronRight, EllipsisVertical} from 'lucide-vue-next';
+import {navigate} from '../../navigation/navigation';
+import type {DataTable, DataTableMenuItem, DataTableColumn, DataTableItem} from "./interface";
+
+type Modifiers<T extends { columns: { alias: string }[] }> = {
+  [key in T['columns'][number]['alias']]?: Function;
+};
+
+interface Props {
+  table: DataTable,
+  menu?: DataTableMenuItem[],
+  modifiers?: Modifiers<DataTable>,
+}
+
+const props = withDefaults(defineProps<Props>(), {});
+
+const columns: ColumnDef<unknown, never>[] = props.table.columns.map((column: DataTableColumn) => {
+  let modifier = props.modifiers?.[column.alias];
+  return createColumnHelper().accessor(column.alias, {
+    header: column.header,
+    cell: (info) => {
+      let value = info.getValue();
+      return h('div', {class: 'text-left font-medium'}, modifier ? modifier(value) : value)
+    }
+  })
+});
+
+if(props.menu) {
+  columns.push(createColumnHelper().display({
+    id: 'actions',
+    header: 'Actions',
+    cell: (cell) => {
+      if(props.menu?.length || 0 > 1) {
+          return h(VDropdownMenu, () => [
+            h(VDropdownMenuTrigger, () => h(EllipsisVertical)),
+            h(VDropdownMenuContent, () => [
+              props.menu?.filter((item: DataTableMenuItem) => {
+                if(typeof item.show === 'boolean') {
+                  return item.show;
+                }
+                else if(typeof item.show === 'function') {
+                  return item.show(cell.row.original as DataTableItem);
+                }
+                return true;
+              }).map((item: DataTableMenuItem) => h(VDropdownMenuItem, {
+                onClick: item.handle.bind(null, cell.row.original as DataTableItem)
+              }, () => {
+                if(item.icon) {
+                  return [h(item.icon), item.label];
+                }
+                return item.label;
+              }))
+            ])
+          ])
+      }
+      return h('div', {class: 'relative'}, h(VButton, {onClick: props.menu?.[0].handle.bind(null, cell.row.original as DataTableItem)}, () => props.menu?.[0]['label']))
+    },
+  }));
+}
+
+const shipmentTable = useVueTable({
+  get data() {
+    return props.table.list.data
+  },
+  get columns() {
+    return columns as ColumnDef<unknown, any>[]
+  },
+  getCoreRowModel: getCoreRowModel(),
+});
+
+const goToPage = (url: string | null): void => {
+  if (url !== null) {
+    navigate(url);
+  }
+};
+</script>
+
+<template>
+  <div>
+    <v-table>
+      <v-table-header>
+        <v-table-head v-for="header in shipmentTable.getHeaderGroups()[0].headers" :key="header.id">
+          <FlexRender
+              v-if="!header.isPlaceholder" :render="header.column.columnDef.header"
+              :props="header.getContext()"
+          />
+        </v-table-head>
+      </v-table-header>
+      <v-table-body>
+        <template v-if="shipmentTable.getRowModel().rows?.length">
+          <v-table-row
+              v-for="row in shipmentTable.getRowModel().rows" :key="row.id"
+              :data-state="row.getIsSelected() ? 'selected' : undefined"
+          >
+            <v-table-cell v-for="cell in row.getVisibleCells()" :key="cell.id">
+              <FlexRender :render="cell.column.columnDef.cell" :props="cell.getContext()"/>
+            </v-table-cell>
+          </v-table-row>
+        </template>
+        <template v-else>
+          <v-table-row>
+            <v-table-cell :colspan="columns.length" class="h-24 text-center">
+              No results.
+            </v-table-cell>
+          </v-table-row>
+        </template>
+      </v-table-body>
+    </v-table>
+    <div class="flex justify-between items-center px-4 py-2 select-none"
+         v-show="table.list.total > table.list.per_page"
+    >
+      <div class="flex space-x-1 text-primary">
+        <div>Showing</div>
+        <div class="font-bold">{{ table.list.from }}</div>
+        <div>-</div>
+        <div class="font-bold">{{ table.list.to }}</div>
+        <div class="hidden sm:inline">items of</div>
+        <div class="font-bold hidden sm:inline">{{ table.list.total }}</div>
+        <div class="hidden sm:inline">items</div>
+      </div>
+      <div class="flex items-center space-x-3">
+        <v-button :disabled="table.list.prev_page_url === null"
+                  @click="goToPage(table.list.prev_page_url)"
+        >
+          <ChevronLeft/>
+        </v-button>
+
+        <div class="flex space-x-1 text-primary">
+          <div>Page</div>
+          <div class="font-bold">{{ table.list.current_page }}</div>
+          <div>of</div>
+          <div class="font-bold">{{ Math.ceil((table.list.total / table.list.per_page)) }}</div>
+        </div>
+
+        <v-button :disabled="table.list.next_page_url === null"
+                  @click="goToPage(table.list.next_page_url)"
+        >
+          <ChevronRight/>
+        </v-button>
+      </div>
+    </div>
+  </div>
+</template>
+
+<style scoped>
+
+</style>

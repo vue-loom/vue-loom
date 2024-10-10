@@ -1,0 +1,24 @@
+{
+  "name": "@vue-loom/carousel",
+  "version": "1.0.0",
+  "publishConfig": {
+    "access": "public"
+  },
+  "type": "module",
+  "scripts": {
+    "build": "vite build && pnpm run build:types",
+    "build:types": "vue-tsc --project tsconfig.build-types.json",
+    "typecheck": "vue-tsc --project tsconfig.build-types.json --noEmit",
+    "analyze": "npx vite-bundle-visualizer"
+  },
+  "peerDependencies": {
+    "@vue-loom/vue-loom": "workspace:*",
+    "embla-carousel-vue": "^8.3.0"
+  },
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/index.es.js",
+  "types": "./dist/types/index.d.ts",
+  "prepublishOnly": "pnpm run build"
+}

@@ -1,0 +1,1 @@
+declare module '@vue-loom/vue-loom/ui'
