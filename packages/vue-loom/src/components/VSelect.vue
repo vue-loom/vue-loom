@@ -37,7 +37,7 @@
 <template>
     <div class="flex flex-col gap-1">
         <Label v-if="label">{{ label }}</Label>
-        <Select :model-value="modelValue?.toString()" :disabled="disabled" @update:modelValue="modelValue = $event">
+        <Select :model-value="modelValue?.toString() || ''" :disabled="disabled" @update:modelValue="modelValue = $event">
             <SelectTrigger
                 :class="cn('w-[180px] focus:ring-offset-0 focus:ring-0 focus:border-ring', props.class)">
                 <SelectValue :placeholder="placeholder"/>

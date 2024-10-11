@@ -26,6 +26,7 @@ export default defineConfig({
                 'tailwind-merge',
                 'tailwindcss',
                 'tailwindcss-animate',
+                'vue-sonner',
                 'vue'
             ],
             input: Object.fromEntries(
@@ -62,6 +63,7 @@ export default defineConfig({
                     'tailwind-merge': 'tailwindMerge',
                     'tailwindcss': 'tailwindcss',
                     'tailwindcss-animate': 'tailwindcssAnimate',
+                    'vue-sonner': 'vueSonner',
                     vue: 'vue',
                 }
             },
