@@ -136,6 +136,7 @@ import VTooltipContent from './components/VTooltipContent.vue';
 import VTooltipProvider from './components/VTooltipProvider.vue';
 import VTooltipTrigger from './components/VTooltipTrigger.vue';
 import {cn} from "./lib/utils";
+import {useToast} from "./components/ui/toast";
 
 export {
     VAccordion,
@@ -275,5 +276,6 @@ export {
     VTooltipContent,
     VTooltipProvider,
     VTooltipTrigger,
-    cn
+    cn,
+    useToast,
 }
