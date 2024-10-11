@@ -13,7 +13,7 @@
   },
   "peerDependencies": {
     "@tanstack/vue-table": "^8.19.2",
-    "@vue-loom/vue-loom": "workspace:*"
+    "@vue-loom/vue-loom": "^1.1.0"
   },
   "files": [
     "dist"
