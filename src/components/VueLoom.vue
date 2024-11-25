@@ -799,5 +799,4 @@
             </VTabs>
         </VCard>
     </div>
-    <v-button color="destructive"></v-button>
 </template>

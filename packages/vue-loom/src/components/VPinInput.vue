@@ -34,9 +34,11 @@
             v-model="innerModelValue"
             @complete="modelValue = $event.join('')"
         >
-            <PinInputGroup>
-                <PinInputInput class="focus:ring-offset-0 focus:ring-0 focus:border-ring" :key="id" :index="index"
-                               v-for="(id, index) in Number(length)"/>
+            <PinInputGroup class="flex-wrap gap-2">
+                <PinInputInput
+                    class="border rounded-md text-xl placeholder:text-neutral-300 placeholder-shown:text-xs focus:ring-offset-0 focus:ring-0 focus:border-ring"
+                    :key="id" :index="index"
+                    v-for="(id, index) in Number(length)"/>
             </PinInputGroup>
         </PinInput>
         <p class="text-destructive text-xs" v-if="errorMessage">{{ errorMessage }}</p>
