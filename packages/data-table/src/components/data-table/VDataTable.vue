@@ -1,14 +1,7 @@
 <script setup lang="ts">
-    import {
-        ColumnDef,
-        createColumnHelper,
-    } from "@tanstack/vue-table";
-    import {h} from "vue";
-    import {
-        FlexRender,
-        getCoreRowModel,
-        useVueTable,
-    } from '@tanstack/vue-table';
+    import {ColumnDef, createColumnHelper} from "@tanstack/vue-table";
+    import {h} from 'vue';
+    import {FlexRender, getCoreRowModel, useVueTable} from '@tanstack/vue-table';
     import {
         VTable,
         VTableHeader,
@@ -26,6 +19,7 @@
     import {ChevronLeft, ChevronRight, EllipsisVertical} from 'lucide-vue-next';
     import {navigate} from '../../navigation/navigation';
     import {type DataTable, type DataTableMenuItem, type DataTableColumn, type DataTableItem} from "./interface";
+    import VDataTableColumn from "./VDataTableColumn.vue";
 
     type Modifiers<T extends { columns: { alias: string }[] }> = {
         [key in T['columns'][number]['alias']]?: Function;
@@ -44,9 +38,9 @@
         return createColumnHelper().accessor(column.alias, {
             header: column.header,
             cell: (info) => {
-                let value = info.getValue();
+                const value = info.getValue();
 
-                return h('div', {class: 'text-left font-medium'}, modifier ? modifier(value) : value);
+                return h(VDataTableColumn, {column, value: modifier ? modifier(value) : value});
             },
         });
     });
@@ -136,7 +130,9 @@
                         :data-state="row.getIsSelected() ? 'selected' : undefined"
                     >
                         <v-table-cell class="px-4 py-3" v-for="cell in row.getVisibleCells()" :key="cell.id">
-                            <FlexRender :render="cell.column.columnDef.cell" :props="cell.getContext()"/>
+                            <slot :name="cell.column.id" :value="cell.getValue()">
+                                <FlexRender :render="cell.column.columnDef.cell" :props="cell.getContext()"/>
+                            </slot>
                         </v-table-cell>
                     </v-table-row>
                 </template>
@@ -161,7 +157,7 @@
                 <div class="font-bold hidden sm:inline">{{ table.list.total }}</div>
                 <div class="hidden sm:inline">items</div>
             </div>
-            <div class="flex items-center space-x-3">
+            <div class="flex items-center gap-3">
                 <v-button class="px-2" :disabled="table.list.prev_page_url === null"
                           @click="goToPage(table.list.prev_page_url)"
                 >

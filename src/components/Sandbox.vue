@@ -48,16 +48,26 @@
             id: 1,
             name: 'John Doe',
             email: 'john@doe.com',
+            bool: true,
+            enum: 'test',
+            number: 10,
         },
         {
             id: 2,
             name: 'Jane Doe',
             email: 'jane@doe.com',
+            bool: false,
+            enum: 'new',
+            number: 5,
         },
         {
             id: 3,
             name: 'Mike Hill',
             email: 'mike@hill.com',
+            bool: true,
+            enum: 'other',
+            number: 12,
+            date: '2024-11-22 09:27:14',
         },
     ];
 
@@ -92,6 +102,34 @@
                 header: 'Email Address',
                 searchable: true,
             },
+            {
+                alias: 'bool',
+                selector: 'user.bool',
+                dataType: 'boolean',
+                header: 'Boolean',
+                searchable: true,
+            },
+            {
+                alias: 'enum',
+                selector: 'user.enum',
+                dataType: 'enum',
+                header: 'Enum',
+                searchable: true,
+            },
+            {
+                alias: 'number',
+                selector: 'user.number',
+                dataType: 'number',
+                header: 'Number',
+                searchable: true,
+            },
+            {
+                alias: 'date',
+                selector: 'user.date',
+                dataType: 'date',
+                header: 'Date',
+                searchable: true,
+            },
         ],
         searchable: true,
         term: '',
@@ -109,7 +147,11 @@
             </v-card-content>
         </v-card>
 
-        <v-data-table :table="table" :menu="menu"/>
+        <v-data-table :table="table" :menu="menu">
+            <template #email="{value}">
+                <a class="text-sky-600 hover:underline" :href="`mailto:${value}`">{{ value }}</a>
+            </template>
+        </v-data-table>
     </div>
 </template>
 
