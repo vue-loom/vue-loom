@@ -1,6 +1,6 @@
 {
   "name": "@vue-loom/data-table",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "publishConfig": {
     "access": "public"
   },

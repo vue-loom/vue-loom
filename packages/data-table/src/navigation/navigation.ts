@@ -15,12 +15,14 @@ const navigate = (url: string): void => {
     }
 
     // If Inertia.js is available in the window object, use InertiaDriver
-    if ((window as any).Inertia) {
+    else if ((window as any).Inertia) {
         InertiaDriver.navigate(url);
     }
 
     // Fallback to the default driver if no custom driver or Inertia
-    return DefaultDriver.navigate(url);
+    else {
+        DefaultDriver.navigate(url);
+    }
 }
 
 export {
