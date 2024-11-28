@@ -1,4 +1,4 @@
-import VDataTable from './components/data-table/VDataTable.vue'
+import VDataTable from './components/data-table/VDataTable.vue';
 import type {
     DataTable,
     DataTableColumn,
@@ -8,7 +8,8 @@ import type {
     DataTableLink,
     DataTableList,
     DataTableSort
-} from './components/data-table/interface.ts'
+} from './components/data-table/interface.ts';
+import {registerCustomDriver as registerCustomNavigationDriver} from './navigation/navigation';
 
 export {
     VDataTable,
@@ -19,5 +20,6 @@ export {
     DataTableItem,
     DataTableLink,
     DataTableList,
-    DataTableSort
+    DataTableSort,
+    registerCustomNavigationDriver,
 };
