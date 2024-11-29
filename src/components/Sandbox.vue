@@ -6,39 +6,28 @@
 
     const menu: DataTableMenuItem[] = [
         {
-            label: 'Menu Item',
+            label: 'Open',
             icon: PlusIcon,
             handle: () => {
-                console.log('clicked menu item');
+                console.log('Open row');
             },
         },
         {
-            label: 'Menu Item',
-            handle: () => {
-                console.log('clicked disabled menu item');
-            },
-        },
-        {
-            label: 'Disabled Menu Item 2',
-            color: 'secondary',
-            handle: () => {
-                console.log('clicked disabled menu item');
-            },
-        },
-        {
-            label: 'Hidden Menu Item 1',
-            color: 'warning',
+            label: 'Edit',
+            icon: PlusIcon,
             show: false,
             handle: () => {
-                console.log('clicked hidden menu item');
+                console.log('Edit row');
             },
         },
         {
-            label: 'Hidden Menu Item 2',
-            color: 'warning',
-            show: (item: DataTableItem) => item.id === 2,
+            type: 'separator',
+        },
+        {
+            label: 'Delete',
+            type: 'destructive',
             handle: () => {
-                console.log('clicked hidden menu item');
+                console.log('Delete row');
             },
         },
     ];

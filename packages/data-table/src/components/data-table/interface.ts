@@ -11,16 +11,17 @@ export interface DataTableColumn {
 
 export interface DataTableItem {
     id: number | null;
+
     [key: string]: any;
 }
 
 export interface DataTableMenuItem {
-    handle: (item: DataTableItem) => void;
-    label: string;
+    handle?: (item: DataTableItem) => void;
+    label?: string;
     icon?: FunctionalComponent<LucideProps, {}, any, {}>
     show?: boolean | ((item: DataTableItem) => boolean);
-    disabled?: boolean | ((item: DataTableItem) => boolean);
-    color?: 'primary' | 'secondary' | 'accent' | 'success' | 'warning' | 'danger';
+    classes?: string;
+    type?: 'default' | 'destructive' | 'separator';
 }
 
 export interface DataTableLink {

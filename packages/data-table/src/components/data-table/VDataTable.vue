@@ -20,6 +20,7 @@
     import {navigate} from '../../navigation/navigation';
     import {type DataTable, type DataTableMenuItem, type DataTableColumn, type DataTableItem} from "./interface";
     import VDataTableColumn from "./VDataTableColumn.vue";
+    import {cn, VDropdownMenuSeparator} from "@vue-loom/vue-loom";
 
     type Modifiers<T extends { columns: { alias: string }[] }> = {
         [key in T['columns'][number]['alias']]?: Function;
@@ -52,7 +53,7 @@
             cell: (cell) => {
                 if (props.menu?.length && props.menu?.length > 1) {
                     return h('div', {class: 'flex justify-end'}, h(VDropdownMenu, () => [
-                        h(VDropdownMenuTrigger, () => h(EllipsisVertical)),
+                        h(VDropdownMenuTrigger, {class: 'cursor-pointer'}, () => h(EllipsisVertical)),
                         h(VDropdownMenuContent, {align: 'end'}, () => [
                             props.menu?.filter((item: DataTableMenuItem) => {
                                 if (typeof item.show === 'boolean') {
@@ -62,15 +63,28 @@
                                 }
 
                                 return true;
-                            }).map((item: DataTableMenuItem) => h(VDropdownMenuItem, {
-                                onClick: item.handle.bind(null, cell.row.original as DataTableItem),
-                            }, () => {
-                                if (item.icon) {
-                                    return [h(item.icon), item.label];
+                            }).map((item: DataTableMenuItem) => {
+                                if (['default', 'destructive'].includes(item.type || 'default')) {
+                                    let typeClasses: string = '';
+
+                                    if (item.type === 'destructive') {
+                                        typeClasses = 'text-destructive focus:text-destructive';
+                                    }
+
+                                    return h(VDropdownMenuItem, {
+                                        class: `gap-2 ${cn(item.classes, typeClasses)}`,
+                                        onClick: item.handle?.bind(null, cell.row.original as DataTableItem),
+                                    }, () => {
+                                        if (item.icon) {
+                                            return [h(item.icon, {class: 'w-5 h-5'}), item.label];
+                                        }
+
+                                        return item.label;
+                                    });
                                 }
 
-                                return item.label;
-                            })),
+                                return h(VDropdownMenuSeparator);
+                            }),
                         ]),
                     ]));
                 }
@@ -83,7 +97,7 @@
                         {
                             variant: 'link',
                             class: 'h-fit p-0',
-                            onClick: props.menu?.[0].handle.bind(null, cell.row.original as DataTableItem)
+                            onClick: props.menu?.[0].handle?.bind(null, cell.row.original as DataTableItem)
                         },
                         () => props.menu?.[0]['label'],
                     ),
