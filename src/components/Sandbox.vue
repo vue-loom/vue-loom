@@ -18,7 +18,8 @@
     } from "/packages/vue-loom/src";
     import {type DataTable, type DataTableItem, type DataTableMenuItem, VDataTable} from "@vue-loom/data-table/src";
     import {ChevronDown, PlusIcon} from "lucide-vue-next";
-    import vueLogo from "../assets/vue.svg"
+    import vueLogo from "../assets/vue.svg";
+    import menuItems from '../assets/menuItems.json';
 
     const menu: DataTableMenuItem[] = [
         {
