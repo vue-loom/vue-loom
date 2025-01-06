@@ -21,6 +21,8 @@
     import vueLogo from "../assets/vue.svg";
     import menuItems from '../assets/menuItems.json';
 
+    console.log(menuItems)
+
     const menu: DataTableMenuItem[] = [
         {
             label: 'Open',
@@ -143,7 +145,7 @@
 </script>
 
 <template>
-    <VAppMenu title="Sandbox" subtitle="Vue Loom Testing" :logo-src="vueLogo">
+    <VAppMenu title="Sandbox" subtitle="Vue Loom Testing" :logo-src="vueLogo" :items="menuItems">
         <VAppBar :logo-src="vueLogo" title="Sandbox Playground">
             <template #actions>
                 <VDropdownMenu>
