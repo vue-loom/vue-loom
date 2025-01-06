@@ -1,8 +1,25 @@
 <script setup lang="ts">
     //@ts-ignore
-    import {VPinInput, VCard, VCardHeader, VCardTitle, VCardDescription, VCardContent, VCardFooter} from "/packages/vue-loom/src";
+    import {
+        VPinInput,
+        VCard,
+        VCardHeader,
+        VCardTitle,
+        VCardDescription,
+        VCardContent,
+        VCardFooter,
+        VAppBar,
+        VDropdownMenuContent,
+        VDropdownMenuLabel,
+        VButton,
+        VDropdownMenuItem,
+        VDropdownMenu,
+        VDropdownMenuTrigger,
+        VDropdownMenuSeparator
+    } from "/packages/vue-loom/src";
     import {type DataTable, type DataTableItem, type DataTableMenuItem, VDataTable} from "@vue-loom/data-table/src";
-    import {PlusIcon} from "lucide-vue-next";
+    import {ChevronDown, PlusIcon} from "lucide-vue-next";
+    import vueLogo from "../assets/vue.svg"
 
     const menu: DataTableMenuItem[] = [
         {
@@ -126,21 +143,45 @@
 </script>
 
 <template>
-    <div class="w-full max-w-7xl mx-auto flex flex-col gap-4 p-12">
-        <v-card>
-            <v-card-header>
-                <v-card-title>Card</v-card-title>
-            </v-card-header>
-            <v-card-content>
-                <v-pin-input model-value=""/>
-            </v-card-content>
-        </v-card>
-
-        <v-data-table :table="table" :menu="menu">
-            <template #email="{value}">
-                <a class="text-sky-600 hover:underline" :href="`mailto:${value}`">{{ value }}</a>
+    <div>
+        <VAppBar :logo-src="vueLogo" title="Sandbox Playground">
+            <template #actions>
+                <VDropdownMenu>
+                    <VDropdownMenuTrigger as-child>
+                        <VButton variant="ghost">
+                            <div class="text-sm text-neutral-500">
+                                {{ 'Manage Account' }}
+                            </div>
+                            <ChevronDown class="text-neutral-500 h-4"/>
+                        </VButton>
+                    </VDropdownMenuTrigger>
+                    <VDropdownMenuContent>
+                        <VDropdownMenuLabel>Manage Account</VDropdownMenuLabel>
+                        <VDropdownMenuSeparator/>
+                        <VDropdownMenuItem>
+                            Log Out
+                        </VDropdownMenuItem>
+                    </VDropdownMenuContent>
+                </VDropdownMenu>
             </template>
-        </v-data-table>
+        </VAppBar>
+
+        <div class="w-full max-w-7xl mx-auto flex flex-col gap-4 p-12">
+            <v-card>
+                <v-card-header>
+                    <v-card-title>Card</v-card-title>
+                </v-card-header>
+                <v-card-content>
+                    <v-pin-input model-value=""/>
+                </v-card-content>
+            </v-card>
+
+            <v-data-table :table="table" :menu="menu">
+                <template #email="{value}">
+                    <a class="text-sky-600 hover:underline" :href="`mailto:${value}`">{{ value }}</a>
+                </template>
+            </v-data-table>
+        </div>
     </div>
 </template>
 
