@@ -135,9 +135,11 @@ import VTooltip from './components/VTooltip.vue';
 import VTooltipContent from './components/VTooltipContent.vue';
 import VTooltipProvider from './components/VTooltipProvider.vue';
 import VTooltipTrigger from './components/VTooltipTrigger.vue';
+import VAppMenu from "./components/app-menu/VAppMenu.vue";
 import {cn} from "./lib/utils";
 import {useToast} from "./components/ui/toast";
 import {useSonner} from './composables/useSonner';
+import {registerCustomDriver as registerCustomNavigationDriver} from './navigation/navigation';
 
 export {
     VAccordion,
@@ -277,7 +279,9 @@ export {
     VTooltipContent,
     VTooltipProvider,
     VTooltipTrigger,
+    VAppMenu,
     cn,
     useToast,
-    useSonner
+    useSonner,
+    registerCustomNavigationDriver,
 }
