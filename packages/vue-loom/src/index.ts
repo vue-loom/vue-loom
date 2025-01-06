@@ -14,6 +14,7 @@ import VAlertDialogHeader from './components/VAlertDialogHeader.vue';
 import VAlertDialogTitle from './components/VAlertDialogTitle.vue';
 import VAlertDialogTrigger from './components/VAlertDialogTrigger.vue';
 import VAlertTitle from "./components/VAlertTitle.vue";
+import VAppBar from "./components/VAppBar/VAppBar.vue";
 import VAspectRatio from "./components/VAspectRatio.vue";
 import VAvatar from "./components/VAvatar.vue";
 import VAvatarFallback from "./components/VAvatarFallback.vue";
@@ -157,6 +158,7 @@ export {
     VAlertDialogTitle,
     VAlertDialogHeader,
     VAlertDialogTrigger,
+    VAppBar,
     VAspectRatio,
     VAlertTitle,
     VAvatar,

@@ -1,9 +1,24 @@
 <script setup lang="ts">
     //@ts-ignore
-    import {VPinInput, VCard, VCardHeader, VCardTitle, VCardDescription, VCardContent, VCardFooter, VAppMenu} from "/packages/vue-loom/src";
+    import {
+        VPinInput,
+        VCard,
+        VCardHeader,
+        VCardTitle,
+        VCardContent,
+        VAppBar,
+        VDropdownMenuContent,
+        VDropdownMenuLabel,
+        VButton,
+        VDropdownMenuItem,
+        VDropdownMenu,
+        VDropdownMenuTrigger,
+        VDropdownMenuSeparator,
+        VAppMenu,
+    } from "/packages/vue-loom/src";
     import {type DataTable, type DataTableItem, type DataTableMenuItem, VDataTable} from "@vue-loom/data-table/src";
-    import {PlusIcon} from "lucide-vue-next";
-    import vueLogo from '../assets/vue.svg';
+    import {ChevronDown, PlusIcon} from "lucide-vue-next";
+    import vueLogo from "../assets/vue.svg"
 
     const menu: DataTableMenuItem[] = [
         {
@@ -128,6 +143,28 @@
 
 <template>
     <VAppMenu title="Sandbox" subtitle="Vue Loom Testing" :logo-src="vueLogo">
+        <VAppBar :logo-src="vueLogo" title="Sandbox Playground">
+            <template #actions>
+                <VDropdownMenu>
+                    <VDropdownMenuTrigger as-child>
+                        <VButton variant="ghost">
+                            <div class="text-sm text-neutral-500">
+                                {{ 'Manage Account' }}
+                            </div>
+                            <ChevronDown class="text-neutral-500 h-4"/>
+                        </VButton>
+                    </VDropdownMenuTrigger>
+                    <VDropdownMenuContent>
+                        <VDropdownMenuLabel>Manage Account</VDropdownMenuLabel>
+                        <VDropdownMenuSeparator/>
+                        <VDropdownMenuItem>
+                            Log Out
+                        </VDropdownMenuItem>
+                    </VDropdownMenuContent>
+                </VDropdownMenu>
+            </template>
+        </VAppBar>
+
         <div class="w-full max-w-7xl mx-auto flex flex-col gap-4 p-12">
             <v-card>
                 <v-card-header>
