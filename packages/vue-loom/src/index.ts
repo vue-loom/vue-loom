@@ -138,6 +138,13 @@ import VTooltipTrigger from './components/VTooltipTrigger.vue';
 import VAppMenu from "./components/VAppMenu.vue";
 import VAppMenuTrigger from "./components/VAppMenuTrigger.vue";
 import VAppBar from "./components/app-bar/VAppBar.vue";
+import VDrawer from "./components/VDrawer.vue";
+import VDrawerTrigger from "./components/VDrawerTrigger.vue";
+import VDrawerContent from "./components/VDrawerContent.vue";
+import VDrawerHeader from "./components/VDrawerHeader.vue";
+import VDrawerTitle from "./components/VDrawerTitle.vue";
+import VDrawerDescription from "./components/VDrawerDescription.vue";
+import VDrawerFooter from "./components/VDrawerFooter.vue";
 import {cn} from "./lib/utils";
 import {useToast} from "./components/ui/toast";
 import {useSonner} from './composables/useSonner';
@@ -285,6 +292,13 @@ export {
     VTooltipTrigger,
     VAppMenu,
     VAppMenuTrigger,
+    VDrawer,
+    VDrawerTrigger,
+    VDrawerContent,
+    VDrawerHeader,
+    VDrawerTitle,
+    VDrawerDescription,
+    VDrawerFooter,
     cn,
     useToast,
     useSonner,

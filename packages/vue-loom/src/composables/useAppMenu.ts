@@ -1,14 +1,17 @@
 import {ref} from "vue";
 
-const isOpen = ref<boolean>(false);
+const isOpen = ref<boolean>(true);
+const useChanged = ref<boolean>(false);
 
 export const useAppMenu = () => {
     const toggle = (): void => {
         isOpen.value = !isOpen.value;
+        useChanged.value = true;
     };
 
     return {
-        isOpen: isOpen.value,
+        isOpen,
+        useChanged,
         toggle,
     };
 };

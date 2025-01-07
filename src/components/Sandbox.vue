@@ -22,8 +22,6 @@
     import vueLogo from "../assets/vue.svg";
     import menuItems from '../assets/menuItems.json';
 
-    console.log(menuItems)
-
     const menu: DataTableMenuItem[] = [
         {
             label: 'Open',
@@ -146,28 +144,28 @@
 </script>
 
 <template>
-    <VAppMenu title="Sandbox" subtitle="Vue Loom Testing" :logo-src="vueLogo" :items="menuItems">
-        <VAppBar class="bg-white" :logo-src="vueLogo" title="Sandbox Playground" :items="menuItems">
+    <v-app-menu title="Sandbox" subtitle="Vue Loom Testing" :logo-src="vueLogo" :items="menuItems">
+        <v-app-bar class="bg-white" :logo-src="vueLogo" title="Sandbox Playground" :items="menuItems">
             <template #actions>
-                <VDropdownMenu>
-                    <VDropdownMenuTrigger as-child>
-                        <VButton variant="ghost">
+                <v-dropdown-menu>
+                    <v-dropdown-menu-trigger as-child>
+                        <v-button variant="ghost">
                             <div class="text-sm text-neutral-500">
                                 {{ 'Manage Account' }}
                             </div>
                             <ChevronDown class="text-neutral-500 h-4"/>
-                        </VButton>
-                    </VDropdownMenuTrigger>
-                    <VDropdownMenuContent>
-                        <VDropdownMenuLabel>Manage Account</VDropdownMenuLabel>
-                        <VDropdownMenuSeparator/>
-                        <VDropdownMenuItem>
+                        </v-button>
+                    </v-dropdown-menu-trigger>
+                    <v-dropdown-menu-content>
+                        <v-dropdown-menu-label>Manage Account</v-dropdown-menu-label>
+                        <v-dropdown-menu-separator/>
+                        <v-dropdown-menu-item>
                             Log Out
-                        </VDropdownMenuItem>
-                    </VDropdownMenuContent>
-                </VDropdownMenu>
+                        </v-dropdown-menu-item>
+                    </v-dropdown-menu-content>
+                </v-dropdown-menu>
             </template>
-        </VAppBar>
+        </v-app-bar>
 
         <div class="w-full max-w-7xl mx-auto flex flex-col gap-4 p-12">
             <v-app-menu-trigger>
@@ -249,7 +247,7 @@
                 </v-card-content>
             </v-card>
         </div>
-    </VAppMenu>
+    </v-app-menu>
 </template>
 
 <style scoped>

@@ -5,7 +5,7 @@
 </script>
 
 <template>
-    <div @click.stop="appMenu.toggle()">
+    <div class="w-fit" @click.stop="appMenu.toggle()">
         <slot/>
     </div>
 </template>
