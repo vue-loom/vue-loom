@@ -21,7 +21,7 @@
 </script>
 
 <template>
-    <VCard :class="[cn('rounded-none border-b border-x-0 p-0 sticky top-0 z-30', props.class)]">
+    <VCard :class="[cn('rounded-none border-b border-x-0 p-0 sticky top-0 z-30 min-h-16 flex justify-center', props.class)]">
         <VCardContent>
             <div class="flex items-center md:px-6 lg:px-8">
                 <div class="grow flex space-x-4 items-center">
@@ -33,7 +33,8 @@
                     </h1>
                     <div class="flex h-full">
                         <div v-for="item in items?.slice(0,3)"
-                             class="h-full p-2 cursor-pointer hover:underline"
+                             class="h-full p-2 cursor-pointer hover:underline transition-all duration-75"
+                             :class="[item.active ? 'underline text-primary' : '']"
                              @click="goToPage(item)"
                         >
                             {{ item.label }}
