@@ -2,7 +2,7 @@
     //@ts-ignore
     import {VCard, VCardContent, VButton, cn} from "/packages/vue-loom/src";
     import {HTMLAttributes} from "vue";
-    import {MenuItem} from "../app-menu/interfaces.ts";
+    import {MenuItem} from "../interfaces.ts";
     import {navigate} from '../../navigation/navigation'
 
     interface Props {

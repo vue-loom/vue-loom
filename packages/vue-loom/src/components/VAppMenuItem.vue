@@ -1,9 +1,9 @@
 <script setup lang="ts">
     import {MenuItem} from "./interfaces.ts";
-    import {navigate} from "../../navigation/navigation";
-    import VCollapsible from "../VCollapsible.vue";
-    import VCollapsibleTrigger from "../VCollapsibleTrigger.vue";
-    import VCollapsibleContent from "../VCollapsibleContent.vue";
+    import {navigate} from "../navigation/navigation.ts";
+    import VCollapsible from "./VCollapsible.vue";
+    import VCollapsibleTrigger from "./VCollapsibleTrigger.vue";
+    import VCollapsibleContent from "./VCollapsibleContent.vue";
     import {ChevronDown} from 'lucide-vue-next';
     import {ref} from "vue";
 
@@ -11,11 +11,11 @@
         item: MenuItem,
     }
 
-    defineProps<Props>();
+    const props = defineProps<Props>();
 
     const isOpen = ref<boolean>();
 
-    const goToPage = (item: MenuItem) => {
+    const goToPage = (item: MenuItem): void => {
         navigate(item.routeName);
     };
 </script>
