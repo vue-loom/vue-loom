@@ -2,13 +2,13 @@
     //@ts-ignore
     import {VCard, VCardContent, VButton, cn} from "/packages/vue-loom/src";
     import {HTMLAttributes} from "vue";
-    import {MenuItem} from './interfaces.ts'
+    import {MenuItem} from "../app-menu/interfaces.ts";
     import {navigate} from '../../navigation/navigation'
 
     interface Props {
         logoSrc?: string,
         title?: string,
-        items?: Record<string, any>[],
+        items?: MenuItem[],
         class?: HTMLAttributes['class'],
     }
 
