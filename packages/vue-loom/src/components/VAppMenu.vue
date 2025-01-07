@@ -1,7 +1,7 @@
 <script setup lang="ts">
-    import VCard from "../VCard.vue";
+    import VCard from "./VCard.vue";
     import {HTMLAttributes} from "vue";
-    import {cn} from "../../lib/utils.ts";
+    import {cn} from "../lib/utils.ts";
     import {MenuItem} from "./interfaces.ts";
     import VAppMenuItem from "./VAppMenuItem.vue";
 

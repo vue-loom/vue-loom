@@ -14,7 +14,8 @@
         VDropdownMenuTrigger,
         VDropdownMenuSeparator,
         VAppMenu,
-        VAppBar
+        VAppBar,
+        VAppMenuTrigger,
     } from "/packages/vue-loom/src";
     import {type DataTable, type DataTableItem, type DataTableMenuItem, VDataTable} from "@vue-loom/data-table/src";
     import {ChevronDown, PlusIcon} from "lucide-vue-next";
@@ -169,6 +170,10 @@
         </VAppBar>
 
         <div class="w-full max-w-7xl mx-auto flex flex-col gap-4 p-12">
+            <v-app-menu-trigger>
+                <v-button>Toggle App Menu</v-button>
+            </v-app-menu-trigger>
+
             <v-card>
                 <v-card-header>
                     <v-card-title>Card</v-card-title>
