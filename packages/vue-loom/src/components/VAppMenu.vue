@@ -78,7 +78,9 @@
                 <v-dropdown-menu-content class="w-52" align="end" :side-offset="4">
                     <v-dropdown-menu-label>Quick Access</v-dropdown-menu-label>
                     <v-dropdown-menu-separator/>
-                    <VAppMenuItem :item="item" :key="item.routeName" v-for="(item) in items"/>
+                    <div class="max-h-96 overflow-auto">
+                        <VAppMenuItem :item="item" :key="item.routeName" v-for="(item) in items"/>
+                    </div>
                 </v-dropdown-menu-content>
             </v-dropdown-menu>
 

@@ -137,7 +137,7 @@ import VTooltipProvider from './components/VTooltipProvider.vue';
 import VTooltipTrigger from './components/VTooltipTrigger.vue';
 import VAppMenu from "./components/VAppMenu.vue";
 import VAppMenuTrigger from "./components/VAppMenuTrigger.vue";
-import VAppBar from "./components/app-bar/VAppBar.vue";
+import VAppBar from "./components/VAppBar.vue";
 import VDrawer from "./components/VDrawer.vue";
 import VDrawerTrigger from "./components/VDrawerTrigger.vue";
 import VDrawerContent from "./components/VDrawerContent.vue";
