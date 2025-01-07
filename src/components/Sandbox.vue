@@ -6,7 +6,6 @@
         VCardHeader,
         VCardTitle,
         VCardContent,
-        VAppBar,
         VDropdownMenuContent,
         VDropdownMenuLabel,
         VButton,
@@ -15,6 +14,7 @@
         VDropdownMenuTrigger,
         VDropdownMenuSeparator,
         VAppMenu,
+        VAppBar
     } from "/packages/vue-loom/src";
     import {type DataTable, type DataTableItem, type DataTableMenuItem, VDataTable} from "@vue-loom/data-table/src";
     import {ChevronDown, PlusIcon} from "lucide-vue-next";
@@ -140,11 +140,13 @@
         searchable: true,
         term: '',
     };
+
+    console.log(menuItems);
 </script>
 
 <template>
     <VAppMenu title="Sandbox" subtitle="Vue Loom Testing" :logo-src="vueLogo">
-        <VAppBar :logo-src="vueLogo" title="Sandbox Playground">
+        <VAppBar class="bg-white" :logo-src="vueLogo" title="Sandbox Playground" :items="menuItems">
             <template #actions>
                 <VDropdownMenu>
                     <VDropdownMenuTrigger as-child>
