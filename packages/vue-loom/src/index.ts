@@ -137,7 +137,7 @@ import VTooltipProvider from './components/VTooltipProvider.vue';
 import VTooltipTrigger from './components/VTooltipTrigger.vue';
 import VAppMenu from "./components/VAppMenu.vue";
 import VAppMenuTrigger from "./components/VAppMenuTrigger.vue";
-import VAppBar from "./components/app-bar/VAppBar.vue";
+import VAppBar from "./components/VAppBar.vue";
 import {cn} from "./lib/utils";
 import {useToast} from "./components/ui/toast";
 import {useSonner} from './composables/useSonner';

@@ -22,8 +22,6 @@
     import vueLogo from "../assets/vue.svg";
     import menuItems from '../assets/menuItems.json';
 
-    console.log(menuItems)
-
     const menu: DataTableMenuItem[] = [
         {
             label: 'Open',
