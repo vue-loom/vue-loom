@@ -2,6 +2,7 @@ import {ref} from "vue";
 
 const isOpen = ref<boolean>(true);
 const useChanged = ref<boolean>(false);
+const isDrawer = ref<boolean>(false);
 
 export const useAppMenu = () => {
     const toggle = (): void => {
@@ -12,6 +13,7 @@ export const useAppMenu = () => {
     return {
         isOpen,
         useChanged,
+        isDrawer,
         toggle,
     };
 };

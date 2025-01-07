@@ -1,6 +1,6 @@
 <script setup lang="ts">
     import VCard from "./VCard.vue";
-    import {HTMLAttributes, ref} from "vue";
+    import {HTMLAttributes, onBeforeMount, ref} from "vue";
     import {cn} from "../lib/utils.ts";
     import {MenuItem} from "./interfaces.ts";
     import VAppMenuItem from "./VAppMenuItem.vue";
@@ -35,6 +35,14 @@
 
     const appMenu = useAppMenu();
     const {width} = useWindowSize();
+
+    onBeforeMount(() => {
+        appMenu.isOpen.value = width.value >= Number(props.mobileBreakpoint);
+
+        if (props.mobileMode === 'drawer') {
+            appMenu.isDrawer.value = true;
+        }
+    });
 
     debouncedWatch(width, (value) => {
         if (!appMenu.useChanged.value) {

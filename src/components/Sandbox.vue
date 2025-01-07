@@ -144,7 +144,7 @@
 </script>
 
 <template>
-    <v-app-menu title="Sandbox" subtitle="Vue Loom Testing" :logo-src="vueLogo" :items="menuItems">
+    <v-app-menu title="Sandbox" subtitle="Vue Loom Testing" :logo-src="vueLogo" :items="menuItems" mobile-mode="drawer">
         <v-app-bar class="bg-white" :logo-src="vueLogo" title="Sandbox Playground" :items="menuItems">
             <template #actions>
                 <v-dropdown-menu>
