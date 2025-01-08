@@ -1,6 +1,5 @@
 <script setup lang="ts">
     import {MenuItem} from "./interfaces.ts";
-    import {navigate} from "../navigation/navigation.ts";
     import VCollapsible from "./VCollapsible.vue";
     import VCollapsibleTrigger from "./VCollapsibleTrigger.vue";
     import VCollapsibleContent from "./VCollapsibleContent.vue";
@@ -11,13 +10,10 @@
         item: MenuItem,
     }
 
-    const props = defineProps<Props>();
+    defineProps<Props>();
+    defineEmits<{ (event: 'navigate', data: MenuItem): void }>();
 
     const isOpen = ref<boolean>();
-
-    const goToPage = (item: MenuItem): void => {
-        navigate(item.routeName);
-    };
 </script>
 
 <template>
@@ -35,7 +31,7 @@
                     class="flex items-center gap-2 text-foreground rounded-[var(--radius)] cursor-pointer px-3 py-2 hover:underline transition-all duration-75"
                     :class="[child.active ? 'underline text-primary' : '']"
                     v-for="(child) in item.items"
-                    @click="goToPage(child)"
+                    @click="$emit('navigate', child)"
                 >{{ child.label }}
                 </div>
             </div>
@@ -45,7 +41,7 @@
         class="flex items-center gap-2 text-foreground rounded-[var(--radius)] cursor-pointer px-3 py-2 hover:underline transition-all duration-75"
         :class="[item.active ? 'underline text-primary' : '']"
         v-else
-        @click="goToPage(item)"
+        @click="$emit('navigate', item)"
     >{{ item.label }}
     </div>
 </template>

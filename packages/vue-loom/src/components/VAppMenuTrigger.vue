@@ -5,7 +5,7 @@
 </script>
 
 <template>
-    <div v-if="appMenu.isDrawer.value" class="w-fit" @click.stop="appMenu.toggle()">
+    <div class="w-fit cursor-pointer" v-if="appMenu.isDrawer.value" @click.stop="appMenu.toggle()">
         <slot/>
     </div>
 </template>

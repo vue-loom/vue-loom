@@ -1,7 +1,6 @@
 <script setup lang="ts">
     //@ts-ignore
     import {
-        VPinInput,
         VCard,
         VCardHeader,
         VCardTitle,
@@ -171,15 +170,6 @@
             <v-app-menu-trigger>
                 <v-button>Toggle App Menu</v-button>
             </v-app-menu-trigger>
-
-            <v-card>
-                <v-card-header>
-                    <v-card-title>Card</v-card-title>
-                </v-card-header>
-                <v-card-content>
-                    <v-pin-input model-value=""/>
-                </v-card-content>
-            </v-card>
 
             <v-data-table :table="table" :menu="menu">
                 <template #email="{value}">
