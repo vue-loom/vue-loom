@@ -4,5 +4,6 @@ export interface MenuItem {
     label: string,
     routeName: string,
     routeParams: Record<string, any>[],
+    url: string,
     items?: MenuItem[],
 }

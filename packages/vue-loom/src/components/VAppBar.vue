@@ -6,6 +6,7 @@
     import VAppMenuTrigger from "../components/VAppMenuTrigger.vue";
     import {Menu} from 'lucide-vue-next';
     import {cn} from "../lib/utils.ts";
+    import VAppMenuItem from "./VAppMenuItem.vue";
 
     interface Props {
         logoSrc?: string,
@@ -33,16 +34,8 @@
                             </div>
                         </slot>
                         <h1 v-if="title" class="text-2xl py-2">{{ title }}</h1>
-                        <div class="hidden lg:block">
-                            <div class="flex">
-                                <div v-for="item in items?.slice(0,3)"
-                                     class="h-full p-2 cursor-pointer hover:underline transition-all duration-75"
-                                     :class="[item.active ? 'underline text-primary' : '']"
-                                     @click="$emit('navigate', item)"
-                                >
-                                    {{ item.label }}
-                                </div>
-                            </div>
+                        <div class="gap-3 hidden lg:flex">
+                            <VAppMenuItem :item="item" :key="item.routeName" v-for="(item) in items?.slice(0,3)"/>
                         </div>
                     </div>
                     <div class="shrink hidden lg:block">

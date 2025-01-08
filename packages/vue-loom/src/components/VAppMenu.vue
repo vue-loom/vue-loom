@@ -71,7 +71,7 @@
                 <h1 class="text-3xl mt-2" v-if="title">{{ title }}</h1>
                 <h2 class="text-neutral-600" v-if="subtitle">{{ subtitle }}</h2>
             </div>
-            <div class="flex flex-col gap-2">
+            <div class="flex flex-col gap-3">
                 <VAppMenuItem :item="item" :key="item.routeName" v-for="(item) in items"/>
             </div>
         </v-card>
