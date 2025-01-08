@@ -2,10 +2,10 @@
     import VCard from "./VCard.vue";
     import VCardContent from "./VCardContent.vue";
     import {HTMLAttributes} from "vue";
-    import {MenuItem} from "./interfaces.ts";
+    import {MenuItem} from "./interfaces";
     import VAppMenuTrigger from "../components/VAppMenuTrigger.vue";
     import {Menu} from 'lucide-vue-next';
-    import {cn} from "../lib/utils.ts";
+    import {cn} from "../lib/utils";
     import VAppMenuItem from "./VAppMenuItem.vue";
 
     interface Props {

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-    import {useAppMenu} from "../composables/useAppMenu.ts";
+    import {useAppMenu} from "../composables/useAppMenu";
 
     const appMenu = useAppMenu();
 </script>

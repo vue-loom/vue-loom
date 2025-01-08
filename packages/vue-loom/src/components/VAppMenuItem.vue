@@ -1,20 +1,18 @@
 <script setup lang="ts">
-    import {MenuItem} from "./interfaces.ts";
+    import {MenuItem} from "./interfaces";
     import VCollapsible from "./VCollapsible.vue";
     import VCollapsibleTrigger from "./VCollapsibleTrigger.vue";
     import VCollapsibleContent from "./VCollapsibleContent.vue";
     import {ChevronDown, CornerDownRight} from 'lucide-vue-next';
     import {computed, ref} from "vue";
     import VButton from "./VButton.vue";
+    import {navigate} from "@vue-loom/utils";
 
     interface Props {
         item: MenuItem,
     }
 
     const props = defineProps<Props>();
-
-    defineEmits<{ (event: 'navigate', data: MenuItem): void }>();
-
     const isOpen = ref<boolean>();
     const selectChildLineHeight = computed<number>(() => {
         if (props.item.items?.length) {
@@ -47,7 +45,7 @@
                                  :class="[child.active ? '!opacity-100 text-primary' : '']"/>
                 <div class="w-full flex flex-col gap-2">
                     <v-button class="h-fit p-0" variant="link" :class="[child.active ? 'underline' : 'text-foreground']"
-                              @click="$emit('navigate', child)">
+                              @click="navigate(item.url)">
                         {{ child.label }}
                     </v-button>
                 </div>
@@ -55,7 +53,7 @@
         </v-collapsible-content>
     </v-collapsible>
     <v-button class="h-fit p-0" variant="link" :class="[item.active ? 'underline' : 'text-foreground']" v-else
-              @click="$emit('navigate', item)">
+              @click="navigate(item.url)">
         {{ item.label }}
     </v-button>
 </template>

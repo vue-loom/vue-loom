@@ -1,10 +1,10 @@
 <script setup lang="ts">
     import VCard from "./VCard.vue";
     import {HTMLAttributes, onBeforeMount, ref} from "vue";
-    import {cn} from "../lib/utils.ts";
-    import {MenuItem} from "./interfaces.ts";
+    import {cn} from "../lib/utils";
+    import {MenuItem} from "./interfaces";
     import VAppMenuItem from "./VAppMenuItem.vue";
-    import {useAppMenu} from "../composables/useAppMenu.ts";
+    import {useAppMenu} from "../composables/useAppMenu";
     import {debouncedWatch, useWindowSize} from "@vueuse/core";
     import VDropdownMenu from "./VDropdownMenu.vue";
     import VDropdownMenuTrigger from "./VDropdownMenuTrigger.vue";
