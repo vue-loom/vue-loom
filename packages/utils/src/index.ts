@@ -1,5 +1,6 @@
-import {registerCustomDriver as registerCustomNavigationDriver} from './navigation/navigation';
+import {navigate, registerCustomDriver as registerCustomNavigationDriver} from './navigation/navigation';
 
 export {
+    navigate,
     registerCustomNavigationDriver,
 };
