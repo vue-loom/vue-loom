@@ -17,6 +17,7 @@ export default defineConfig({
             external: [
                 '@tailwindcss/forms',
                 '@tailwindcss/typography',
+                '@vue-loom/utils',
                 '@vueuse/core',
                 'autoprefixer',
                 'class-variance-authority',
@@ -54,6 +55,7 @@ export default defineConfig({
                 globals: {
                     '@tailwindcss/forms': 'tailwindcssForms',
                     '@tailwindcss/typography': 'tailwindcssTypography',
+                    '@vue-loom/utils': 'vueLoomUtils',
                     '@vueuse/core': 'vueuseCore',
                     'autoprefixer': 'autoprefixer',
                     'class-variance-authority': 'classVarianceAuthority',

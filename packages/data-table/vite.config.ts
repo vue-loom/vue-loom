@@ -53,7 +53,7 @@ export default defineConfig({
                 globals: {
                     '@tanstack/vue-table': 'tanstackVueTable',
                     '@vue-loom/vue-loom': 'vueLoom',
-                    '@vue-loom/utils': 'vueUtils',
+                    '@vue-loom/utils': 'vueLoomUtils',
                     'class-variance-authority': 'classVarianceAuthority',
                     clsx: 'clsx',
                     'lucide-vue-next': 'lucideVueNext',
