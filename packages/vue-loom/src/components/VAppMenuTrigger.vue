@@ -5,7 +5,7 @@
 </script>
 
 <template>
-    <div class="w-fit" @click.stop="appMenu.toggle()">
+    <div v-if="appMenu.isDrawer.value" class="w-fit" @click.stop="appMenu.toggle()">
         <slot/>
     </div>
 </template>
