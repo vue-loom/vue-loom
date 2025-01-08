@@ -13,6 +13,7 @@
     "@vue-loom/carousel": "workspace:*",
     "@vue-loom/data-table": "workspace:*",
     "@vue-loom/vue-loom": "workspace:*",
+    "@vue-loom/utils": "workspace:*",
     "@vueuse/core": "^11.1.0",
     "lucide-vue-next": "^0.446.0",
     "radix-vue": "^1.9.6",
