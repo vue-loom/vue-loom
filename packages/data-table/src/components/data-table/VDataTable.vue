@@ -17,7 +17,7 @@
     } from "@vue-loom/vue-loom";
     // } from "/packages/vue-loom/src";
     import {ChevronLeft, ChevronRight, EllipsisVertical} from 'lucide-vue-next';
-    import {navigate} from '../../navigation/navigation';
+    import {navigate} from '@vue-loom/utils';
     import {type DataTable, type DataTableMenuItem, type DataTableColumn, type DataTableItem} from "./interface";
     import VDataTableColumn from "./VDataTableColumn.vue";
     import {cn, VDropdownMenuSeparator} from "@vue-loom/vue-loom";
