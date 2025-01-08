@@ -16,6 +16,13 @@
         placeholder?: string,
         type?: string,
         class?: HTMLAttributes['class'],
+        required?: boolean,
+        max?: number | string,
+        min?: number | string,
+        minlength?: number | string,
+        maxlength?: number | string,
+        pattern?: string,
+        step?: number | string,
     }
 
     const modelValue = defineModel<string | number>({required: true});
