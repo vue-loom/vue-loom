@@ -13,13 +13,12 @@
     import VDropdownMenuLabel from "./VDropdownMenuLabel.vue";
     import VDropdownMenuSeparator from "./VDropdownMenuSeparator.vue";
     import {PanelTopClose} from 'lucide-vue-next';
-    import VDrawer from "./VDrawer.vue";
-    import VDrawerContent from "./VDrawerContent.vue";
-    import VDrawerHeader from "./VDrawerHeader.vue";
-    import VSeparator from "./VSeparator.vue";
+    import VSheet from "./VSheet.vue";
+    import VSheetContent from "./VSheetContent.vue";
+    import VSheetHeader from "./VSheetHeader.vue";
     import {VisuallyHidden} from "radix-vue";
-    import VDrawerTitle from "./VDrawerTitle.vue";
-    import VDrawerDescription from "./VDrawerDescription.vue";
+    import VSheetTitle from "./VSheetTitle.vue";
+    import VSheetDescription from "./VSheetDescription.vue";
 
     interface Props {
         title?: string,
@@ -29,11 +28,13 @@
         items: MenuItem[],
         mobileBreakpoint?: number | string,
         mobileMode?: 'menu' | 'drawer',
+        mobileSide?: 'top' | 'right' | 'bottom' | 'left',
     }
 
     const props = withDefaults(defineProps<Props>(), {
         mobileBreakpoint: 1024,
         mobileMode: 'menu',
+        mobileSide: 'left',
     });
 
     const appMenu = useAppMenu();
@@ -95,12 +96,12 @@
                 </v-dropdown-menu-content>
             </v-dropdown-menu>
 
-            <v-drawer v-model:open="appMenu.isOpen.value" v-else-if="mobileMode === 'drawer'">
-                <v-drawer-content>
-                    <v-drawer-header>
+            <v-sheet v-model:open="appMenu.isOpen.value" v-else-if="mobileMode === 'drawer'">
+                <v-sheet-content class="overflow-auto" :side="mobileSide">
+                    <v-sheet-header>
                         <VisuallyHidden>
-                            <v-drawer-title/>
-                            <v-drawer-description/>
+                            <v-sheet-title/>
+                            <v-sheet-description/>
                         </VisuallyHidden>
 
                         <slot name="logo">
@@ -110,13 +111,12 @@
                         </slot>
                         <h1 class="text-3xl mt-2" v-if="title">{{ title }}</h1>
                         <h2 class="text-neutral-600" v-if="subtitle">{{ subtitle }}</h2>
-                    </v-drawer-header>
-                    <v-separator/>
-                    <div class="max-h-96 flex flex-col gap-2 overflow-auto py-2">
+                    </v-sheet-header>
+                    <div class="flex flex-col gap-2">
                         <VAppMenuItem :item="item" :key="item.routeName" v-for="(item) in items"/>
                     </div>
-                </v-drawer-content>
-            </v-drawer>
+                </v-sheet-content>
+            </v-sheet>
         </template>
     </div>
 </template>
