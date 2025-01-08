@@ -1,11 +1,11 @@
 <script setup lang="ts">
-    //@ts-ignore
-    import {VCard, VCardContent, VButton, cn} from "/packages/vue-loom/src";
+    import VCard from "./VCard.vue";
+    import VCardContent from "./VCardContent.vue";
     import {HTMLAttributes} from "vue";
     import {MenuItem} from "./interfaces.ts";
-    import {navigate} from '../navigation/navigation.ts'
     import VAppMenuTrigger from "../components/VAppMenuTrigger.vue";
     import {Menu} from 'lucide-vue-next';
+    import {cn} from "../lib/utils.ts";
 
     interface Props {
         logoSrc?: string,
@@ -15,11 +15,7 @@
     }
 
     const props = defineProps<Props>();
-
-    const goToPage = (item: MenuItem) => {
-        navigate(item.routeName);
-    }
-
+    defineEmits<{ (event: 'navigate', data: MenuItem): void }>();
 </script>
 
 <template>
@@ -36,15 +32,13 @@
                                 <img :src="logoSrc" alt="App bar logo image">
                             </div>
                         </slot>
-                        <h1 v-if="title" class="text-2xl py-2">
-                            {{ title }}
-                        </h1>
+                        <h1 v-if="title" class="text-2xl py-2">{{ title }}</h1>
                         <div class="hidden lg:block">
                             <div class="flex">
                                 <div v-for="item in items?.slice(0,3)"
                                      class="h-full p-2 cursor-pointer hover:underline transition-all duration-75"
                                      :class="[item.active ? 'underline text-primary' : '']"
-                                     @click="goToPage(item)"
+                                     @click="$emit('navigate', item)"
                                 >
                                     {{ item.label }}
                                 </div>

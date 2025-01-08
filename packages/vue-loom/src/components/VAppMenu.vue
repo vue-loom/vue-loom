@@ -17,6 +17,9 @@
     import VDrawerContent from "./VDrawerContent.vue";
     import VDrawerHeader from "./VDrawerHeader.vue";
     import VSeparator from "./VSeparator.vue";
+    import {VisuallyHidden} from "radix-vue";
+    import VDrawerTitle from "./VDrawerTitle.vue";
+    import VDrawerDescription from "./VDrawerDescription.vue";
 
     interface Props {
         title?: string,
@@ -55,7 +58,7 @@
 
 <template>
     <div class="min-h-dvh h-full flex">
-        <v-card :class="[cn('min-w-72 max-w-72 min-h-dvh h-full sticky top-0 rounded-none border-y-0 border-l-0 pt-12', props.class)]"
+        <v-card :class="[cn('min-w-72 max-w-72 h-dvh overflow-auto sticky top-0 rounded-none border-y-0 border-l-0 pt-12', props.class)]"
                 v-show="appMenu.isOpen.value"
                 v-if="width >= mobileBreakpoint"
         >
@@ -95,6 +98,11 @@
             <v-drawer v-model:open="appMenu.isOpen.value" v-else-if="mobileMode === 'drawer'">
                 <v-drawer-content>
                     <v-drawer-header>
+                        <VisuallyHidden>
+                            <v-drawer-title/>
+                            <v-drawer-description/>
+                        </VisuallyHidden>
+
                         <slot name="logo">
                             <div class="max-h-14 flex justify-center">
                                 <img alt="App menu logo image" :src="logoSrc">

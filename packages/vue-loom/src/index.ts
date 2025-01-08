@@ -149,7 +149,6 @@ import {cn} from "./lib/utils";
 import {useToast} from "./components/ui/toast";
 import {useSonner} from './composables/useSonner';
 import {useAppMenu} from './composables/useAppMenu.ts';
-import {registerCustomDriver as registerCustomNavigationDriver} from './navigation/navigation';
 
 export {
     VAccordion,
@@ -303,5 +302,4 @@ export {
     useToast,
     useSonner,
     useAppMenu,
-    registerCustomNavigationDriver,
 }
