@@ -1,8 +1,25 @@
 <script setup lang="ts">
     //@ts-ignore
-    import {VPinInput, VCard, VCardHeader, VCardTitle, VCardDescription, VCardContent, VCardFooter} from "/packages/vue-loom/src";
+    import {
+        VCard,
+        VCardHeader,
+        VCardTitle,
+        VCardContent,
+        VDropdownMenuContent,
+        VDropdownMenuLabel,
+        VButton,
+        VDropdownMenuItem,
+        VDropdownMenu,
+        VDropdownMenuTrigger,
+        VDropdownMenuSeparator,
+        VAppMenu,
+        VAppBar,
+        VAppMenuTrigger,
+    } from "/packages/vue-loom/src";
     import {type DataTable, type DataTableItem, type DataTableMenuItem, VDataTable} from "@vue-loom/data-table/src";
-    import {PlusIcon} from "lucide-vue-next";
+    import {ChevronDown, PlusIcon} from "lucide-vue-next";
+    import vueLogo from "../assets/vue.svg";
+    import menuItems from '../assets/menuItems.json';
 
     const menu: DataTableMenuItem[] = [
         {
@@ -126,22 +143,101 @@
 </script>
 
 <template>
-    <div class="w-full max-w-7xl mx-auto flex flex-col gap-4 p-12">
-        <v-card>
-            <v-card-header>
-                <v-card-title>Card</v-card-title>
-            </v-card-header>
-            <v-card-content>
-                <v-pin-input model-value=""/>
-            </v-card-content>
-        </v-card>
-
-        <v-data-table :table="table" :menu="menu">
-            <template #email="{value}">
-                <a class="text-sky-600 hover:underline" :href="`mailto:${value}`">{{ value }}</a>
+    <v-app-menu title="Sandbox" subtitle="Vue Loom Testing" :logo-src="vueLogo" :items="menuItems" mobile-mode="drawer">
+        <v-app-bar class="bg-white" :logo-src="vueLogo" title="Sandbox Playground" :items="menuItems">
+            <template #actions>
+                <v-dropdown-menu>
+                    <v-dropdown-menu-trigger as-child>
+                        <v-button variant="ghost">
+                            <div class="text-sm text-neutral-500">
+                                {{ 'Manage Account' }}
+                            </div>
+                            <ChevronDown class="text-neutral-500 h-4"/>
+                        </v-button>
+                    </v-dropdown-menu-trigger>
+                    <v-dropdown-menu-content>
+                        <v-dropdown-menu-label>Manage Account</v-dropdown-menu-label>
+                        <v-dropdown-menu-separator/>
+                        <v-dropdown-menu-item>
+                            Log Out
+                        </v-dropdown-menu-item>
+                    </v-dropdown-menu-content>
+                </v-dropdown-menu>
             </template>
-        </v-data-table>
-    </div>
+        </v-app-bar>
+
+        <div class="w-full max-w-7xl mx-auto flex flex-col gap-4 p-12">
+            <v-app-menu-trigger>
+                <v-button>Toggle App Menu</v-button>
+            </v-app-menu-trigger>
+
+            <v-data-table :table="table" :menu="menu">
+                <template #email="{value}">
+                    <a class="text-sky-600 hover:underline" :href="`mailto:${value}`">{{ value }}</a>
+                </template>
+            </v-data-table>
+
+            <v-card>
+                <v-card-header>
+                    <v-card-title>Card</v-card-title>
+                </v-card-header>
+                <v-card-content>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
+                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis
+                    aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
+                    occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                </v-card-content>
+            </v-card>
+
+            <v-card>
+                <v-card-header>
+                    <v-card-title>Card</v-card-title>
+                </v-card-header>
+                <v-card-content>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
+                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis
+                    aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
+                    occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                </v-card-content>
+            </v-card>
+
+            <v-card>
+                <v-card-header>
+                    <v-card-title>Card</v-card-title>
+                </v-card-header>
+                <v-card-content>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
+                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis
+                    aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
+                    occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                </v-card-content>
+            </v-card>
+
+            <v-card>
+                <v-card-header>
+                    <v-card-title>Card</v-card-title>
+                </v-card-header>
+                <v-card-content>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
+                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis
+                    aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
+                    occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                </v-card-content>
+            </v-card>
+
+            <v-card>
+                <v-card-header>
+                    <v-card-title>Card</v-card-title>
+                </v-card-header>
+                <v-card-content>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
+                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis
+                    aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
+                    occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                </v-card-content>
+            </v-card>
+        </div>
+    </v-app-menu>
 </template>
 
 <style scoped>

@@ -47,7 +47,7 @@
 </script>
 
 <template>
-    <Label class="flex items-center gap-2">
+    <Label class="w-fit flex items-center gap-2">
         <Switch v-model:checked="checkedValue" v-bind="{...forwarded, ...$attrs}"/>
         {{ label }}
     </Label>
