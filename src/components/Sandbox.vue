@@ -1,7 +1,6 @@
 <script setup lang="ts">
     //@ts-ignore
     import {
-        VCard,
         VCardHeader,
         VCardTitle,
         VCardContent,
@@ -15,6 +14,9 @@
         VAppMenu,
         VAppBar,
         VAppMenuTrigger,
+        VSelect,
+        VCard,
+        VInput,
     } from "/packages/vue-loom/src";
     import {type DataTable, type DataTableItem, type DataTableMenuItem, VDataTable} from "@vue-loom/data-table/src";
     import {ChevronDown, PlusIcon} from "lucide-vue-next";
@@ -140,6 +142,11 @@
         searchable: true,
         term: '',
     };
+
+    const selectItems = [
+        {id: 1, name: 'Item 1'},
+        {id: 2, name: 'Item 2'},
+    ];
 </script>
 
 <template>
@@ -170,6 +177,11 @@
             <v-app-menu-trigger>
                 <v-button>Toggle App Menu</v-button>
             </v-app-menu-trigger>
+
+            <v-card>
+                <v-select placeholder="Select" :items="selectItems"/>
+                <v-input placeholder="Input"/>
+            </v-card>
 
             <v-data-table :table="table" :menu="menu">
                 <template #email="{value}">

@@ -18,7 +18,11 @@
             const activeIndex = props.item.items.findIndex(({active}) => active);
 
             if (activeIndex !== -1) {
-                return ((activeIndex + 1) * 20) + 12;
+                if (activeIndex === 0) {
+                    return 12 + 4;
+                }
+
+                return 12 + (activeIndex * (24 + 12)) + 4;
             }
 
             return 0;
@@ -37,20 +41,23 @@
             </div>
         </v-collapsible-trigger>
         <v-collapsible-content class="relative flex flex-col gap-3">
-            <div class="absolute top-0 left-0.5 w-[3px] bg-primary border-r border-white z-10" :style="{height: `${selectChildLineHeight}px`}"/>
+            <div class="absolute top-0 left-0.5 w-[3px] bg-primary border-r border-white z-10"
+                 :style="{height: `${selectChildLineHeight}px`}"/>
             <div class="flex gap-1 group" :class="[childIndex === 0 ? 'mt-3' : '']" :key="child.routeName"
                  v-for="(child, childIndex) in item.items">
                 <CornerDownRight class="w-5 h-5 text-primary" v-if="child.active"/>
                 <CornerDownRight class="w-5 h-5 opacity-0 group-hover:opacity-100 transition-opacity duration-75" v-else/>
                 <div class="w-full flex flex-col gap-2">
-                    <div class="cursor-pointer" :class="[child.active ? 'text-primary' : 'text-muted-foreground hover:text-foreground']" @click="navigate(child.url)">
+                    <div class="cursor-pointer" :class="[child.active ? 'text-primary' : 'text-muted-foreground hover:text-foreground']"
+                         @click="navigate(child.url)">
                         {{ child.label }}
                     </div>
                 </div>
             </div>
         </v-collapsible-content>
     </v-collapsible>
-    <div class="cursor-pointer" :class="[item.active ? 'text-primary' : 'text-muted-foreground hover:text-foreground']" @click="navigate(item.url)" v-else>
+    <div class="cursor-pointer" :class="[item.active ? 'text-primary' : 'text-muted-foreground hover:text-foreground']"
+         @click="navigate(item.url)" v-else>
         {{ item.label }}
     </div>
 </template>
