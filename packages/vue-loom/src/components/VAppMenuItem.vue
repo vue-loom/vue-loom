@@ -43,7 +43,7 @@
                 <CornerDownRight class="w-5 h-5 text-primary" v-if="child.active"/>
                 <CornerDownRight class="w-5 h-5 opacity-0 group-hover:opacity-100 transition-opacity duration-75" v-else/>
                 <div class="w-full flex flex-col gap-2">
-                    <div class="cursor-pointer" :class="[child.active ? 'text-primary' : 'text-muted-foreground hover:text-foreground']" @click="navigate(item.url)">
+                    <div class="cursor-pointer" :class="[child.active ? 'text-primary' : 'text-muted-foreground hover:text-foreground']" @click="navigate(child.url)">
                         {{ child.label }}
                     </div>
                 </div>

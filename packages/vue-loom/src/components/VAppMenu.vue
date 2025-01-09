@@ -23,7 +23,6 @@
     interface Props {
         title?: string,
         subtitle?: string,
-        logoSrc?: string,
         class?: HTMLAttributes['class'],
         items: MenuItem[],
         mobileBreakpoint?: number | string,
@@ -64,11 +63,8 @@
                 v-if="width >= mobileBreakpoint"
         >
             <div class="flex flex-col items-center">
-                <slot name="logo">
-                    <div class="max-h-14">
-                        <img alt="App menu logo image" :src="logoSrc">
-                    </div>
-                </slot>
+                <slot name="logo"/>
+
                 <h1 class="text-3xl mt-2" v-if="title">{{ title }}</h1>
                 <h2 class="text-neutral-600" v-if="subtitle">{{ subtitle }}</h2>
             </div>
@@ -104,11 +100,8 @@
                             <v-sheet-description/>
                         </VisuallyHidden>
 
-                        <slot name="logo">
-                            <div class="max-h-14 flex justify-center">
-                                <img alt="App menu logo image" :src="logoSrc">
-                            </div>
-                        </slot>
+                        <slot name="logo"/>
+
                         <h1 class="text-3xl mt-2" v-if="title">{{ title }}</h1>
                         <h2 class="text-neutral-600" v-if="subtitle">{{ subtitle }}</h2>
                     </v-sheet-header>
