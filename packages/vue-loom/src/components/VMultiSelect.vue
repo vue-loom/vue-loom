@@ -69,7 +69,8 @@
         <Label v-if="label">{{ label }}</Label>
         <Popover v-model:open="open">
             <PopoverTrigger as-child>
-                <TagsInput :class="[cn('py-1', props.class)]" v-bind="{...forwarded, ...$attrs}" v-model="selectedItems">
+                <TagsInput :class="[cn('h-10 py-1', props.class)]" v-bind="{...forwarded, ...$attrs}"
+                           v-model="selectedItems">
                     <TagsInputItem class="bg-muted" v-for="(item) in selectedItems" :key="item[itemValue]" :value="item[itemText]">
                         <TagsInputItemText/>
                         <TagsInputItemDelete @click="selectItem(item)"/>

@@ -30,12 +30,15 @@
 
         return 0;
     });
+
+    const childIsActive = computed(() => props.item.items?.length ? props.item.items.findIndex(({active}) => active) !== -1 : false);
 </script>
 
 <template>
     <v-collapsible class="flex flex-col" v-model:open="isOpen" v-if="item.hasOwnProperty('items') && item.items?.length">
         <v-collapsible-trigger as-child>
-            <div class="flex justify-between cursor-pointer" :class="[isOpen ? 'text-primary' : 'text-muted-foreground']">
+            <div class="flex justify-between cursor-pointer"
+                 :class="[isOpen ? 'font-bold' : 'text-muted-foreground', childIsActive ? 'text-primary' : '']">
                 {{ item.label }}
                 <ChevronDown class="text-foreground transition-all duration-150" :class="[isOpen ? 'rotate-180' : '']"/>
             </div>
@@ -48,7 +51,8 @@
                 <CornerDownRight class="w-5 h-5 text-primary" v-if="child.active"/>
                 <CornerDownRight class="w-5 h-5 opacity-0 group-hover:opacity-100 transition-opacity duration-75" v-else/>
                 <div class="w-full flex flex-col gap-2">
-                    <div class="cursor-pointer" :class="[child.active ? 'text-primary' : 'text-muted-foreground hover:text-foreground']"
+                    <div class="cursor-pointer"
+                         :class="[child.active ? 'text-primary font-bold' : 'text-muted-foreground hover:text-foreground']"
                          @click="navigate(child.url)">
                         {{ child.label }}
                     </div>
@@ -56,7 +60,7 @@
             </div>
         </v-collapsible-content>
     </v-collapsible>
-    <div class="cursor-pointer" :class="[item.active ? 'text-primary' : 'text-muted-foreground hover:text-foreground']"
+    <div class="cursor-pointer" :class="[item.active ? 'text-primary font-bold' : 'text-muted-foreground hover:text-foreground']"
          @click="navigate(item.url)" v-else>
         {{ item.label }}
     </div>

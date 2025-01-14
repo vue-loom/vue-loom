@@ -17,6 +17,7 @@
         VSelect,
         VCard,
         VInput,
+        VMultiSelect,
     } from "/packages/vue-loom/src";
     import {type DataTable, type DataTableItem, type DataTableMenuItem, VDataTable} from "@vue-loom/data-table/src";
     import {ChevronDown, PlusIcon} from "lucide-vue-next";
@@ -180,6 +181,7 @@
 
             <v-card>
                 <v-select placeholder="Select" :items="selectItems"/>
+                <v-multi-select placeholder="Select" :items="selectItems"/>
                 <v-input placeholder="Input"/>
             </v-card>
 

@@ -1,6 +1,6 @@
 {
   "name": "@vue-loom/vue-loom",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "publishConfig": {
     "access": "public"
   },
