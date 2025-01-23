@@ -118,7 +118,12 @@ import VTabs from './components/VTabs.vue';
 import VTabsContent from './components/VTabsContent.vue';
 import VTabsList from './components/VTabsList.vue';
 import VTabsTrigger from './components/VTabsTrigger.vue';
+import VTagsField from './components/VTagsField.vue';
 import VTagsInput from './components/VTagsInput.vue';
+import VTagsInputInput from './components/VTagsInputInput.vue';
+import VTagsInputItem from './components/VTagsInputItem.vue';
+import VTagsInputItemDelete from './components/VTagsInputItemDelete.vue';
+import VTagsInputItemText from './components/VTagsInputItemText.vue';
 import VTextarea from './components/VTextarea.vue';
 import VToast from './components/VToast.vue';
 import VToastAction from './components/VToastAction.vue';
@@ -272,7 +277,12 @@ export {
     VTabsContent,
     VTabsList,
     VTabsTrigger,
+    VTagsField,
     VTagsInput,
+    VTagsInputInput,
+    VTagsInputItem,
+    VTagsInputItemDelete,
+    VTagsInputItemText,
     VTextarea,
     VToast,
     VToastAction,

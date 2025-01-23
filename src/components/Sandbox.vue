@@ -15,11 +15,21 @@
         VAppMenu,
         VAppBar,
         VAppMenuTrigger,
+        VCheckbox,
+        VTagsInput,
+        VTagsInputInput,
+        VTagsInputItem,
+        VTagsInputItemDelete,
+        VTagsInputItemText,
+        VCommandEmpty, VCommandGroup, VCommandItem, VCommandList,
+        VInput,
     } from "/packages/vue-loom/src";
+    import { ComboboxAnchor, ComboboxContent, ComboboxInput, ComboboxPortal, ComboboxRoot } from 'radix-vue'
     import {type DataTable, type DataTableItem, type DataTableMenuItem, VDataTable} from "@vue-loom/data-table/src";
     import {ChevronDown, PlusIcon} from "lucide-vue-next";
     import vueLogo from "../assets/vue.svg";
     import menuItems from '../assets/menuItems.json';
+    import {computed, ref, watch} from "vue";
 
     const menu: DataTableMenuItem[] = [
         {
@@ -140,6 +150,30 @@
         searchable: true,
         term: '',
     };
+
+    const tags = ref<string[]>([]);
+
+    watch(tags, () => {
+        console.log(tags.value);
+    }, {deep: true});
+
+    const frameworks = [
+        { value: 'next.js', label: 'Next.js' },
+        { value: 'sveltekit', label: 'SvelteKit' },
+        { value: 'nuxt', label: 'Nuxt' },
+        { value: 'remix', label: 'Remix' },
+        { value: 'astro', label: 'Astro' },
+    ]
+
+    const modelValue = ref<string[]>([]);
+    const open = ref(false);
+    const searchTerm = ref('');
+
+    const filteredFrameworks = computed(() => frameworks.filter(i => !modelValue.value.includes(i.label)));
+
+    watch(modelValue, () => {
+        console.log(modelValue.value);
+    }, {deep: true});
 </script>
 
 <template>
@@ -167,9 +201,55 @@
         </v-app-bar>
 
         <div class="w-full max-w-7xl mx-auto flex flex-col gap-4 p-12">
+            <v-tags-input v-model="modelValue" @click="open = true">
+                <v-tags-input-item v-for="item in modelValue" :key="item" :value="item">
+                    <v-tags-input-item-text @click.stop></v-tags-input-item-text>
+                    <v-tags-input-item-delete @click.stop></v-tags-input-item-delete>
+                </v-tags-input-item>
+
+                <ComboboxRoot v-model="modelValue" v-model:open="open" v-model:search-term="searchTerm" class="w-full">
+                    <ComboboxAnchor as-child>
+                        <ComboboxInput placeholder="Framework..." as-child>
+                            <VTagsInputInput class="w-full px-3" :class="modelValue.length > 0 ? 'mt-2' : ''" />
+                        </ComboboxInput>
+                    </ComboboxAnchor>
+
+                    <ComboboxPortal>
+                        <ComboboxContent>
+                            <VCommandList
+                                position="popper"
+                                class="w-[calc(var(--radix-popper-anchor-width)+24px)] rounded-md mt-2 border bg-popover text-popover-foreground shadow-md outline-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2"
+                            >
+                                <VCommandEmpty />
+                                <VCommandGroup>
+                                    <VCommandItem
+                                        v-for="framework in filteredFrameworks" :key="framework.value" :value="framework.label"
+                                        @select.prevent="(ev: any) => {
+                                            if (typeof ev.detail.value === 'string') {
+                                                searchTerm = ''
+                                                modelValue.push(ev.detail.value)
+                                            }
+                                            if (filteredFrameworks.length === 0) {
+                                                open = false
+                                            }
+                                        }"
+                                    >
+                                        {{ framework.label }}
+                                    </VCommandItem>
+                                </VCommandGroup>
+                            </VCommandList>
+                        </ComboboxContent>
+                    </ComboboxPortal>
+                </ComboboxRoot>
+            </v-tags-input>
+
+            <v-input/>
+
             <v-app-menu-trigger>
                 <v-button>Toggle App Menu</v-button>
             </v-app-menu-trigger>
+
+            <VCheckbox/>
 
             <v-data-table :table="table" :menu="menu">
                 <template #email="{value}">

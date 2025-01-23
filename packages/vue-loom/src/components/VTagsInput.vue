@@ -1,41 +1,23 @@
 <script setup lang="ts">
-    import {TagsInput, TagsInputItem, TagsInputItemText, TagsInputItemDelete, TagsInputInput} from './ui/tags-input';
-    import {type HTMLAttributes, watch} from "vue";
-    import {cn} from "../lib/utils";
-    import {Label} from './ui/label';
+    import { type HTMLAttributes, computed } from 'vue'
+    import { type TagsInputRootEmits, type TagsInputRootProps, useForwardPropsEmits } from 'radix-vue'
+    import {cn} from "../lib/utils.ts";
+    import {TagsInput} from "../components/ui/tags-input";
 
-    interface Props {
-        disabled?: boolean,
-        label?: string,
-        placeholder?: string,
-        class?: HTMLAttributes['class'],
-    }
+    const props = defineProps<TagsInputRootProps & { class?: HTMLAttributes['class'] }>();
+    const emits = defineEmits<TagsInputRootEmits>();
 
-    const modelValue = defineModel<string[]>({required: true, default: []});
-    const errorMessage = defineModel<string | number>('errorMessage');
+    const delegatedProps = computed(() => {
+        const { class: _, ...delegated } = props;
 
-    const props = defineProps<Props>();
+        return delegated;
+    })
 
-    watch(modelValue, () => {
-        errorMessage.value = '';
-    });
+    const forwarded = useForwardPropsEmits(delegatedProps, emits);
 </script>
 
 <template>
-    <div class="flex flex-col gap-1">
-        <Label v-if="label">{{ label }}</Label>
-        <TagsInput :class="cn('py-1', props.class)" v-model="modelValue" :disabled="disabled">
-            <TagsInputItem class="bg-muted" v-for="item in modelValue" :key="item" :value="item">
-                <TagsInputItemText/>
-                <TagsInputItemDelete/>
-            </TagsInputItem>
-
-            <TagsInputInput class="border-none focus:border-none focus:outline-none focus:ring-0" :placeholder="placeholder"/>
-        </TagsInput>
-        <p v-if="errorMessage" class="text-destructive text-xs">{{ errorMessage }}</p>
-    </div>
+    <TagsInput v-bind="forwarded" :class="cn('py-[7px]', props.class)">
+        <slot />
+    </TagsInput>
 </template>
-
-<style scoped>
-
-</style>
