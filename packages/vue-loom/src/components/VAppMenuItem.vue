@@ -6,6 +6,7 @@
     import {ChevronDown, CornerDownRight} from 'lucide-vue-next';
     import {computed, ref} from "vue";
     import {navigate} from "@vue-loom/utils";
+    import VBadge from "./VBadge.vue";
 
     interface Props {
         item: MenuItem,
@@ -46,23 +47,24 @@
         <v-collapsible-content class="relative flex flex-col gap-3">
             <div class="absolute top-0 left-0.5 w-[3px] bg-primary border-r border-white z-10"
                  :style="{height: `${selectChildLineHeight}px`}"/>
-            <div class="flex gap-1 group" :class="[childIndex === 0 ? 'mt-3' : '']" :key="child.routeName"
+            <div class="flex gap-1 group" :class="[childIndex === 0 ? 'mt-3' : '']" :key="child.url"
                  v-for="(child, childIndex) in item.items">
                 <CornerDownRight class="w-5 h-5 text-primary" v-if="child.active"/>
                 <CornerDownRight class="w-5 h-5 opacity-0 group-hover:opacity-100 transition-opacity duration-75" v-else/>
-                <div class="w-full flex flex-col gap-2">
-                    <div class="cursor-pointer"
-                         :class="[child.active ? 'text-primary font-bold' : 'text-muted-foreground hover:text-foreground']"
-                         @click="navigate(child.url)">
-                        {{ child.label }}
-                    </div>
+                <div class="w-full flex justify-between items-center gap-2 cursor-pointer"
+                     :class="[child.active ? 'text-primary font-bold' : 'text-muted-foreground hover:text-foreground']"
+                     @click="navigate(child.url || '/')">
+                    <div>{{ child.label }}</div>
+                    <v-badge class="leading-none px-1.5 pb-px pt-0.5" v-if="child.badge">{{ child.badge }}</v-badge>
                 </div>
             </div>
         </v-collapsible-content>
     </v-collapsible>
-    <div class="cursor-pointer" :class="[item.active ? 'text-primary font-bold' : 'text-muted-foreground hover:text-foreground']"
-         @click="navigate(item.url)" v-else>
-        {{ item.label }}
+    <div class="w-full flex justify-between items-center gap-2 cursor-pointer"
+         :class="[item.active ? 'text-primary font-bold' : 'text-muted-foreground hover:text-foreground']"
+         @click="navigate(item.url || '/')" v-else>
+        <div>{{ item.label }}</div>
+        <v-badge class="leading-none px-1.5 pb-px pt-0.5" v-if="item.badge">{{ item.badge }}</v-badge>
     </div>
 </template>
 

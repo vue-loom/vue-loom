@@ -9,13 +9,13 @@
     import VAppMenuItem from "./VAppMenuItem.vue";
 
     interface Props {
-        logoSrc?: string,
         title?: string,
         items?: MenuItem[],
         class?: HTMLAttributes['class'],
     }
 
     const props = defineProps<Props>();
+
     defineEmits<{ (event: 'navigate', data: MenuItem): void }>();
 </script>
 
@@ -28,17 +28,13 @@
                 </VAppMenuTrigger>
                 <div class="grow flex items-center lg:px-6 lg:px-8">
                     <div class="grow flex space-x-0 lg:space-x-4 items-center justify-center lg:justify-start">
-                        <slot name="logo">
-                            <div v-if="logoSrc" class="max-h-16 py-2 hidden lg:block">
-                                <img :src="logoSrc" alt="App bar logo image">
-                            </div>
-                        </slot>
+                        <slot name="logo"/>
                         <h1 v-if="title"
                             class="text-xl lg:text-2xl py-2 absolute lg:static left-1/2 text-nowrap -translate-x-1/2 lg:translate-x-0">
                             {{ title }}
                         </h1>
                         <div class="gap-3 hidden lg:flex">
-                            <VAppMenuItem :item="item" :key="item.routeName" v-for="(item) in items?.slice(0,3)"/>
+                            <VAppMenuItem :item="item" :key="item.url" v-for="(item) in items"/>
                         </div>
                     </div>
                     <div class="shrink hidden lg:block">

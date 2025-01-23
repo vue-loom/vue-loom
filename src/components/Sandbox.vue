@@ -21,7 +21,6 @@
     } from "/packages/vue-loom/src";
     import {type DataTable, type DataTableItem, type DataTableMenuItem, VDataTable} from "@vue-loom/data-table/src";
     import {ChevronDown, PlusIcon} from "lucide-vue-next";
-    import vueLogo from "../assets/vue.svg";
     import menuItems from '../assets/menuItems.json';
 
     const menu: DataTableMenuItem[] = [
@@ -157,8 +156,8 @@
 </script>
 
 <template>
-    <v-app-menu title="Sandbox" subtitle="Vue Loom Testing" :logo-src="vueLogo" :items="menuItems" mobile-mode="drawer">
-        <v-app-bar class="bg-white" :logo-src="vueLogo" title="Sandbox Playground" :items="menuItems">
+    <v-app-menu title="Sandbox" subtitle="Vue Loom Testing" :items="menuItems" mobile-mode="menu">
+        <v-app-bar class="bg-white" title="Sandbox Playground" :items="menuItems.slice(0, 3)">
             <template #actions>
                 <v-dropdown-menu>
                     <v-dropdown-menu-trigger as-child>
@@ -186,7 +185,6 @@
             </v-app-menu-trigger>
 
             <v-card class="grid grid-cols-4">
-                <v-select placeholder="Select" :items="selectItems"/>
                 <v-multi-select placeholder="Select" :items="selectItems"/>
                 <v-input placeholder="Input"/>
             </v-card>

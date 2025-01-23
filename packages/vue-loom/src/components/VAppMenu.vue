@@ -58,7 +58,7 @@
 
 <template>
     <div class="min-h-dvh h-full flex">
-        <v-card :class="[cn('min-w-72 max-w-72 h-dvh overflow-auto sticky top-0 rounded-none border-y-0 border-l-0 pt-12', props.class)]"
+        <v-card :class="[cn('w-72 h-dvh overflow-auto sticky top-0 rounded-none border-y-0 border-l-0', props.class)]"
                 v-show="appMenu.isOpen.value"
                 v-if="width >= mobileBreakpoint"
         >
@@ -69,7 +69,7 @@
                 <h2 class="text-neutral-600" v-if="subtitle">{{ subtitle }}</h2>
             </div>
             <div class="flex flex-col gap-3">
-                <VAppMenuItem :item="item" :key="item.routeName" v-for="(item) in items"/>
+                <VAppMenuItem :item="item" :key="item.url" v-for="(item) in items"/>
             </div>
         </v-card>
         <div class="w-full flex flex-col">
@@ -84,10 +84,10 @@
                     </v-button>
                 </v-dropdown-menu-trigger>
                 <v-dropdown-menu-content class="w-52" align="end" :side-offset="4">
-                    <v-dropdown-menu-label>Quick Access</v-dropdown-menu-label>
-                    <v-dropdown-menu-separator/>
-                    <div class="max-h-96 overflow-auto">
-                        <VAppMenuItem :item="item" :key="item.routeName" v-for="(item) in items"/>
+                    <v-dropdown-menu-label>{{ title }}</v-dropdown-menu-label>
+                    <v-dropdown-menu-separator class="m-0"/>
+                    <div class="max-h-96 flex flex-col gap-1 overflow-auto p-2">
+                        <VAppMenuItem :item="item" :key="item.url" v-for="(item) in items"/>
                     </div>
                 </v-dropdown-menu-content>
             </v-dropdown-menu>
@@ -106,7 +106,7 @@
                         <h2 class="text-neutral-600" v-if="subtitle">{{ subtitle }}</h2>
                     </v-sheet-header>
                     <div class="flex flex-col gap-2">
-                        <VAppMenuItem :item="item" :key="item.routeName" v-for="(item) in items"/>
+                        <VAppMenuItem :item="item" :key="item.url" v-for="(item) in items"/>
                     </div>
                 </v-sheet-content>
             </v-sheet>

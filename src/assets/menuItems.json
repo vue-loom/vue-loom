@@ -33,7 +33,8 @@
       }
     ],
     "icon": "building-storefront",
-    "active": true
+    "active": true,
+    "badge": 5
   },
   {
     "label": "NPOs",
@@ -92,7 +93,8 @@
           }
         ],
         "icon": "list-bullet",
-        "active": false
+        "active": false,
+        "badge": "Hello"
       },
       {
         "label": "Completed",
@@ -146,7 +148,8 @@
           }
         ],
         "icon": "clock",
-        "active": false
+        "active": false,
+        "badge": 7
       },
       {
         "label": "Cancelled",
