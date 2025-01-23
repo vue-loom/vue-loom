@@ -2,11 +2,11 @@
     import {TagsInput, TagsInputItem, TagsInputItemText, TagsInputItemDelete, TagsInputInput} from "./ui/tags-input";
     import {computed, type HTMLAttributes, onBeforeMount, type Ref, ref, watch} from "vue";
     import {Label} from "./ui/label";
-    import {Popover, PopoverContent, PopoverTrigger} from "./ui/popover";
     import {useForwardProps} from "radix-vue";
     import {cn} from "../lib/utils";
     import {Check} from "lucide-vue-next";
     import {Command, CommandGroup, CommandItem, CommandList} from './ui/command';
+    import {Popover, PopoverTrigger, PopoverContent} from "./ui/popover";
 
     defineOptions({
         inheritAttrs: false,
@@ -69,17 +69,19 @@
         <Label v-if="label">{{ label }}</Label>
         <Popover v-model:open="open">
             <PopoverTrigger as-child>
-                <TagsInput :class="[cn('py-1', props.class)]" v-bind="{...forwarded, ...$attrs}" v-model="selectedItems">
+                <TagsInput :class="[cn('cursor-pointer gap-1 p-1', props.class)]" v-bind="{...forwarded, ...$attrs}"
+                           v-model="selectedItems">
                     <TagsInputItem class="bg-muted" v-for="(item) in selectedItems" :key="item[itemValue]" :value="item[itemText]">
                         <TagsInputItemText/>
                         <TagsInputItemDelete @click="selectItem(item)"/>
                     </TagsInputItem>
 
-                    <TagsInputInput readonly class="border-none focus:border-none focus:outline-none focus:ring-0"
-                                    :placeholder="placeholder"/>
+                    <TagsInputInput
+                        readonly class="border-none py-1 px-2 focus:border-none focus:outline-none focus:ring-0"
+                        :placeholder="placeholder"/>
                 </TagsInput>
             </PopoverTrigger>
-            <PopoverContent class="p-1">
+            <PopoverContent class="w-[var(--radix-popover-trigger-width)] p-1">
                 <Command>
                     <CommandList>
                         <CommandGroup>

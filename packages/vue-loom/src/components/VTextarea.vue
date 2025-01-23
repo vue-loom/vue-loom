@@ -4,12 +4,14 @@
     import {Textarea} from "./ui/textarea";
     import {useForwardProps} from "radix-vue";
     import {Label} from './ui/label';
+    import {useVModel} from "@vueuse/core";
 
     defineOptions({
         inheritAttrs: false,
     });
 
     interface Props {
+        modelValue?: string | number,
         disabled?: boolean,
         readonly?: boolean,
         label?: string,
@@ -25,13 +27,17 @@
         step?: number | string,
     }
 
-    const modelValue = defineModel<string | number>({required: true});
     const errorMessage = defineModel<string | number>('errorMessage');
-
     const props = defineProps<Props>();
+    const emits = defineEmits<{ (e: 'update:modelValue', payload: string | number): void }>();
+
+    const modelValue = useVModel(props, 'modelValue', emits, {
+        passive: true,
+        defaultValue: '',
+    });
 
     const delegatedProps = computed(() => {
-        const {class: _, ...delegated} = props;
+        const {class: _, modelValue, ...delegated} = props;
 
         return delegated;
     });

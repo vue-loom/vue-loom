@@ -1,7 +1,6 @@
 <script setup lang="ts">
     //@ts-ignore
     import {
-        VCard,
         VCardHeader,
         VCardTitle,
         VCardContent,
@@ -15,19 +14,19 @@
         VAppMenu,
         VAppBar,
         VAppMenuTrigger,
-        VCheckbox,
         VTagsInput,
         VTagsInputInput,
         VTagsInputItem,
         VTagsInputItemDelete,
         VTagsInputItemText,
         VCommandEmpty, VCommandGroup, VCommandItem, VCommandList,
+        VCard,
         VInput,
+        VMultiSelect,
     } from "/packages/vue-loom/src";
     import { ComboboxAnchor, ComboboxContent, ComboboxInput, ComboboxPortal, ComboboxRoot } from 'radix-vue'
     import {type DataTable, type DataTableItem, type DataTableMenuItem, VDataTable} from "@vue-loom/data-table/src";
     import {ChevronDown, PlusIcon} from "lucide-vue-next";
-    import vueLogo from "../assets/vue.svg";
     import menuItems from '../assets/menuItems.json';
     import {computed, ref, watch} from "vue";
 
@@ -174,11 +173,22 @@
     watch(modelValue, () => {
         console.log(modelValue.value);
     }, {deep: true});
+
+    const selectItems = [
+        {id: 1, name: 'Item 1'},
+        {id: 2, name: 'Item 2'},
+        {id: 3, name: 'Item 3'},
+        {id: 4, name: 'Item 4'},
+        {id: 5, name: 'Item 5'},
+        {id: 6, name: 'Item 6'},
+        {id: 7, name: 'Item 7'},
+        {id: 8, name: 'Item 8'},
+    ];
 </script>
 
 <template>
-    <v-app-menu title="Sandbox" subtitle="Vue Loom Testing" :logo-src="vueLogo" :items="menuItems" mobile-mode="drawer">
-        <v-app-bar class="bg-white" :logo-src="vueLogo" title="Sandbox Playground" :items="menuItems">
+    <v-app-menu title="Sandbox" subtitle="Vue Loom Testing" :items="menuItems" mobile-mode="menu">
+        <v-app-bar class="bg-white" title="Sandbox Playground" :items="menuItems.slice(0, 3)">
             <template #actions>
                 <v-dropdown-menu>
                     <v-dropdown-menu-trigger as-child>
@@ -249,7 +259,10 @@
                 <v-button>Toggle App Menu</v-button>
             </v-app-menu-trigger>
 
-            <VCheckbox/>
+            <v-card class="grid grid-cols-4">
+                <v-multi-select placeholder="Select" :items="selectItems"/>
+                <v-input placeholder="Input"/>
+            </v-card>
 
             <v-data-table :table="table" :menu="menu">
                 <template #email="{value}">

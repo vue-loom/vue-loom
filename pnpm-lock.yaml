@@ -17,6 +17,9 @@ importers:
       '@vue-loom/data-table':
         specifier: workspace:*
         version: link:packages/data-table
+      '@vue-loom/utils':
+        specifier: workspace:*
+        version: link:packages/utils
       '@vue-loom/vue-loom':
         specifier: workspace:*
         version: link:packages/vue-loom
@@ -96,6 +99,9 @@ importers:
       '@tanstack/vue-table':
         specifier: ^8.19.2
         version: 8.20.5(vue@3.4.29(typescript@5.4.5))
+      '@vue-loom/utils':
+        specifier: ^1.0.1
+        version: 1.0.1
       '@vue-loom/vue-loom':
         specifier: ^1.1.0
         version: 1.1.0(@tailwindcss/forms@0.5.7(tailwindcss@3.4.4))(@tailwindcss/typography@0.5.13(tailwindcss@3.4.4))(@vueuse/core@11.1.0(vue@3.4.29(typescript@5.4.5)))(autoprefixer@10.4.20(postcss@8.4.47))(class-variance-authority@0.7.0)(clsx@2.1.1)(lucide-vue-next@0.446.0(vue@3.4.29(typescript@5.4.5)))(radix-vue@1.9.6(vue@3.4.29(typescript@5.4.5)))(tailwind-merge@2.5.2)(tailwindcss-animate@1.0.7(tailwindcss@3.4.4))(tailwindcss@3.4.4)(vue-sonner@1.2.1)(vue@3.4.29(typescript@5.4.5))
@@ -103,6 +109,8 @@ importers:
       '@inertiajs/core':
         specifier: ^1.2.0
         version: 1.2.0
+
+  packages/utils: {}
 
   packages/vue-loom:
     dependencies:
@@ -112,6 +120,9 @@ importers:
       '@tailwindcss/typography':
         specifier: ^0.5.2
         version: 0.5.13(tailwindcss@3.4.4)
+      '@vue-loom/utils':
+        specifier: ^1.0.1
+        version: 1.0.1
       '@vueuse/core':
         specifier: ^11.1.0
         version: 11.1.0(vue@3.4.29(typescript@5.4.5))
@@ -509,6 +520,9 @@ packages:
 
   '@volar/typescript@1.11.1':
     resolution: {integrity: sha512-iU+t2mas/4lYierSnoFOeRFQUhAEMgsFuQxoxvwn5EdQopw43j+J27a4lt9LMInx1gLJBC6qL14WYGlgymaSMQ==}
+
+  '@vue-loom/utils@1.0.1':
+    resolution: {integrity: sha512-1G69QVSvAIPkZ1QQO9KikZbtH+cXP4Eh4o4AXkeWgdcNO3hMxUiR262v5Oppz17zlWXn4qHmBE0/d+wpx7E/jQ==}
 
   '@vue-loom/vue-loom@1.1.0':
     resolution: {integrity: sha512-dexJ3FYq84pQp+bknQ8WblTLnrP3b2VMbnpfkqzemlAPeYd0KkOOlgpPjSpKIhfKc4PfkQWJICfEdBNeW3Ixfw==}
@@ -1637,6 +1651,8 @@ snapshots:
     dependencies:
       '@volar/language-core': 1.11.1
       path-browserify: 1.0.1
+
+  '@vue-loom/utils@1.0.1': {}
 
   '@vue-loom/vue-loom@1.1.0(@tailwindcss/forms@0.5.7(tailwindcss@3.4.4))(@tailwindcss/typography@0.5.13(tailwindcss@3.4.4))(@vueuse/core@11.1.0(vue@3.4.29(typescript@5.4.5)))(autoprefixer@10.4.20(postcss@8.4.47))(class-variance-authority@0.7.0)(clsx@2.1.1)(lucide-vue-next@0.446.0(vue@3.4.29(typescript@5.4.5)))(radix-vue@1.9.6(vue@3.4.29(typescript@5.4.5)))(tailwind-merge@2.5.2)(tailwindcss-animate@1.0.7(tailwindcss@3.4.4))(tailwindcss@3.4.4)(vue-sonner@1.2.1)(vue@3.4.29(typescript@5.4.5))':
     dependencies:

@@ -1,10 +1,10 @@
 <script setup lang="ts">
     import VCard from "./VCard.vue";
     import {HTMLAttributes, onBeforeMount, ref} from "vue";
-    import {cn} from "../lib/utils.ts";
-    import {MenuItem} from "./interfaces.ts";
+    import {cn} from "../lib/utils";
+    import {MenuItem} from "./interfaces";
     import VAppMenuItem from "./VAppMenuItem.vue";
-    import {useAppMenu} from "../composables/useAppMenu.ts";
+    import {useAppMenu} from "../composables/useAppMenu";
     import {debouncedWatch, useWindowSize} from "@vueuse/core";
     import VDropdownMenu from "./VDropdownMenu.vue";
     import VDropdownMenuTrigger from "./VDropdownMenuTrigger.vue";
@@ -13,27 +13,27 @@
     import VDropdownMenuLabel from "./VDropdownMenuLabel.vue";
     import VDropdownMenuSeparator from "./VDropdownMenuSeparator.vue";
     import {PanelTopClose} from 'lucide-vue-next';
-    import VDrawer from "./VDrawer.vue";
-    import VDrawerContent from "./VDrawerContent.vue";
-    import VDrawerHeader from "./VDrawerHeader.vue";
-    import VSeparator from "./VSeparator.vue";
+    import VSheet from "./VSheet.vue";
+    import VSheetContent from "./VSheetContent.vue";
+    import VSheetHeader from "./VSheetHeader.vue";
     import {VisuallyHidden} from "radix-vue";
-    import VDrawerTitle from "./VDrawerTitle.vue";
-    import VDrawerDescription from "./VDrawerDescription.vue";
+    import VSheetTitle from "./VSheetTitle.vue";
+    import VSheetDescription from "./VSheetDescription.vue";
 
     interface Props {
         title?: string,
         subtitle?: string,
-        logoSrc?: string,
         class?: HTMLAttributes['class'],
         items: MenuItem[],
         mobileBreakpoint?: number | string,
         mobileMode?: 'menu' | 'drawer',
+        mobileSide?: 'top' | 'right' | 'bottom' | 'left',
     }
 
     const props = withDefaults(defineProps<Props>(), {
         mobileBreakpoint: 1024,
         mobileMode: 'menu',
+        mobileSide: 'left',
     });
 
     const appMenu = useAppMenu();
@@ -58,21 +58,18 @@
 
 <template>
     <div class="min-h-dvh h-full flex">
-        <v-card :class="[cn('min-w-72 max-w-72 h-dvh overflow-auto sticky top-0 rounded-none border-y-0 border-l-0 pt-12', props.class)]"
+        <v-card :class="[cn('w-72 h-dvh overflow-auto sticky top-0 rounded-none border-y-0 border-l-0', props.class)]"
                 v-show="appMenu.isOpen.value"
                 v-if="width >= mobileBreakpoint"
         >
             <div class="flex flex-col items-center">
-                <slot name="logo">
-                    <div class="max-h-14">
-                        <img alt="App menu logo image" :src="logoSrc">
-                    </div>
-                </slot>
+                <slot name="logo"/>
+
                 <h1 class="text-3xl mt-2" v-if="title">{{ title }}</h1>
                 <h2 class="text-neutral-600" v-if="subtitle">{{ subtitle }}</h2>
             </div>
-            <div class="flex flex-col gap-2">
-                <VAppMenuItem :item="item" :key="item.routeName" v-for="(item) in items"/>
+            <div class="flex flex-col gap-3">
+                <VAppMenuItem :item="item" :key="item.url" v-for="(item) in items"/>
             </div>
         </v-card>
         <div class="w-full flex flex-col">
@@ -87,36 +84,32 @@
                     </v-button>
                 </v-dropdown-menu-trigger>
                 <v-dropdown-menu-content class="w-52" align="end" :side-offset="4">
-                    <v-dropdown-menu-label>Quick Access</v-dropdown-menu-label>
-                    <v-dropdown-menu-separator/>
-                    <div class="max-h-96 overflow-auto">
-                        <VAppMenuItem :item="item" :key="item.routeName" v-for="(item) in items"/>
+                    <v-dropdown-menu-label>{{ title }}</v-dropdown-menu-label>
+                    <v-dropdown-menu-separator class="m-0"/>
+                    <div class="max-h-96 flex flex-col gap-1 overflow-auto p-2">
+                        <VAppMenuItem :item="item" :key="item.url" v-for="(item) in items"/>
                     </div>
                 </v-dropdown-menu-content>
             </v-dropdown-menu>
 
-            <v-drawer v-model:open="appMenu.isOpen.value" v-else-if="mobileMode === 'drawer'">
-                <v-drawer-content>
-                    <v-drawer-header>
+            <v-sheet v-model:open="appMenu.isOpen.value" v-else-if="mobileMode === 'drawer'">
+                <v-sheet-content class="overflow-auto" :side="mobileSide">
+                    <v-sheet-header>
                         <VisuallyHidden>
-                            <v-drawer-title/>
-                            <v-drawer-description/>
+                            <v-sheet-title/>
+                            <v-sheet-description/>
                         </VisuallyHidden>
 
-                        <slot name="logo">
-                            <div class="max-h-14 flex justify-center">
-                                <img alt="App menu logo image" :src="logoSrc">
-                            </div>
-                        </slot>
+                        <slot name="logo"/>
+
                         <h1 class="text-3xl mt-2" v-if="title">{{ title }}</h1>
                         <h2 class="text-neutral-600" v-if="subtitle">{{ subtitle }}</h2>
-                    </v-drawer-header>
-                    <v-separator/>
-                    <div class="max-h-96 flex flex-col gap-2 overflow-auto py-2">
-                        <VAppMenuItem :item="item" :key="item.routeName" v-for="(item) in items"/>
+                    </v-sheet-header>
+                    <div class="flex flex-col gap-2">
+                        <VAppMenuItem :item="item" :key="item.url" v-for="(item) in items"/>
                     </div>
-                </v-drawer-content>
-            </v-drawer>
+                </v-sheet-content>
+            </v-sheet>
         </template>
     </div>
 </template>

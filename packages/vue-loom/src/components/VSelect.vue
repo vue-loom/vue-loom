@@ -39,8 +39,8 @@
         <Label v-if="label">{{ label }}</Label>
         <Select :model-value="modelValue?.toString() || ''" :disabled="disabled" @update:modelValue="modelValue = $event">
             <SelectTrigger
-                :class="cn('w-[180px] focus:ring-offset-0 focus:ring-0 focus:border-ring', props.class)">
-                <SelectValue :placeholder="placeholder"/>
+                :class="cn('w-full focus:ring-offset-0 focus:ring-0 focus:border-ring', props.class)">
+                <SelectValue :class="[!modelValue ? 'text-muted-foreground' : '']" :placeholder="placeholder"/>
             </SelectTrigger>
             <SelectContent>
                 <SelectGroup>
