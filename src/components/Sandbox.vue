@@ -255,6 +255,8 @@
 
             <v-input/>
 
+            <v-multi-select :model-value="[]" :items="selectItems"/>
+
             <v-app-menu-trigger>
                 <v-button>Toggle App Menu</v-button>
             </v-app-menu-trigger>

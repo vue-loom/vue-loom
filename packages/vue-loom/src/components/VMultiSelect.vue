@@ -72,12 +72,12 @@
                 <TagsInput :class="[cn('cursor-pointer gap-1 p-1', props.class)]" v-bind="{...forwarded, ...$attrs}"
                            v-model="selectedItems">
                     <TagsInputItem class="bg-muted" v-for="(item) in selectedItems" :key="item[itemValue]" :value="item[itemText]">
-                        <TagsInputItemText/>
-                        <TagsInputItemDelete @click="selectItem(item)"/>
+                        <TagsInputItemText @click.stop/>
+                        <TagsInputItemDelete @click.stop="selectItem(item)"/>
                     </TagsInputItem>
 
                     <TagsInputInput
-                        readonly class="border-none py-1 px-2 focus:border-none focus:outline-none focus:ring-0"
+                        class="border-none py-1 px-2 focus:border-none focus:outline-none focus:ring-0"
                         :placeholder="placeholder"/>
                 </TagsInput>
             </PopoverTrigger>
